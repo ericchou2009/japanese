@@ -1,0 +1,3024 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="kiln">
+  <title>日語形容詞全解：分類圖鑑、詞尾活用與實戰測驗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* 1. Kiln Style Tokens */
+      --background: #f4f1ea;
+      --surface-container-low: #ebe6db;
+      --surface-container: #e3ddd0;
+      --surface-container-high: #d9d1c2;
+
+      --on-surface: #1c1b18;
+      --on-surface-variant: #5e5a51;
+
+      --outline: #1c1b18;
+      --outline-variant: #d2cbbd;
+
+      --primary: #1c1b18;
+      --on-primary: #f4f1ea;
+      --primary-container: #ebe6db;
+      --on-primary-container: #1c1b18;
+      --secondary: #4a5d46;
+      --tertiary: #9e3b2b;
+      --error: #9e2a22;
+      --on-error: #f4f1ea;
+
+      --data-1: #4a5d46;
+      --data-2: #9e3b2b;
+      --data-3: #1c1b18;
+      --data-4: #8a6f48;
+      --data-context: #c7bfb0;
+
+      --font-headline: 'Shippori Mincho', 'Noto Sans TC', 'Noto Sans JP', serif;
+      --font-body: 'Plus Jakarta Sans', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans TC', 'Noto Sans JP', monospace;
+
+      --rounded: 0.125rem;
+      --rounded-lg: 0.125rem;
+      --rounded-full: 0.125rem;
+
+      --rule-sumi-left: 2px solid var(--outline);
+      --rule-sumi: 1px solid var(--outline);
+      --rule-linen: 1px solid var(--outline-variant);
+      --label-tracking: 0.14em;
+
+      /* 2. Shared Design Foundation Tokens */
+      --positive: #3b5937;
+      --warning: #8a6423;
+      --focus: #1c1b18;
+
+      --display-size: clamp(2.125rem, 1.35rem + 2.6vw, 3.25rem);
+      --headline-size: clamp(1.5rem, 1.15rem + 1.2vw, 2.05rem);
+      --subhead-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+
+      /* 3. Domain-Specific Semantic Tokens (Japanese Color Swatches & Conjugation Highlights) */
+      --positive-bg: #e2ebe0;
+      --warning-bg: #f1e6cf;
+      --error-bg: #f4dfdc;
+      --tertiary-soft: #f3e4e1;
+      --secondary-soft: #e3eae1;
+
+      --swatch-akai: #c83e31;
+      --swatch-shiroi: #fbf9f3;
+      --swatch-aoi: #2b5c8f;
+      --swatch-kuroi: #1e1d1b;
+      --swatch-midori: #3f6e48;
+      --swatch-kiiroi: #dfb22d;
+      --swatch-murasaki: #6d4c7d;
+      --swatch-chairo: #734b30;
+      --swatch-orenji: #d86e2a;
+      --swatch-pinku: #dc869a;
+      --swatch-mizuiro: #7db4d0;
+      --swatch-haiiro: #8c8c88;
+      --swatch-kiniro: #c49b3b;
+      --swatch-giniro: #b7bcc0;
+      --swatch-nijiiro: #b56576;
+      --swatch-yamabuki: #e09f1f;
+      --swatch-oudo: #b88b3a;
+      --swatch-shuiro: #d94426;
+      --swatch-kurenai: #b21f35;
+      --swatch-azuki: #7c4242;
+      --swatch-usumurasaki: #a68bb4;
+      --swatch-gunjou: #284b8c;
+      --swatch-aiiro: #243b55;
+      --swatch-koniro: #1b2845;
+      --swatch-kimidori: #96b848;
+      --swatch-shirokuro: #5c5b57;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: clip; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Kiln Typography */
+    .kicker {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin: 0 0 var(--space-sm);
+    }
+
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--on-surface);
+      margin: 0;
+    }
+
+    .subhead-moss {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      line-height: 1.45;
+      color: var(--secondary);
+      margin: var(--space-sm) 0 0;
+      max-width: 65ch;
+    }
+
+    .section-heading {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin: 0 0 var(--space-xs);
+    }
+
+    .section-lede {
+      color: var(--on-surface-variant);
+      margin: 0 0 var(--space-lg);
+      max-width: 65ch;
+    }
+
+    .label-mono {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cjk-clean {
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* Header & Hanko Seal */
+    .hero-block {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-lg);
+      align-items: start;
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--rule-sumi);
+    }
+
+    .seal-stamp {
+      border: 1px solid var(--tertiary);
+      color: var(--tertiary);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 0.2em;
+      padding: var(--space-sm) var(--space-xs);
+      writing-mode: vertical-rl;
+      line-height: 1.2;
+      user-select: none;
+    }
+
+    /* Summary KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .washi-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .washi-card .kpi-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      font-variant-numeric: lining-nums tabular-nums;
+      margin: var(--space-xs) 0;
+    }
+
+    .washi-card .note {
+      color: var(--secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* Inline Chapter Navigation */
+    .chapter-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: var(--rule-linen);
+    }
+
+    .chapter-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      text-decoration: none;
+      color: var(--on-surface);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .chapter-link:hover {
+      background: var(--surface-container);
+      border-color: var(--outline);
+    }
+
+    .chapter-num {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--secondary);
+      margin-right: var(--space-sm);
+    }
+
+    /* Section Dividers */
+    .story-section {
+      padding-top: var(--space-xl);
+      border-top: var(--rule-linen);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--rule-sumi);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+
+    .btn:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .btn-tertiary {
+      border-color: var(--tertiary);
+      color: var(--tertiary);
+      background: var(--background);
+    }
+
+    .btn-tertiary:hover:not(:disabled) {
+      background: var(--tertiary-soft);
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: 0.8125rem;
+    }
+
+    .btn-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Tags & Badges */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px var(--space-sm);
+      border: var(--rule-linen);
+      background: var(--surface-container-low);
+      border-radius: var(--rounded);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--secondary);
+      line-height: 1.4;
+    }
+
+    .tag-i {
+      border-color: var(--secondary);
+      background: var(--secondary-soft);
+      color: var(--secondary);
+    }
+
+    .tag-na {
+      border-color: var(--tertiary);
+      background: var(--tertiary-soft);
+      color: var(--tertiary);
+    }
+
+    .tag-no {
+      border-color: var(--data-4);
+      background: var(--warning-bg);
+      color: var(--warning);
+    }
+
+    .tag-jlpt {
+      border-color: var(--outline-variant);
+      background: var(--background);
+      color: var(--on-surface-variant);
+    }
+
+    /* Section 1: Essence Comparison */
+    .split-two {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .type-panel {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      padding: var(--space-lg);
+      border-radius: var(--rounded);
+    }
+
+    .type-panel.type-na-panel {
+      border-left-color: var(--tertiary);
+    }
+
+    .type-panel h3 {
+      font-family: var(--font-headline);
+      font-size: 1.375rem;
+      margin: 0 0 var(--space-sm);
+    }
+
+    .rule-list {
+      margin: var(--space-md) 0 0;
+      padding-left: var(--space-lg);
+    }
+
+    .rule-list li {
+      margin-bottom: var(--space-sm);
+    }
+
+    .trap-callout {
+      margin-top: var(--space-lg);
+      background: var(--tertiary-soft);
+      border-left: 3px solid var(--tertiary);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--rounded);
+    }
+
+    .trap-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    .trap-chip {
+      background: var(--background);
+      border: var(--rule-linen);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+    }
+
+    /* Section 2: Vocabulary Atlas & Controls */
+    .controls-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+      background: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      margin-bottom: var(--space-md);
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .field-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--on-surface);
+    }
+
+    .input-control, .select-control {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: var(--rule-sumi);
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      width: 100%;
+    }
+
+    .select-control {
+      padding-right: var(--space-xl);
+    }
+
+    .filter-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+      margin-bottom: var(--space-md);
+    }
+
+    .filter-btn {
+      min-height: 40px;
+      padding: var(--space-xs) var(--space-md);
+      border: var(--rule-linen);
+      background: var(--background);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .filter-btn:hover {
+      background: var(--surface-container-low);
+      border-color: var(--outline);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    .atlas-meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--rule-linen);
+    }
+
+    .flashcard-spotlight {
+      background: var(--surface-container);
+      border-left: 3px solid var(--secondary);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--rounded);
+      margin-bottom: var(--space-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(275px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .vocab-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .vocab-card.is-mastered {
+      border-left-color: var(--positive);
+      background: var(--positive-bg);
+    }
+
+    .vocab-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .vocab-kana {
+      font-family: var(--font-headline);
+      font-size: 1.3125rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--on-surface);
+    }
+
+    .vocab-kanji {
+      font-family: var(--font-headline);
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      margin-top: 2px;
+    }
+
+    .vocab-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .vocab-meaning {
+      font-weight: 600;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+    }
+
+    .vocab-english {
+      font-family: var(--font-label);
+      font-size: 0.78125rem;
+      color: var(--on-surface-variant);
+    }
+
+    .vocab-note {
+      font-size: 0.8125rem;
+      color: var(--secondary);
+      background: var(--background);
+      padding: var(--space-xs) var(--space-sm);
+      border-left: 2px solid var(--secondary);
+    }
+
+    .color-swatch-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .color-swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: var(--rounded);
+      border: var(--rule-sumi);
+      flex-shrink: 0;
+    }
+
+    .vocab-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: auto;
+      padding-top: var(--space-xs);
+      border-top: var(--rule-linen);
+    }
+
+    /* Section 3: Antonym Pairs */
+    .antonym-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-lg);
+      padding: var(--space-md);
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+    }
+
+    .antonym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(330px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .antonym-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: var(--space-sm);
+      align-items: stretch;
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+
+    .antonym-side {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: var(--space-sm);
+      background: var(--background);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-align: left;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .antonym-side:hover {
+      background: var(--surface-container);
+    }
+
+    .antonym-side.is-masked .maskable,
+    .antonym-side .maskable.is-masked {
+      filter: blur(5px);
+      user-select: none;
+    }
+
+    .antonym-axis {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--tertiary);
+      padding: 0 var(--space-xs);
+    }
+
+    .temp-spectrum {
+      margin-top: var(--space-lg);
+      background: var(--surface-container-low);
+      border-left: 2px solid var(--tertiary);
+      padding: var(--space-lg);
+    }
+
+    .spectrum-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .spectrum-cell {
+      background: var(--background);
+      border: var(--rule-linen);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+    }
+
+    /* Section 4: Conjugation Table & Interactive Lab */
+    .table-scroll {
+      overflow-x: auto;
+      border-top: var(--rule-sumi);
+      border-bottom: var(--rule-sumi);
+      margin-bottom: var(--space-xl);
+    }
+
+    .kiln-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+
+    .kiln-table thead th {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-sumi);
+      background: var(--surface-container-low);
+      color: var(--on-surface);
+      white-space: nowrap;
+    }
+
+    .kiln-table tbody td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-linen);
+      vertical-align: top;
+    }
+
+    .kiln-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .stem-part {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+
+    .ending-part {
+      color: var(--tertiary);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .conjugation-lab {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      padding: var(--space-lg);
+      border-radius: var(--rounded);
+    }
+
+    .lab-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+    }
+
+    .lab-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-lg);
+    }
+
+    .lab-results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .conj-card {
+      background: var(--background);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+
+    .conj-card.is-exception {
+      border-left: 3px solid var(--tertiary);
+      background: var(--tertiary-soft);
+    }
+
+    .conj-form-title {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--secondary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .conj-output {
+      font-family: var(--font-headline);
+      font-size: 1.375rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: var(--space-xs);
+    }
+
+    .conj-formula {
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Section 5: Sentences */
+    .sentence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+
+    .sentence-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--rounded);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .sentence-jp {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--on-surface);
+    }
+
+    .sentence-highlight {
+      background: var(--tertiary-soft);
+      color: var(--tertiary);
+      padding: 0 4px;
+      border-bottom: 1px solid var(--tertiary);
+    }
+
+    .sentence-zh {
+      font-weight: 500;
+      color: var(--on-surface);
+    }
+
+    .sentence-zh.is-hidden {
+      filter: blur(6px);
+      cursor: pointer;
+    }
+
+    .sentence-grammar {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      border-top: var(--rule-linen);
+      padding-top: var(--space-xs);
+    }
+
+    /* Section 6: Quiz Arena */
+    .quiz-panel {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      padding: var(--space-lg);
+      border-radius: var(--rounded);
+    }
+
+    .quiz-setup {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+      margin-bottom: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--rule-linen);
+    }
+
+    .quiz-progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--surface-container-high);
+      margin: var(--space-sm) 0 var(--space-md);
+      overflow: hidden;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--secondary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    .quiz-prompt-box {
+      background: var(--background);
+      border: var(--rule-sumi);
+      padding: var(--space-lg);
+      border-radius: var(--rounded);
+      margin-bottom: var(--space-md);
+    }
+
+    .quiz-question-text {
+      font-family: var(--font-headline);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: var(--space-xs) 0;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+
+    .quiz-option-btn {
+      min-height: 52px;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--background);
+      border: var(--rule-sumi);
+      border-radius: var(--rounded);
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .quiz-option-btn:hover:not(:disabled) {
+      background: var(--surface-container);
+    }
+
+    .quiz-option-btn.opt-correct {
+      background: var(--positive-bg);
+      border-color: var(--positive);
+      color: var(--positive);
+      font-weight: 600;
+    }
+
+    .quiz-option-btn.opt-wrong {
+      background: var(--error-bg);
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    .quiz-feedback {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border-left: 3px solid var(--secondary);
+      background: var(--background);
+    }
+
+    .quiz-feedback.is-error {
+      border-left-color: var(--error);
+      background: var(--error-bg);
+    }
+
+    .quiz-feedback.is-success {
+      border-left-color: var(--positive);
+      background: var(--positive-bg);
+    }
+
+    .empty-state {
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      padding: var(--space-xl);
+      text-align: center;
+      border-radius: var(--rounded);
+    }
+
+    .footer-note {
+      padding-top: var(--space-lg);
+      border-top: var(--rule-sumi);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md) var(--space-sm) var(--space-2xl);
+        gap: var(--space-lg);
+      }
+      .hero-block {
+        grid-template-columns: 1fr;
+      }
+      .seal-stamp {
+        writing-mode: horizontal-tb;
+        justify-self: start;
+        padding: var(--space-xs) var(--space-sm);
+      }
+      .flashcard-spotlight {
+        grid-template-columns: 1fr;
+      }
+      .antonym-pair {
+        grid-template-columns: 1fr;
+      }
+      .antonym-axis {
+        padding: var(--space-xs) 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- Hero Header -->
+    <header class="hero-block">
+      <div>
+        <p class="kicker">JAPANESE ADJECTIVES / N5–N1 語彙・活用・對照學習</p>
+        <h1 class="display">日語形容詞全解：分類圖鑑、詞尾活用與實戰測驗</h1>
+        <p class="subhead-moss">彙整日文學習筆記詞庫——從 い／な 形容詞本質差異、相反詞對照，到否定・過去・副詞化規則與例句實戰。</p>
+      </div>
+      <div class="seal-stamp" aria-hidden="true">形容詞帖</div>
+    </header>
+
+    <!-- Summary Metrics -->
+    <section aria-label="學習總覽數據">
+      <div class="kpi-grid">
+        <div class="washi-card">
+          <div class="label-mono">詞庫收錄詞條</div>
+          <div class="kpi-value" id="kpi-total-words">0</div>
+          <p class="note">涵蓋 N5 至 N1 形容詞與色彩表現</p>
+        </div>
+        <div class="washi-card">
+          <div class="label-mono">相反詞對照組</div>
+          <div class="kpi-value" id="kpi-total-pairs">0</div>
+          <p class="note">雙語互遮記憶與溫度光譜辨析</p>
+        </div>
+        <div class="washi-card">
+          <div class="label-mono">已熟記詞彙</div>
+          <div class="kpi-value" id="kpi-mastered">0</div>
+          <p class="note" id="kpi-mastered-note">點擊卡片「標記熟記」累積進度</p>
+        </div>
+        <div class="washi-card">
+          <div class="label-mono">測驗最佳連勝</div>
+          <div class="kpi-value" id="kpi-best-streak">0</div>
+          <p class="note" id="kpi-quiz-summary">尚未進行測驗，前往第六節挑戰</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter Navigation -->
+    <nav class="chapter-nav" aria-label="學習章節導覽">
+      <a class="chapter-link" href="#sec-essence"><span class="chapter-num">01</span>本質辨析</a>
+      <a class="chapter-link" href="#sec-atlas"><span class="chapter-num">02</span>分類圖鑑</a>
+      <a class="chapter-link" href="#sec-antonyms"><span class="chapter-num">03</span>相反詞對比</a>
+      <a class="chapter-link" href="#sec-conjugation"><span class="chapter-num">04</span>詞尾活用工坊</a>
+      <a class="chapter-link" href="#sec-sentences"><span class="chapter-num">05</span>搭配例句</a>
+      <a class="chapter-link" href="#sec-quiz"><span class="chapter-num">06</span>實戰測驗</a>
+    </nav>
+
+    <!-- SECTION 01: Essence -->
+    <section class="story-section" id="sec-essence">
+      <p class="kicker">01 / CORE DISTINCTION</p>
+      <h2 class="section-heading">い形容詞看詞尾「い」變化，な形容詞靠助動詞接續</h2>
+      <p class="section-lede">日語形容詞依據詞尾形態與接續方式分為兩大系統，另有部分色彩詞以名詞形式搭配「の」修飾名詞。先掌握三者結構，後續活用與例句才不會混淆。</p>
+
+      <div class="split-two">
+        <article class="type-panel">
+          <div class="vocab-tags"><span class="tag tag-i">イ形容詞</span><span class="tag">詞尾必為「い」</span></div>
+          <h3>直接修飾名詞，詞尾「い」自行變形</h3>
+          <p>所有い形容詞的辭書形皆以「い」結尾。進行否定、過去或連接句時，必須先<strong>去掉詞尾的「い」</strong>再接變化形。</p>
+          <ul class="rule-list">
+            <li><strong>修飾名詞：</strong>直接加名詞（例：<code>大きい 部屋</code> 大房間）</li>
+            <li><strong>否定變化：</strong>去「い」加 <code>くない</code>（例：<code>高くない</code> 不貴）</li>
+            <li><strong>過去變化：</strong>去「い」加 <code>かった</code>（例：<code>難しかった</code> 曾很難）</li>
+            <li><strong>唯一重大例外：</strong><code>いい</code>（好）變化時必須還原為詞幹 <code>よ</code>（<code>よくない・よかった・よくて</code>）</li>
+          </ul>
+        </article>
+
+        <article class="type-panel type-na-panel">
+          <div class="vocab-tags"><span class="tag tag-na">ナ形容詞</span><span class="tag">詞幹＋だ／です</span></div>
+          <h3>修飾名詞補「な」，否定與過去接助動詞</h3>
+          <p>な形容詞的詞幹本身不發生音韻變化，因此在不同語境中必須透過後面的「<code>な</code>」「<code>だ</code>」「<code>じゃありません</code>」來表達時態與肯定否定。</p>
+          <ul class="rule-list">
+            <li><strong>修飾名詞：</strong>語幹加 <code>な</code> 再接名詞（例：<code>静かな 部屋</code> 安靜的房間）</li>
+            <li><strong>否定變化：</strong>加 <code>ではない／じゃない</code>（例：<code>暇じゃない</code> 沒空）</li>
+            <li><strong>過去變化：</strong>加 <code>だった／でした</code>（例：<code>便利でした</code> 曾很方便）</li>
+            <li><strong>副詞用法：</strong>語幹加 <code>に</code> 後接動詞（例：<code>丁寧に 書く</code> 仔細地寫）</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="trap-callout">
+        <div class="label-mono cjk-clean">新手高頻陷阱：雖然結尾是「い」，卻屬於「な形容詞」的常見單字</div>
+        <p style="margin: var(--space-xs) 0 0;">下列詞庫收錄的高頻字雖然讀音以「い」結尾，但它們的「い」屬於漢字音讀或詞幹一部分，<strong>絕不可當成い形容詞去掉「い」</strong>！修飾名詞時一定要加「<strong>な</strong>」。</p>
+        <div class="trap-chips">
+          <span class="trap-chip"><strong>きれい（綺麗）</strong>→ 綺麗な花（不可說 きれくない）</span>
+          <span class="trap-chip"><strong>ゆうめい（有名）</strong>→ 有名な店（不可說 ゆうめくない）</span>
+          <span class="trap-chip"><strong>きらい（嫌い）</strong>→ 嫌いな食べ物（不可說 きらくない）</span>
+          <span class="trap-chip"><strong>とくい（得意）</strong>→ 得意な料理（不可說 とくくない）</span>
+          <span class="trap-chip"><strong>ていねい（丁寧）</strong>→ 丁寧な説明（不可說 ていねくない）</span>
+          <span class="trap-chip"><strong>さいこう（最高）／さいあく（最悪）</strong>→ 名詞・な形容詞</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 02: Vocabulary Atlas -->
+    <section class="story-section" id="sec-atlas">
+      <p class="kicker">02 / TAXONOMIC VOCABULARY ATLAS</p>
+      <h2 class="section-heading">依語意分類、詞類與 JLPT 級別探索完整形容詞庫</h2>
+      <p class="section-lede">完整收錄筆記中的尺寸空間、天氣溫度、味覺口感、價值評價、情感性格與日本傳統色彩。點選任意字卡的「套用活用」可直接送入第四節即時拆解詞尾。</p>
+
+      <!-- Random Flashcard Spotlight -->
+      <div class="flashcard-spotlight" id="flashcard-spotlight">
+        <div>
+          <div class="label-mono" style="color: var(--secondary);">每日隨機抽選複習卡</div>
+          <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--space-sm); margin-top:var(--space-xs);">
+            <span class="vocab-kana" id="spot-kana">あたらしい</span>
+            <span class="vocab-kanji" id="spot-kanji">新しい</span>
+            <span class="tag tag-i" id="spot-type">い形容詞</span>
+            <span class="tag tag-jlpt" id="spot-jlpt">N5</span>
+          </div>
+          <div id="spot-meaning" style="margin-top:var(--space-xs); font-weight:600;">新（new）</div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--space-xs);">
+          <button type="button" class="btn btn-sm" onclick="toggleSpotlightAnswer()">遮蔽／顯示釋義</button>
+          <button type="button" class="btn btn-sm" id="spot-lab-btn" onclick="sendSpotlightToLab()">套用活用</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="drawRandomFlashcard()">換一張詞卡</button>
+        </div>
+      </div>
+
+      <!-- Search & Select Filters -->
+      <div class="controls-bar">
+        <div class="field-group">
+          <label class="field-label" for="vocab-search">搜尋中文、假名、漢字或英文</label>
+          <input class="input-control" id="vocab-search" type="text" placeholder="例如：漂亮、あつい、N5、hot" oninput="handleFilterChange()">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="vocab-type-select">詞類篩選</label>
+          <select class="select-control" id="vocab-type-select" onchange="handleFilterChange()">
+            <option value="all">全部詞類</option>
+            <option value="i">い形容詞 (イ形容詞)</option>
+            <option value="na">な形容詞 (ナ形容詞)</option>
+            <option value="no">色彩名詞／の型修飾</option>
+            <option value="phrase">慣用短語・狀態表現</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="vocab-jlpt-select">JLPT 級別</label>
+          <select class="select-control" id="vocab-jlpt-select" onchange="handleFilterChange()">
+            <option value="all">全部級別 (N5–N1)</option>
+            <option value="N5">N5 基礎必備</option>
+            <option value="N4">N4 日常進階</option>
+            <option value="N3">N3 語意深化</option>
+            <option value="N2">N2 質感擬態</option>
+            <option value="N1">N1 和色與高階</option>
+            <option value="unrated">未標記級別</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="vocab-status-select">熟記篩選</label>
+          <select class="select-control" id="vocab-status-select" onchange="handleFilterChange()">
+            <option value="all">全部顯示</option>
+            <option value="unmastered">只看尚未熟記</option>
+            <option value="mastered">只看已熟記</option>
+            <option value="review">待複習清單</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Semantic Category Filter Buttons -->
+      <div class="filter-strip" id="category-filter-strip" role="group" aria-label="語意分類篩選">
+        <button type="button" class="filter-btn active" data-cat="all" onclick="setCategoryFilter('all', this)">全部分類</button>
+        <button type="button" class="filter-btn" data-cat="space" onclick="setCategoryFilter('space', this)">尺寸・空間・數量</button>
+        <button type="button" class="filter-btn" data-cat="time" onclick="setCategoryFilter('time', this)">速度・時間・難易</button>
+        <button type="button" class="filter-btn" data-cat="weather" onclick="setCategoryFilter('weather', this)">溫度・天氣・環境</button>
+        <button type="button" class="filter-btn" data-cat="taste" onclick="setCategoryFilter('taste', this)">味覺・食物・質感</button>
+        <button type="button" class="filter-btn" data-cat="value" onclick="setCategoryFilter('value', this)">價值・品質・評價</button>
+        <button type="button" class="filter-btn" data-cat="emotion" onclick="setCategoryFilter('emotion', this)">情感・性格・外觀</button>
+        <button type="button" class="filter-btn" data-cat="color" onclick="setCategoryFilter('color', this)">日本色彩圖鑑</button>
+      </div>
+
+      <div class="atlas-meta-bar">
+        <div id="atlas-count-label" class="label-mono cjk-clean">顯示 0 筆詞條</div>
+        <div style="display:flex; gap:var(--space-xs); flex-wrap:wrap;">
+          <button type="button" class="btn btn-sm" onclick="resetAtlasFilters()">重設篩選條件</button>
+        </div>
+      </div>
+
+      <div class="vocab-grid" id="vocab-grid"></div>
+    </section>
+
+    <!-- SECTION 03: Antonym Pairs -->
+    <section class="story-section" id="sec-antonyms">
+      <p class="kicker">03 / ANTONYM CONTRAST MATRIX</p>
+      <h2 class="section-heading">成對記憶相反詞，一次掌握雙倍語彙</h2>
+      <p class="section-lede">筆記原本即以「相反詞成對」排列。利用下方的遮蔽模式隱藏左邊或右邊詞彙，點擊單側卡片即可揭曉答案，強化配對記憶。</p>
+
+      <div class="antonym-toolbar">
+        <div style="display:flex; flex-wrap:wrap; gap:var(--space-xs); align-items:center;">
+          <span class="label-mono cjk-clean" style="margin-right:var(--space-xs);">記憶遮蔽模式：</span>
+          <button type="button" class="btn btn-sm btn-active" id="mask-none" onclick="setAntonymMask('none')">全部顯示</button>
+          <button type="button" class="btn btn-sm" id="mask-right" onclick="setAntonymMask('right')">遮蔽右側反義詞</button>
+          <button type="button" class="btn btn-sm" id="mask-left" onclick="setAntonymMask('left')">遮蔽左側基準詞</button>
+          <button type="button" class="btn btn-sm" id="mask-meaning" onclick="setAntonymMask('meaning')">遮蔽中文釋義</button>
+        </div>
+        <span class="label-mono cjk-clean" style="color:var(--on-surface-variant);">點擊遮蔽卡片可單獨翻開</span>
+      </div>
+
+      <div class="antonym-grid" id="antonym-grid"></div>
+
+      <!-- Temperature Spectrum Callout -->
+      <div class="temp-spectrum">
+        <div class="label-mono cjk-clean" style="color:var(--tertiary);">特別專題：日語「冷熱」兩套系統不要混用</div>
+        <p style="margin:var(--space-xs) 0 0;">「<code>あつい</code>」與「<code>つめたい／さむい</code>」在日語中嚴格區分<strong>氣溫／體感</strong>與<strong>物體觸感</strong>：</p>
+        <div class="spectrum-grid">
+          <div class="spectrum-cell">
+            <div class="label-mono" style="color:var(--tertiary);">天氣・氣溫</div>
+            <div class="vocab-kana">あつい（暑い）</div>
+            <div>天氣炎熱</div>
+          </div>
+          <div class="spectrum-cell">
+            <div class="label-mono" style="color:var(--tertiary);">天氣・氣溫</div>
+            <div class="vocab-kana">さむい（寒い）</div>
+            <div>天氣寒冷</div>
+          </div>
+          <div class="spectrum-cell">
+            <div class="label-mono" style="color:var(--secondary);">物體・飲品</div>
+            <div class="vocab-kana">あつい（熱い）</div>
+            <div>滾燙（熱茶・湯）</div>
+          </div>
+          <div class="spectrum-cell">
+            <div class="label-mono" style="color:var(--secondary);">物體・心意</div>
+            <div class="vocab-kana">あたたかい（暖かい）</div>
+            <div>溫暖（天氣・物品）</div>
+          </div>
+          <div class="spectrum-cell">
+            <div class="label-mono" style="color:var(--secondary);">物體・微溫</div>
+            <div class="vocab-kana">ぬるい</div>
+            <div>不冷不熱（微溫）</div>
+          </div>
+          <div class="spectrum-cell">
+            <div class="label-mono" style="color:var(--secondary);">物體・飲品</div>
+            <div class="vocab-kana">つめたい（冷たい）</div>
+            <div>冰涼（冰水・態度）</div>
+          </div>
+          <div class="spectrum-cell">
+            <div class="label-mono" style="color:var(--secondary);">環境・微風</div>
+            <div class="vocab-kana">すずしい（涼しい）</div>
+            <div>涼爽（秋風・冷氣房）</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 04: Conjugation Rules & Live Lab -->
+    <section class="story-section" id="sec-conjugation">
+      <p class="kicker">04 / INFLECTION ENGINE</p>
+      <h2 class="section-heading">詞尾變化總表與即時活用工坊</h2>
+      <p class="section-lede">根據筆記「日文 - 形容詞文法」整理完整 9 大變化規則，並可於下方活用工坊選擇任意單字，即時比對普通體與丁寧體（禮貌體）的詞幹與詞尾拆解。</p>
+
+      <!-- Reference Grammar Table -->
+      <div class="table-scroll">
+        <table class="kiln-table">
+          <thead>
+            <tr>
+              <th>文法形態</th>
+              <th>イ形容詞規則（去「い」接續）</th>
+              <th>例外：いい → よい</th>
+              <th>ナ形容詞規則（語幹接續）</th>
+              <th>說明與實戰範例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>接名詞</strong></td>
+              <td>直接加名詞</td>
+              <td><code>いい／よい</code>＋名詞</td>
+              <td>語幹＋<span class="ending-part">な</span>＋名詞</td>
+              <td><code>大きい部屋</code> ／ <code>綺麗な部屋</code></td>
+            </tr>
+            <tr>
+              <td><strong>現在否定（普通體）</strong></td>
+              <td>去い＋<span class="ending-part">くない</span></td>
+              <td><code>よ<span class="ending-part">くない</span></code></td>
+              <td>語幹＋<span class="ending-part">ではない／じゃない</span></td>
+              <td><code>高くない</code> ／ <code>暇じゃない</code></td>
+            </tr>
+            <tr>
+              <td><strong>現在否定（丁寧體）</strong></td>
+              <td>去い＋<span class="ending-part">くないです／くありません</span></td>
+              <td><code>よ<span class="ending-part">くないです</span></code></td>
+              <td>語幹＋<span class="ending-part">ではありません／じゃないです</span></td>
+              <td><code>難しくないです</code> ／ <code>便利じゃありません</code></td>
+            </tr>
+            <tr>
+              <td><strong>過去肯定（普通體）</strong></td>
+              <td>去い＋<span class="ending-part">かった</span></td>
+              <td><code>よ<span class="ending-part">かった</span></code></td>
+              <td>語幹＋<span class="ending-part">だった</span></td>
+              <td><code>安かった</code> ／ <code>つまらない時間だった</code></td>
+            </tr>
+            <tr>
+              <td><strong>過去肯定（丁寧體）</strong></td>
+              <td>去い＋<span class="ending-part">かったです</span></td>
+              <td><code>よ<span class="ending-part">かったです</span></code></td>
+              <td>語幹＋<span class="ending-part">でした</span></td>
+              <td><code>難しかったです</code> ／ <code>静かでした</code></td>
+            </tr>
+            <tr>
+              <td><strong>過去否定（普通／丁寧）</strong></td>
+              <td>去い＋<span class="ending-part">くなかった（です）</span></td>
+              <td><code>よ<span class="ending-part">くなかった（です）</span></code></td>
+              <td>語幹＋<span class="ending-part">じゃなかった（です）</span></td>
+              <td><code>面白くなかったです</code> ／ <code>かっこよくなかった</code></td>
+            </tr>
+            <tr>
+              <td><strong>て型（並列・原因）</strong></td>
+              <td>去い＋<span class="ending-part">くて</span></td>
+              <td><code>よ<span class="ending-part">くて</span></code></td>
+              <td>語幹＋<span class="ending-part">で</span></td>
+              <td><code>かっこよくてよかった</code> ／ <code>親切で優しい</code></td>
+            </tr>
+            <tr>
+              <td><strong>假定（ば型）</strong></td>
+              <td>去い＋<span class="ending-part">ければ</span></td>
+              <td><code>よ<span class="ending-part">ければ</span></code></td>
+              <td>語幹＋<span class="ending-part">なら（ば）／であれば</span></td>
+              <td><code>安ければ買う</code> ／ <code>暇なら行く</code></td>
+            </tr>
+            <tr>
+              <td><strong>越……越……</strong></td>
+              <td>ば型＋辭書型＋<span class="ending-part">ほど</span></td>
+              <td><code>よければよいほど</code></td>
+              <td>語幹＋<span class="ending-part">であればあるほど</span></td>
+              <td><code>早ければ早いほどいい</code></td>
+            </tr>
+            <tr>
+              <td><strong>形容詞＋動詞（副詞化）</strong></td>
+              <td>去い＋<span class="ending-part">く</span>＋動詞</td>
+              <td><code>よ<span class="ending-part">く</span></code>＋動詞</td>
+              <td>語幹＋<span class="ending-part">に</span>＋動詞</td>
+              <td><code>暗くなる</code> ／ <code>静かに話す</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Interactive Conjugation Lab -->
+      <div class="conjugation-lab" id="conjugation-lab">
+        <div class="label-mono" style="color:var(--secondary); margin-bottom:var(--space-sm);">INTERACTIVE CONJUGATION LAB / 即時詞尾活用模擬器</div>
+        <div class="lab-controls">
+          <div class="field-group">
+            <label class="field-label" for="lab-word-select">選擇詞庫單字（或從第二節點「套用活用」）</label>
+            <select class="select-control" id="lab-word-select" onchange="onLabWordSelect(this.value)"></select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="lab-politeness-select">語氣體裁切換</label>
+            <select class="select-control" id="lab-politeness-select" onchange="renderConjugationLab()">
+              <option value="polite">丁寧體（禮貌形・です／ます）</option>
+              <option value="plain">普通體（常體・簡體）</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="lab-highlight-toggle">詞幹與詞尾顯示</label>
+            <button type="button" class="btn btn-active" id="lab-highlight-toggle" onclick="toggleLabHighlight()">已開啟詞尾標紅拆解</button>
+          </div>
+        </div>
+
+        <div class="lab-presets">
+          <span class="label-mono cjk-clean" style="align-self:center; margin-right:var(--space-xs);">代表詞快速測試：</span>
+          <button type="button" class="btn btn-sm" onclick="selectLabWordByKana('たかい')">たかい（い・基本）</button>
+          <button type="button" class="btn btn-sm" onclick="selectLabWordByKana('いい')">いい（例外變化）</button>
+          <button type="button" class="btn btn-sm" onclick="selectLabWordByKana('むずかしい')">むずかしい（長詞尾）</button>
+          <button type="button" class="btn btn-sm" onclick="selectLabWordByKana('きれい')">きれい（假い真な）</button>
+          <button type="button" class="btn btn-sm" onclick="selectLabWordByKana('しずか')">しずか（な・基本）</button>
+          <button type="button" class="btn btn-sm" onclick="selectLabWordByKana('かんたん')">かんたん（な・常用）</button>
+        </div>
+
+        <div id="lab-active-banner" style="margin-bottom:var(--space-md); padding-bottom:var(--space-sm); border-bottom:var(--rule-linen);"></div>
+        <div class="lab-results-grid" id="lab-results-grid"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 05: Contextual Sentences -->
+    <section class="story-section" id="sec-sentences">
+      <p class="kicker">05 / CONTEXTUAL SENTENCES</p>
+      <h2 class="section-heading">搭配筆記實戰例句，拆解語境中的形容詞形態</h2>
+      <p class="section-lede">精選筆記「日文 - 例句」中包含形容詞與其變化的真實句子。可篩選文法焦點，並切換漢字顯示或遮蔽中文進行閱讀訓練。</p>
+
+      <div class="antonym-toolbar">
+        <div class="filter-strip" style="margin-bottom:0;" id="sentence-filter-strip">
+          <button type="button" class="filter-btn active" onclick="setSentenceFilter('all', this)">全部例句</button>
+          <button type="button" class="filter-btn" onclick="setSentenceFilter('neg-past', this)">否定・過去形</button>
+          <button type="button" class="filter-btn" onclick="setSentenceFilter('te-reason', this)">て型・原因接續</button>
+          <button type="button" class="filter-btn" onclick="setSentenceFilter('adverb', this)">副詞化（く／になる）</button>
+          <button type="button" class="filter-btn" onclick="setSentenceFilter('compare', this)">比較・偏好・修飾</button>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:var(--space-xs);">
+          <button type="button" class="btn btn-sm" id="btn-toggle-kanji" onclick="toggleSentenceScript()">切換假名／漢字版本</button>
+          <button type="button" class="btn btn-sm" id="btn-toggle-zh" onclick="toggleSentenceTranslation()">遮蔽／顯示中文翻譯</button>
+        </div>
+      </div>
+
+      <div class="sentence-grid" id="sentence-grid"></div>
+    </section>
+
+    <!-- SECTION 06: Interactive Quiz -->
+    <section class="story-section" id="sec-quiz">
+      <p class="kicker">06 / INTERACTIVE ASSESSMENT</p>
+      <h2 class="section-heading">綜合實戰測驗：詞義、反義詞、詞尾變化與例句填空</h2>
+      <p class="section-lede">依據設定自動從詞庫生成題目，作答後即時解析詞尾轉換原因。答錯的單字可一鍵加入「待複習清單」，成績與熟記進度將自動儲存。</p>
+
+      <div class="quiz-panel">
+        <div class="quiz-setup">
+          <div class="field-group">
+            <label class="field-label" for="quiz-mode-select">測驗題型</label>
+            <select class="select-control" id="quiz-mode-select">
+              <option value="mixed">綜合混合題（全部 4 類）</option>
+              <option value="meaning">詞義辨識（日文 ↔ 中文）</option>
+              <option value="antonym">相反詞配對挑戰</option>
+              <option value="conjugation">詞尾變化實戰（否定・過去・て型）</option>
+              <option value="sentence">例句文法填空</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="quiz-level-select">JLPT 難度範圍</label>
+            <select class="select-control" id="quiz-level-select">
+              <option value="all">全部級別綜合</option>
+              <option value="N5">N5 基礎入門</option>
+              <option value="N4">N4–N5 日常核心</option>
+              <option value="N3+">N3–N1 進階詞彙</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="quiz-count-select">題目數量</label>
+            <select class="select-control" id="quiz-count-select">
+              <option value="5">5 題快速練習</option>
+              <option value="10" selected>10 題標準測驗</option>
+              <option value="15">15 題深度挑戰</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="quiz-start-btn">開始測驗</label>
+            <button type="button" class="btn btn-primary" id="quiz-start-btn" onclick="startQuiz()">開始新測驗</button>
+          </div>
+        </div>
+
+        <div id="quiz-stage">
+          <div class="empty-state">
+            <p style="margin:0 0 var(--space-sm); font-weight:600;">準備好檢驗學習成果了嗎？</p>
+            <p style="margin:0 0 var(--space-md); color:var(--on-surface-variant);">選擇上方的測驗題型與級別後，點擊「開始新測驗」即可作答。</p>
+            <button type="button" class="btn btn-primary" onclick="startQuiz()">立即開始 10 題綜合測驗</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer & Data Management -->
+    <footer class="footer-note">
+      <div>
+        <strong>資料來源：</strong>使用者日文學習筆記（形容詞、Sheet19 分級總表、形容詞文法、實戰例句）。<br>
+        註：教學呈現已依標準日語校訂筆誤（如假定形 <code>〜ければ</code> 與助詞 <code>を</code>）。
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:var(--space-xs);">
+        <button type="button" class="btn btn-sm" onclick="exportProgressCsv()">匯出學習紀錄 (CSV)</button>
+        <button type="button" class="btn btn-sm btn-tertiary" id="reset-progress-btn" onclick="handleResetProgress(this)">重設學習紀錄</button>
+      </div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    /* ============================================================
+       1. GROUNDED SOURCE DATA (All strings use backtick literals)
+       ============================================================ */
+    const ADJECTIVES = [
+      { id: `ookii`, kana: `おおきい`, kanji: `大きい`, zh: `大`, en: `big / large`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `chiisai`, kana: `ちいさい`, kanji: `小さい`, zh: `小`, en: `small / little`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `nagai`, kana: `ながい`, kanji: `長い`, zh: `長`, en: `long`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `mijikai`, kana: `みじかい`, kanji: `短い`, zh: `短`, en: `short`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `akarui`, kana: `あかるい`, kanji: `明るい`, zh: `明亮 / 開朗`, en: `bright / cheerful`, type: `i`, jlpt: `N5`, cat: `weather`, note: `` },
+      { id: `kurai`, kana: `くらい`, kanji: `暗い`, zh: `暗`, en: `dark`, type: `i`, jlpt: `N5`, cat: `weather`, note: `` },
+      { id: `atarashii`, kana: `あたらしい`, kanji: `新しい`, zh: `新`, en: `new`, type: `i`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `furui`, kana: `ふるい`, kanji: `古い`, zh: `舊`, en: `old (things)`, type: `i`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `hayai`, kana: `はやい`, kanji: `早い・速い`, zh: `快 / 早`, en: `fast / early`, type: `i`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `osoi`, kana: `おそい`, kanji: `遅い`, zh: `慢 / 晚 / 遲`, en: `slow / late`, type: `i`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `takai_price`, kana: `たかい`, kanji: `高い`, zh: `貴 / 高`, en: `expensive / high`, type: `i`, jlpt: `N5`, cat: `value`, note: `同時表示價格「貴」與高度「高」` },
+      { id: `yasui`, kana: `やすい`, kanji: `安い`, zh: `便宜`, en: `cheap / inexpensive`, type: `i`, jlpt: `N5`, cat: `value`, note: `` },
+      { id: `atsui_weather`, kana: `あつい`, kanji: `暑い`, zh: `熱（天氣）`, en: `hot (weather)`, type: `i`, jlpt: `N5`, cat: `weather`, note: `專指氣候與體感炎熱` },
+      { id: `samui`, kana: `さむい`, kanji: `寒い`, zh: `冷（天氣）`, en: `cold (weather)`, type: `i`, jlpt: `N5`, cat: `weather`, note: `專指氣候寒冷` },
+      { id: `atatakai`, kana: `あたたかい`, kanji: `暖かい`, zh: `暖（物件・天氣）`, en: `warm`, type: `i`, jlpt: `N5`, cat: `weather`, note: `` },
+      { id: `atsui_thing`, kana: `あつい`, kanji: `熱い`, zh: `熱（物件）`, en: `hot (object)`, type: `i`, jlpt: `N5`, cat: `weather`, note: `指熱水、食物或物體表面燙` },
+      { id: `tsumetai`, kana: `つめたい`, kanji: `冷たい`, zh: `涼 / 冰冷（物件）`, en: `cold (object)`, type: `i`, jlpt: `N5`, cat: `weather`, note: `指冷飲、冰物或態度冷淡` },
+      { id: `nurui`, kana: `ぬるい`, kanji: `温い`, zh: `溫的`, en: `lukewarm`, type: `i`, jlpt: `N3`, cat: `weather`, note: `` },
+      { id: `suzushii`, kana: `すずしい`, kanji: `涼しい`, zh: `涼快`, en: `cool`, type: `i`, jlpt: `N4`, cat: `weather`, note: `` },
+      { id: `hikui`, kana: `ひくい`, kanji: `低い`, zh: `低 / 矮`, en: `low / short`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `tooi`, kana: `とおい`, kanji: `遠い`, zh: `遠`, en: `far`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `chikai`, kana: `ちかい`, kanji: `近い`, zh: `近`, en: `near / close`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `hiroi`, kana: `ひろい`, kanji: `広い`, zh: `寬敞`, en: `spacious / wide`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `semai`, kana: `せまい`, kanji: `狭い`, zh: `窄`, en: `narrow`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `kirei`, kana: `きれい`, kanji: `綺麗`, zh: `乾淨 / 漂亮`, en: `clean / beautiful`, type: `na`, jlpt: `N5`, cat: `weather`, note: `注意：詞尾雖為「い」，卻是な形容詞` },
+      { id: `kitanai`, kana: `きたない`, kanji: `汚い`, zh: `髒 / 污`, en: `dirty`, type: `i`, jlpt: `N5`, cat: `weather`, note: `` },
+      { id: `amai`, kana: `あまい`, kanji: `甘い`, zh: `甜`, en: `sweet`, type: `i`, jlpt: `N5`, cat: `taste`, note: `` },
+      { id: `nigai`, kana: `にがい`, kanji: `苦い`, zh: `苦`, en: `bitter`, type: `i`, jlpt: `N4`, cat: `taste`, note: `` },
+      { id: `shoppai`, kana: `しょっぱい`, kanji: `塩っぱい`, zh: `鹹`, en: `salty`, type: `i`, jlpt: `N3`, cat: `taste`, note: `` },
+      { id: `suppai`, kana: `すっぱい`, kanji: `酸っぱい`, zh: `酸`, en: `sour`, type: `i`, jlpt: `N3`, cat: `taste`, note: `` },
+      { id: `karai`, kana: `からい`, kanji: `辛い`, zh: `辣`, en: `spicy`, type: `i`, jlpt: `N5`, cat: `taste`, note: `` },
+      { id: `koi`, kana: `こい`, kanji: `濃い`, zh: `濃`, en: `thick / strong taste`, type: `i`, jlpt: `N4`, cat: `taste`, note: `` },
+      { id: `torotoro`, kana: `とろとろ`, kanji: ``, zh: `濃稠`, en: `thick / creamy`, type: `na`, jlpt: `N2`, cat: `taste`, note: `擬態詞，常見「とろとろの」或「とろとろだ」` },
+      { id: `nigiyaka`, kana: `にぎやか`, kanji: `賑やか`, zh: `熱鬧`, en: `lively`, type: `na`, jlpt: `N5`, cat: `weather`, note: `` },
+      { id: `urusai`, kana: `うるさい`, kanji: ``, zh: `吵`, en: `noisy`, type: `i`, jlpt: `N4`, cat: `weather`, note: `` },
+      { id: `shizuka`, kana: `しずか`, kanji: `静か`, zh: `安靜`, en: `quiet`, type: `na`, jlpt: `N5`, cat: `weather`, note: `` },
+      { id: `anzen`, kana: `あんぜん`, kanji: `安全`, zh: `安全`, en: `safe`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `abunai`, kana: `あぶない`, kanji: `危ない`, zh: `危險`, en: `dangerous`, type: `i`, jlpt: `N5`, cat: `value`, note: `` },
+      { id: `omoi`, kana: `おもい`, kanji: `重い`, zh: `重`, en: `heavy`, type: `i`, jlpt: `N5`, cat: `taste`, note: `` },
+      { id: `karui`, kana: `かるい`, kanji: `軽い`, zh: `輕便`, en: `light`, type: `i`, jlpt: `N5`, cat: `taste`, note: `` },
+      { id: `futoi`, kana: `ふとい`, kanji: `太い`, zh: `粗 / 胖`, en: `thick`, type: `i`, jlpt: `N4`, cat: `space`, note: `` },
+      { id: `yaseteiru`, kana: `やせている`, kanji: `痩せている`, zh: `瘦`, en: `thin`, type: `phrase`, jlpt: `N4`, cat: `emotion`, note: `動詞「痩せる」ている狀態修飾` },
+      { id: `hosoi`, kana: `ほそい`, kanji: `細い`, zh: `細 / 幼`, en: `thin / slender`, type: `i`, jlpt: `N4`, cat: `space`, note: `` },
+      { id: `yasashii_easy`, kana: `やさしい`, kanji: `易しい`, zh: `簡單 / 輕鬆`, en: `easy`, type: `i`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `kantan`, kana: `かんたん`, kanji: `簡単`, zh: `簡單`, en: `easy / simple`, type: `na`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `muzukashii`, kana: `むずかしい`, kanji: `難しい`, zh: `難`, en: `difficult`, type: `i`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `oishii`, kana: `おいしい`, kanji: `美味しい`, zh: `好吃`, en: `delicious`, type: `i`, jlpt: `N5`, cat: `taste`, note: `` },
+      { id: `mazui`, kana: `まずい`, kanji: `不味い`, zh: `難吃`, en: `bad-tasting`, type: `i`, jlpt: `N4`, cat: `taste`, note: `` },
+      { id: `atsui_thick`, kana: `あつい`, kanji: `厚い`, zh: `厚`, en: `thick`, type: `i`, jlpt: `N4`, cat: `space`, note: `` },
+      { id: `usui`, kana: `うすい`, kanji: `薄い`, zh: `薄 / 淡`, en: `thin / light`, type: `i`, jlpt: `N4`, cat: `space`, note: `同時與「厚い」及「濃い」相對` },
+      { id: `hima`, kana: `ひま`, kanji: `暇`, zh: `有空`, en: `free (time)`, type: `na`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `isogashii`, kana: `いそがしい`, kanji: `忙しい`, zh: `忙`, en: `busy`, type: `i`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `katai`, kana: `かたい`, kanji: `硬い`, zh: `硬`, en: `hard`, type: `i`, jlpt: `N4`, cat: `taste`, note: `` },
+      { id: `yawarakai`, kana: `やわらかい`, kanji: `柔らかい`, zh: `軟`, en: `soft`, type: `i`, jlpt: `N4`, cat: `taste`, note: `` },
+      { id: `yuumei`, kana: `ゆうめい`, kanji: `有名`, zh: `著名`, en: `famous`, type: `na`, jlpt: `N5`, cat: `value`, note: `注意：詞尾雖為「い」，卻是な形容詞` },
+      { id: `mumei`, kana: `むめい`, kanji: `無名`, zh: `無名`, en: `unknown`, type: `na`, jlpt: `N3`, cat: `value`, note: `` },
+      { id: `tanoshii`, kana: `たのしい`, kanji: `楽しい`, zh: `好玩 / 愉快`, en: `fun`, type: `i`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `tsumaranai`, kana: `つまらない`, kanji: ``, zh: `悶 / 無聊`, en: `boring`, type: `i`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `benri`, kana: `べんり`, kanji: `便利`, zh: `方便`, en: `convenient`, type: `na`, jlpt: `N5`, cat: `time`, note: `` },
+      { id: `fuben`, kana: `ふべん`, kanji: `不便`, zh: `不方便`, en: `inconvenient`, type: `na`, jlpt: `N4`, cat: `time`, note: `` },
+      { id: `suki`, kana: `すき`, kanji: `好き`, zh: `喜歡`, en: `favourite / like`, type: `na`, jlpt: `N5`, cat: `emotion`, note: `常搭配助詞「が」：〜が好きです` },
+      { id: `kirai`, kana: `きらい`, kanji: `嫌い`, zh: `討厭`, en: `dislike`, type: `na`, jlpt: `N5`, cat: `emotion`, note: `注意：詞尾雖為「い」，卻是な形容詞` },
+      { id: `kitsui`, kana: `きつい`, kanji: ``, zh: `緊 / 吃力`, en: `tight / tough`, type: `i`, jlpt: `N3`, cat: `taste`, note: `` },
+      { id: `yurui`, kana: `ゆるい`, kanji: ``, zh: `鬆`, en: `loose`, type: `i`, jlpt: `unrated`, cat: `taste`, note: `` },
+      { id: `karappo`, kana: `からっぽ`, kanji: `空っぽ`, zh: `空`, en: `empty`, type: `na`, jlpt: `N2`, cat: `space`, note: `` },
+      { id: `daiji`, kana: `だいじ`, kanji: `大事`, zh: `重要`, en: `important`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `juuyou`, kana: `じゅうよう`, kanji: `重要`, zh: `重要`, en: `essential`, type: `na`, jlpt: `N3`, cat: `value`, note: `` },
+      { id: `fukuzatsu`, kana: `ふくざつ`, kanji: `複雑`, zh: `複雜`, en: `complex`, type: `na`, jlpt: `N4`, cat: `time`, note: `` },
+      { id: `aburakkoi`, kana: `あぶらっこい`, kanji: `油っこい`, zh: `油膩`, en: `oily / greasy`, type: `i`, jlpt: `N3`, cat: `taste`, note: `` },
+      { id: `kenkouteki`, kana: `けんこうてき`, kanji: `健康的`, zh: `健康`, en: `healthy`, type: `na`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `ii`, kana: `いい`, kanji: `良い`, zh: `好`, en: `good`, type: `i`, jlpt: `N5`, cat: `value`, note: `活用必用「よ」：よくない・よかった・よくて` },
+      { id: `yokunai`, kana: `よくない`, kanji: `良くない`, zh: `不好`, en: `not good`, type: `phrase`, jlpt: `N5`, cat: `value`, note: `「いい」的普通體否定形` },
+      { id: `tokui`, kana: `とくい`, kanji: `得意`, zh: `擅長`, en: `good at`, type: `na`, jlpt: `N4`, cat: `emotion`, note: `注意：詞尾雖為「い」，卻是な形容詞` },
+      { id: `nigate`, kana: `にがて`, kanji: `苦手`, zh: `不擅長`, en: `weak at`, type: `na`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `sugoi`, kana: `すごい`, kanji: ``, zh: `厲害`, en: `amazing`, type: `i`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `kibishii`, kana: `きびしい`, kanji: `厳しい`, zh: `嚴格`, en: `strict`, type: `i`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `ureshii`, kana: `うれしい`, kanji: `嬉しい`, zh: `高興`, en: `happy`, type: `i`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `sabishii`, kana: `さびしい`, kanji: `寂しい`, zh: `寂寞`, en: `lonely`, type: `i`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `shinsetsu`, kana: `しんせつ`, kanji: `親切`, zh: `親切`, en: `kind`, type: `na`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `suteki`, kana: `すてき`, kanji: `素敵`, zh: `漂亮 / 美好`, en: `nice / lovely`, type: `na`, jlpt: `N5`, cat: `emotion`, note: `日常 99% 情況下說「漂亮」都用這個就對了` },
+      { id: `utsukushii`, kana: `うつくしい`, kanji: `美しい`, zh: `美麗`, en: `beautiful`, type: `i`, jlpt: `N5`, cat: `emotion`, note: `美到讓人屏息、快要感動落淚的最高級美` },
+      { id: `kawaii`, kana: `かわいい`, kanji: `可愛い`, zh: `可愛`, en: `cute`, type: `i`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `omoshiroi`, kana: `おもしろい`, kanji: `面白い`, zh: `有趣`, en: `interesting`, type: `i`, jlpt: `N5`, cat: `value`, note: `` },
+      { id: `kakkoii`, kana: `かっこいい`, kanji: ``, zh: `酷 / 帥`, en: `cool`, type: `i`, jlpt: `N5`, cat: `emotion`, note: `詞尾為「いい」，否定過去為「かっこよくなかった」` },
+      { id: `kowai`, kana: `こわい`, kanji: `怖い`, zh: `可怕`, en: `scary`, type: `i`, jlpt: `N2`, cat: `emotion`, note: `` },
+      { id: `kawaisou`, kana: `かわいそう`, kanji: `可哀想`, zh: `可憐`, en: `pitiful`, type: `na`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `dasai`, kana: `ダサい`, kanji: ``, zh: `土氣`, en: `unfashionable`, type: `i`, jlpt: `N1`, cat: `emotion`, note: `` },
+      { id: `oshare`, kana: `おしゃれ`, kanji: ``, zh: `時尚`, en: `fashionable`, type: `na`, jlpt: `N3`, cat: `emotion`, note: `` },
+
+      /* Colors */
+      { id: `akai`, kana: `あかい`, kanji: `赤い`, zh: `紅色`, en: `red`, type: `i`, jlpt: `N5`, cat: `color`, swatch: `akai`, note: `い形容詞，可直接接名詞` },
+      { id: `shiroi`, kana: `しろい`, kanji: `白い`, zh: `白色`, en: `white`, type: `i`, jlpt: `N5`, cat: `color`, swatch: `shiroi`, note: `い形容詞，可直接接名詞` },
+      { id: `aoi`, kana: `あおい`, kanji: `青い`, zh: `藍色`, en: `blue`, type: `i`, jlpt: `N5`, cat: `color`, swatch: `aoi`, note: `い形容詞，可直接接名詞` },
+      { id: `kuroi`, kana: `くろい`, kanji: `黒い`, zh: `黑色`, en: `black`, type: `i`, jlpt: `N5`, cat: `color`, swatch: `kuroi`, note: `い形容詞，可直接接名詞` },
+      { id: `midori`, kana: `みどり`, kanji: `緑`, zh: `綠色`, en: `green`, type: `no`, jlpt: `N5`, cat: `color`, swatch: `midori`, note: `名詞性色彩，接名詞用「緑の」` },
+      { id: `kiiroi`, kana: `きいろい`, kanji: `黄色い`, zh: `黃色`, en: `yellow`, type: `i`, jlpt: `N5`, cat: `color`, swatch: `kiiroi`, note: `い形容詞，名詞形為「黄色」` },
+      { id: `murasaki`, kana: `むらさき`, kanji: `紫`, zh: `紫色`, en: `purple`, type: `no`, jlpt: `N4`, cat: `color`, swatch: `murasaki`, note: `名詞性色彩，接名詞用「紫の」` },
+      { id: `chairo`, kana: `ちゃいろ`, kanji: `茶色`, zh: `棕色`, en: `brown`, type: `no`, jlpt: `N4`, cat: `color`, swatch: `chairo`, note: `名詞性色彩，接名詞用「茶色の」` },
+      { id: `orenji`, kana: `オレンジ`, kanji: ``, zh: `橙色`, en: `orange`, type: `no`, jlpt: `N4`, cat: `color`, swatch: `orenji`, note: `外來語名詞，接名詞用「オレンジの」` },
+      { id: `pinku`, kana: `ピンク`, kanji: ``, zh: `粉紅色`, en: `pink`, type: `no`, jlpt: `N4`, cat: `color`, swatch: `pinku`, note: `外來語名詞，接名詞用「ピンクの」` },
+      { id: `mizuiro`, kana: `みずいろ`, kanji: `水色`, zh: `粉藍色`, en: `light blue`, type: `no`, jlpt: `N4`, cat: `color`, swatch: `mizuiro`, note: `接名詞用「水色の」` },
+      { id: `haiiro`, kana: `はいいろ・グレー`, kanji: `灰色`, zh: `灰色`, en: `gray`, type: `no`, jlpt: `N4`, cat: `color`, swatch: `haiiro`, note: `` },
+      { id: `kiniro`, kana: `きんいろ`, kanji: `金色`, zh: `金色`, en: `gold`, type: `no`, jlpt: `N3`, cat: `color`, swatch: `kiniro`, note: `` },
+      { id: `giniro`, kana: `ぎんいろ`, kanji: `銀色`, zh: `銀色`, en: `silver`, type: `no`, jlpt: `N3`, cat: `color`, swatch: `giniro`, note: `` },
+      { id: `nijiiro`, kana: `にじいろ`, kanji: `虹色`, zh: `彩虹色`, en: `rainbow`, type: `no`, jlpt: `N2`, cat: `color`, swatch: `nijiiro`, note: `` },
+      { id: `yamabuki`, kana: `やまぶきいろ`, kanji: `山吹色`, zh: `金黃色`, en: `bright golden yellow`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `yamabuki`, note: `日本傳統色` },
+      { id: `oudoiro`, kana: `おうどいろ`, kanji: `黄土色`, zh: `赭石`, en: `ochre`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `oudo`, note: `日本傳統色` },
+      { id: `shuiro`, kana: `しゅいろ`, kanji: `朱色`, zh: `硃砂`, en: `vermilion`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `shuiro`, note: `日本傳統色` },
+      { id: `kurenai`, kana: `くれない`, kanji: `紅`, zh: `赤紅`, en: `crimson`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `kurenai`, note: `日本傳統色` },
+      { id: `azukiiro`, kana: `あずきいろ`, kanji: `小豆色`, zh: `紅豆色`, en: `reddish brown`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `azuki`, note: `日本傳統色` },
+      { id: `usumurasaki`, kana: `うすむらさき`, kanji: `薄紫`, zh: `淺紫色`, en: `lavender`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `usumurasaki`, note: `日本傳統色` },
+      { id: `gunjou`, kana: `ぐんじょう`, kanji: `群青`, zh: `群青色`, en: `ultramarine`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `gunjou`, note: `日本傳統色` },
+      { id: `aiiro`, kana: `あいいろ`, kanji: `藍色`, zh: `靛青`, en: `indigo`, type: `no`, jlpt: `N1`, cat: `color`, swatch: `aiiro`, note: `日本傳統色` },
+      { id: `koniro`, kana: `こんいろ`, kanji: `紺色`, zh: `深藍色`, en: `navy blue`, type: `no`, jlpt: `N3`, cat: `color`, swatch: `koniro`, note: `` },
+      { id: `kimidori`, kana: `きみどり`, kanji: `黄緑`, zh: `黃綠色`, en: `yellow-green`, type: `no`, jlpt: `N3`, cat: `color`, swatch: `kimidori`, note: `` },
+      { id: `shirokuro`, kana: `しろくろ`, kanji: `白黒`, zh: `黑白`, en: `black & white`, type: `no`, jlpt: `N4`, cat: `color`, swatch: `shirokuro`, note: `` },
+
+      /* Remaining adjectives from source */
+      { id: `mushiatsui`, kana: `むしあつい`, kanji: `蒸し暑い`, zh: `悶熱`, en: `hot and humid`, type: `i`, jlpt: `N4`, cat: `weather`, note: `` },
+      { id: `guaiwarui`, kana: `ぐあいがわるい`, kanji: `具合が悪い`, zh: `不舒服`, en: `not feeling well`, type: `phrase`, jlpt: `N4`, cat: `emotion`, note: `身體或機器狀況不佳` },
+      { id: `kimochiii`, kana: `きもちいい`, kanji: `気持ちいい`, zh: `舒服`, en: `feels good`, type: `phrase`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `nama`, kana: `なま`, kanji: `生`, zh: `生的`, en: `raw`, type: `no`, jlpt: `N3`, cat: `taste`, note: `接名詞用「生の」或複合詞` },
+      { id: `itai`, kana: `いたい`, kanji: `痛い`, zh: `痛`, en: `painful`, type: `i`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `hitsuyou`, kana: `ひつよう`, kanji: `必要`, zh: `必要`, en: `need / necessary`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `choudoii`, kana: `ちょうどいい`, kanji: `丁度いい`, zh: `正合適`, en: `just right`, type: `phrase`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `futsuu`, kana: `ふつう`, kanji: `普通`, zh: `普通 / 正常`, en: `ordinary`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `tadashii`, kana: `ただしい`, kanji: `正しい`, zh: `正確`, en: `correct`, type: `i`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `taihen`, kana: `たいへん`, kanji: `大変`, zh: `麻煩 / 辛苦 / 困難`, en: `tough / very much`, type: `na`, jlpt: `N4`, cat: `time`, note: `` },
+      { id: `boroboro`, kana: `ボロボロ`, kanji: ``, zh: `破舊不堪`, en: `worn out`, type: `na`, jlpt: `N2`, cat: `taste`, note: `擬態詞` },
+      { id: `fuwafuwa`, kana: `ふわふわ`, kanji: ``, zh: `毛茸茸 / 蓬鬆`, en: `fluffy`, type: `na`, jlpt: `N2`, cat: `taste`, note: `擬態詞` },
+      { id: `kirakira`, kana: `キラキラ`, kanji: ``, zh: `閃閃發光`, en: `sparkling`, type: `na`, jlpt: `N2`, cat: `color`, note: `擬態詞` },
+      { id: `muryou`, kana: `むりょう`, kanji: `無料`, zh: `免費`, en: `free of charge`, type: `no`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `ninki`, kana: `にんき`, kanji: `人気`, zh: `受歡迎 / 人氣`, en: `popular`, type: `na`, jlpt: `N4`, cat: `value`, note: `名詞性高，也常說「人気がある／人気の」` },
+      { id: `subarashii`, kana: `すばらしい`, kanji: `素晴らしい`, zh: `了不起 / 美好`, en: `wonderful`, type: `i`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `majime`, kana: `まじめ`, kanji: `真面目`, zh: `認真`, en: `serious`, type: `na`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `onaji`, kana: `おなじ`, kanji: `同じ`, zh: `一樣`, en: `same`, type: `na`, jlpt: `N4`, cat: `value`, note: `直接接名詞不加「な」：同じ物` },
+      { id: `nemui`, kana: `ねむい`, kanji: `眠い`, zh: `睏`, en: `sleepy`, type: `i`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `rippa`, kana: `りっぱ`, kanji: `立派`, zh: `了不起 / 出色 / 精良`, en: `magnificent / splendid`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `kisetsuno`, kana: `きせつの`, kanji: `季節の`, zh: `時令`, en: `seasonal`, type: `no`, jlpt: `N4`, cat: `taste`, note: `` },
+      { id: `shinsen`, kana: `しんせん`, kanji: `新鮮`, zh: `新鮮`, en: `fresh`, type: `na`, jlpt: `N4`, cat: `taste`, note: `` },
+      { id: `tezukuri`, kana: `てづくり`, kanji: `手作り`, zh: `手工 / 自己做的`, en: `handmade`, type: `no`, jlpt: `N3`, cat: `taste`, note: `接名詞用「手作りの」` },
+      { id: `betabeta`, kana: `べたべた`, kanji: ``, zh: `黏黏的`, en: `sticky`, type: `na`, jlpt: `N2`, cat: `taste`, note: `` },
+      { id: `warui`, kana: `わるい`, kanji: `悪い`, zh: `壞`, en: `bad`, type: `i`, jlpt: `N5`, cat: `value`, note: `` },
+      { id: `saiaku`, kana: `さいあく`, kanji: `最悪`, zh: `最糟糕的`, en: `the worst`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `zannen`, kana: `ざんねん`, kanji: `残念`, zh: `失望 / 遺憾`, en: `disappointing`, type: `na`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `saikou`, kana: `さいこう`, kanji: `最高`, zh: `最好的 / 最棒的`, en: `the best`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `kajuaru`, kana: `カジュアル`, kanji: ``, zh: `休閒`, en: `casual`, type: `na`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `hidoi`, kana: `ひどい`, kanji: ``, zh: `糟糕 / 嚴重`, en: `terrible`, type: `i`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `hen`, kana: `へん`, kanji: `変`, zh: `奇怪`, en: `strange`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `retoro`, kana: `レトロ`, kanji: ``, zh: `復古`, en: `retro`, type: `na`, jlpt: `N2`, cat: `emotion`, note: `` },
+      { id: `ooi`, kana: `おおい`, kanji: `多い`, zh: `多`, en: `many / much`, type: `i`, jlpt: `N5`, cat: `space`, note: `不可直接單獨修飾名詞，多作述語；筆記另有「多すぎ」` },
+      { id: `sukunai`, kana: `すくない`, kanji: `少ない`, zh: `少`, en: `few / little`, type: `i`, jlpt: `N5`, cat: `space`, note: `` },
+      { id: `iranai`, kana: `いらない`, kanji: `要らない`, zh: `不需要的`, en: `unnecessary`, type: `phrase`, jlpt: `N5`, cat: `value`, note: `動詞「要る」否定形作形容詞化使用` },
+      { id: `wakai`, kana: `わかい`, kanji: `若い`, zh: `年輕`, en: `young`, type: `i`, jlpt: `N4`, cat: `time`, note: `` },
+      { id: `toshiue`, kana: `としうえ`, kanji: `年上`, zh: `年長`, en: `older`, type: `no`, jlpt: `N4`, cat: `time`, note: `` },
+      { id: `wakuwaku`, kana: `わくわくする`, kanji: ``, zh: `令人興奮`, en: `exciting`, type: `phrase`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `kanashii`, kana: `かなしい`, kanji: `悲しい`, zh: `悲傷`, en: `sad`, type: `i`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `segatakai`, kana: `せがたかい`, kanji: `背が高い`, zh: `個子高`, en: `tall`, type: `phrase`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `kimochiwarui`, kana: `きもちわるい`, kanji: `気持ち悪い`, zh: `噁心的`, en: `disgusting`, type: `phrase`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `koegaookii`, kana: `こえがおおきい`, kanji: `声が大きい`, zh: `聲音很大`, en: `loud voice`, type: `phrase`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `kamiganagai`, kana: `かみがながい`, kanji: `髪が長い`, zh: `頭髮長`, en: `long hair`, type: `phrase`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `atamagaookii`, kana: `あたまがおおきい`, kanji: `頭が大きい`, zh: `頭大`, en: `big head`, type: `phrase`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `megaookii`, kana: `めがおおきい`, kanji: `目が大きい`, zh: `眼大`, en: `big eyes`, type: `phrase`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `mazusou`, kana: `まずそう`, kanji: `不味そう`, zh: `看起來很難吃`, en: `looks unappetizing`, type: `na`, jlpt: `N4`, cat: `taste`, note: `語幹＋「そう」表示視覺推測` },
+      { id: `kokochiii`, kana: `ここちいい`, kanji: `心地いい`, zh: `舒適`, en: `comfortable`, type: `phrase`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `otoku`, kana: `おとく`, kanji: `お得`, zh: `划算`, en: `good value`, type: `na`, jlpt: `N3`, cat: `value`, note: `` },
+      { id: `shinpai`, kana: `しんぱい`, kanji: `心配`, zh: `擔心`, en: `worried`, type: `na`, jlpt: `N5`, cat: `emotion`, note: `` },
+      { id: `tsuyoi`, kana: `つよい`, kanji: `強い`, zh: `強`, en: `strong`, type: `i`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `yowai`, kana: `よわい`, kanji: `弱い`, zh: `弱`, en: `weak`, type: `i`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `dentouteki`, kana: `でんとうてき`, kanji: `伝統的`, zh: `傳統`, en: `traditional`, type: `na`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `yabai`, kana: `やばい`, kanji: ``, zh: `糟糕 / 厲害（口語）`, en: `terrible / crazy`, type: `i`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `muri`, kana: `むり`, kanji: `無理`, zh: `不可能`, en: `impossible`, type: `na`, jlpt: `N4`, cat: `value`, note: `` },
+      { id: `tanoshimi`, kana: `たのしみ`, kanji: `楽しみ`, zh: `期待`, en: `looking forward`, type: `na`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `natsukashii`, kana: `なつかしい`, kanji: `懐かしい`, zh: `懷念的 / 懷舊`, en: `nostalgic`, type: `i`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `kawaki`, kana: `かわき`, kanji: `乾き`, zh: `乾`, en: `dry`, type: `no`, jlpt: `N3`, cat: `weather`, note: `` },
+      { id: `mainaa`, kana: `マイナー`, kanji: ``, zh: `小眾`, en: `minor`, type: `na`, jlpt: `N1`, cat: `value`, note: `` },
+      { id: `urayamashii`, kana: `うらやましい`, kanji: `羨ましい`, zh: `羨慕`, en: `envious`, type: `i`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `taisetsu`, kana: `たいせつ`, kanji: `大切`, zh: `重要`, en: `precious / important`, type: `na`, jlpt: `N5`, cat: `value`, note: `` },
+      { id: `atamagaii`, kana: `あたまがいい`, kanji: `頭がいい`, zh: `聰明`, en: `smart`, type: `phrase`, jlpt: `N4`, cat: `emotion`, note: `` },
+      { id: `kashikoi`, kana: `かしこい`, kanji: `賢い`, zh: `聰明`, en: `wise / clever`, type: `i`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `juubun`, kana: `じゅうぶん`, kanji: `十分`, zh: `足夠`, en: `enough`, type: `na`, jlpt: `N3`, cat: `value`, note: `` },
+      { id: `kaiteki`, kana: `かいてき`, kanji: `快適`, zh: `舒適`, en: `comfortable`, type: `na`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `jouhin`, kana: `じょうひん`, kanji: `上品`, zh: `高雅`, en: `elegant`, type: `na`, jlpt: `N2`, cat: `emotion`, note: `` },
+      { id: `hokorippoi`, kana: `ほこりっぽい`, kanji: `埃っぽい`, zh: `多塵的`, en: `dusty`, type: `i`, jlpt: `N2`, cat: `weather`, note: `` },
+      { id: `kichintoshita`, kana: `きちんとした`, kanji: ``, zh: `整潔 / 有條理`, en: `neat / proper`, type: `phrase`, jlpt: `N3`, cat: `weather`, note: `連體修飾表現` },
+      { id: `nikui`, kana: `にくい`, kanji: ``, zh: `難用 / 難以……`, en: `hard to do`, type: `i`, jlpt: `N2`, cat: `value`, note: `接於動詞ます形詞幹後（例：使いにくい）` },
+      { id: `fukai`, kana: `ふかい`, kanji: `不快`, zh: `令人不快`, en: `unpleasant`, type: `na`, jlpt: `N3`, cat: `emotion`, note: `` },
+      { id: `barebare`, kana: `バレバレ`, kanji: ``, zh: `明顯 / 穿幫`, en: `obvious`, type: `na`, jlpt: `N2`, cat: `value`, note: `` },
+      { id: `raku`, kana: `らく`, kanji: `楽`, zh: `輕鬆`, en: `easy / comfortable`, type: `na`, jlpt: `N4`, cat: `time`, note: `` },
+      { id: `tsugougaii`, kana: `つごうがいい`, kanji: `都合がいい`, zh: `方便 / 合適`, en: `convenient`, type: `phrase`, jlpt: `unrated`, cat: `time`, note: `` },
+      { id: `shitsugawarui`, kana: `しつがわるい`, kanji: `質が悪い`, zh: `質量差`, en: `poor quality`, type: `phrase`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `jitsuyouteki`, kana: `じつようてき`, kanji: `実用的`, zh: `實用的`, en: `practical`, type: `na`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `shinken`, kana: `しんけん`, kanji: `真剣`, zh: `認真`, en: `serious`, type: `na`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `osoroshii`, kana: `おそろしい`, kanji: `恐ろしい`, zh: `可怕的`, en: `terrible`, type: `i`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `ochitsuita`, kana: `おちついた`, kanji: `落ち着いた`, zh: `安靜沉穩的`, en: `calm`, type: `phrase`, jlpt: `unrated`, cat: `emotion`, note: `連體修飾表現` },
+      { id: `koukishin`, kana: `こうきしんがつよい`, kanji: `好奇心が強い`, zh: `好奇心強`, en: `curious`, type: `phrase`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `kappatsu`, kana: `かっぱつ`, kanji: `活発`, zh: `活躍`, en: `active`, type: `na`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `dekoboko`, kana: `でこぼこ`, kanji: `凸凹`, zh: `凹凸不平`, en: `uneven`, type: `na`, jlpt: `unrated`, cat: `space`, note: `` },
+      { id: `miryokuteki`, kana: `みりょくてき`, kanji: `魅力的`, zh: `有魅力的`, en: `charming`, type: `na`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `kimatta`, kana: `きまった`, kanji: `決まった`, zh: `固定`, en: `fixed`, type: `phrase`, jlpt: `unrated`, cat: `time`, note: `` },
+      { id: `fusawashii`, kana: `ふさわしい`, kanji: `相応しい`, zh: `合適`, en: `suitable`, type: `i`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `otonashii`, kana: `おとなしい`, kanji: `大人しい`, zh: `安靜 / 溫順`, en: `quiet / gentle`, type: `i`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `jouzu`, kana: `じょうず`, kanji: `上手`, zh: `熟練 / 擅長`, en: `skilled`, type: `na`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `komakai`, kana: `こまかい`, kanji: `細かい`, zh: `詳細 / 細微`, en: `fine / detailed`, type: `i`, jlpt: `unrated`, cat: `space`, note: `` },
+      { id: `teinei`, kana: `ていねい`, kanji: `丁寧`, zh: `禮貌 / 仔細`, en: `polite / careful`, type: `na`, jlpt: `unrated`, cat: `emotion`, note: `注意：詞尾雖為「い」，卻是な形容詞` },
+      { id: `fukigen`, kana: `ふきげん`, kanji: `不機嫌`, zh: `心情不好`, en: `bad mood`, type: `na`, jlpt: `unrated`, cat: `emotion`, note: `` },
+      { id: `surudoi`, kana: `するどい`, kanji: `鋭い`, zh: `鋒利`, en: `sharp`, type: `i`, jlpt: `unrated`, cat: `taste`, note: `` },
+      { id: `ippai`, kana: `いっぱい`, kanji: `一杯`, zh: `飽 / 滿`, en: `full`, type: `na`, jlpt: `unrated`, cat: `space`, note: `` },
+      { id: `shikatanai`, kana: `しかたない`, kanji: `仕方ない`, zh: `無可避免的`, en: `cannot be helped`, type: `i`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `nagamochi`, kana: `ながもち`, kanji: `長持ち`, zh: `耐用`, en: `durable`, type: `no`, jlpt: `unrated`, cat: `taste`, note: `` },
+      { id: `taira`, kana: `たいら`, kanji: `平ら`, zh: `平坦`, en: `flat`, type: `na`, jlpt: `unrated`, cat: `space`, note: `` },
+      { id: `kihonteki`, kana: `きほんてき`, kanji: `基本的`, zh: `基本的`, en: `basic`, type: `na`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `omoigakenai`, kana: `おもいがけない`, kanji: `思いがけない`, zh: `意想不到的`, en: `unexpected`, type: `i`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `tarinai`, kana: `たりない`, kanji: `足りない`, zh: `不足`, en: `not enough`, type: `i`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `jissaino`, kana: `じっさいの`, kanji: `実際の`, zh: `實際的`, en: `actual`, type: `no`, jlpt: `unrated`, cat: `value`, note: `` },
+      { id: `chantoshita`, kana: `ちゃんとした`, kanji: ``, zh: `良好的 / 像樣的`, en: `proper`, type: `phrase`, jlpt: `unrated`, cat: `value`, note: `` }
+    ];
+
+    const ANTONYM_PAIRS = [
+      { leftId: `ookii`, rightId: `chiisai`, axis: `尺寸` },
+      { leftId: `nagai`, rightId: `mijikai`, axis: `長度` },
+      { leftId: `akarui`, rightId: `kurai`, axis: `光線` },
+      { leftId: `atarashii`, rightId: `furui`, axis: `新舊` },
+      { leftId: `hayai`, rightId: `osoi`, axis: `速度` },
+      { leftId: `takai_price`, rightId: `yasui`, axis: `價格` },
+      { leftId: `atsui_weather`, rightId: `samui`, axis: `氣溫` },
+      { leftId: `atsui_thing`, rightId: `tsumetai`, axis: `物溫` },
+      { leftId: `takai_price`, rightId: `hikui`, axis: `高低` },
+      { leftId: `tooi`, rightId: `chikai`, axis: `距離` },
+      { leftId: `hiroi`, rightId: `semai`, axis: `空間` },
+      { leftId: `kirei`, rightId: `kitanai`, axis: `清潔` },
+      { leftId: `nigiyaka`, rightId: `shizuka`, axis: `氛圍` },
+      { leftId: `anzen`, rightId: `abunai`, axis: `安全` },
+      { leftId: `omoi`, rightId: `karui`, axis: `重量` },
+      { leftId: `futoi`, rightId: `hosoi`, axis: `粗細` },
+      { leftId: `kantan`, rightId: `muzukashii`, axis: `難易` },
+      { leftId: `oishii`, rightId: `mazui`, axis: `味道` },
+      { leftId: `atsui_thick`, rightId: `usui`, axis: `厚薄` },
+      { leftId: `koi`, rightId: `usui`, axis: `濃淡` },
+      { leftId: `hima`, rightId: `isogashii`, axis: `空閒` },
+      { leftId: `katai`, rightId: `yawarakai`, axis: `軟硬` },
+      { leftId: `yuumei`, rightId: `mumei`, axis: `名氣` },
+      { leftId: `tanoshii`, rightId: `tsumaranai`, axis: `樂趣` },
+      { leftId: `benri`, rightId: `fuben`, axis: `便利` },
+      { leftId: `suki`, rightId: `kirai`, axis: `好惡` },
+      { leftId: `kitsui`, rightId: `yurui`, axis: `鬆緊` },
+      { leftId: `ii`, rightId: `warui`, axis: `良莠` },
+      { leftId: `tokui`, rightId: `nigate`, axis: `擅長` },
+      { leftId: `oshare`, rightId: `dasai`, axis: `品味` },
+      { leftId: `saikou`, rightId: `saiaku`, axis: `評價` },
+      { leftId: `ooi`, rightId: `sukunai`, axis: `數量` },
+      { leftId: `wakai`, rightId: `toshiue`, axis: `年齡` },
+      { leftId: `tsuyoi`, rightId: `yowai`, axis: `強弱` },
+      { leftId: `taira`, rightId: `dekoboko`, axis: `平整` }
+    ];
+
+    const SENTENCES = [
+      {
+        id: `s1`,
+        jpKana: `このホテルはへやがきれいです`,
+        jpKanji: `このホテルは部屋が綺麗です`,
+        target: `きれいです`,
+        zh: `這家酒店的房間很乾淨`,
+        cat: `compare`,
+        grammar: `「綺麗（きれい）」是な形容詞，丁寧肯定句直接加「です」，不可當作い形容詞。`
+      },
+      {
+        id: `s2`,
+        jpKana: `またあえてうれしいです`,
+        jpKanji: `また会えて嬉しいです`,
+        target: `うれしいです`,
+        zh: `很高興再次見到你`,
+        cat: `te-reason`,
+        grammar: `前面動詞可能形て型表示原因，後接感情い形容詞「嬉しい＋です」。`
+      },
+      {
+        id: `s3`,
+        jpKana: `えいがをみたけどおもしろくなかったです`,
+        jpKanji: `映画を見たけど面白くなかったです`,
+        target: `おもしろくなかったです`,
+        zh: `我看了電影，不過不覺得好看`,
+        cat: `neg-past`,
+        grammar: `い形容詞「面白い」去い＋「くなかったです」，構成過去否定丁寧體。`
+      },
+      {
+        id: `s4`,
+        jpKana: `せんせいがだしたかだいはむずかしかったです`,
+        jpKanji: `先生が出した課題は難しかったです`,
+        target: `むずかしかったです`,
+        zh: `老師布置的作業很難`,
+        cat: `neg-past`,
+        grammar: `い形容詞「難しい」去い＋「かったです」，構成過去肯定丁寧體。`
+      },
+      {
+        id: `s5`,
+        jpKana: `しずかじゃなくてたのしいです`,
+        jpKanji: `静かじゃなくて楽しいです`,
+        target: `しずかじゃなくて`,
+        zh: `不是安靜，而是開心`,
+        cat: `neg-past`,
+        grammar: `な形容詞「静か」先接「じゃない」再轉為「なくて」表示「不是……而是……」。`
+      },
+      {
+        id: `s6`,
+        jpKana: `かっこよくてよかった`,
+        jpKanji: `かっこよくて良かった`,
+        target: `かっこよくてよかった`,
+        zh: `真帥氣，太好了`,
+        cat: `te-reason`,
+        grammar: `詞尾「いい」必須換成「よ」：かっこいい → かっこよくて（て型表原因）；いい → よかった（過去）。`
+      },
+      {
+        id: `s7`,
+        jpKana: `あたらしいからはやくみたい`,
+        jpKanji: `新しいから早く見たい`,
+        target: `はやく`,
+        zh: `因為是新的所以想快點看`,
+        cat: `adverb`,
+        grammar: `い形容詞「早い」去い＋「く」變成副詞「早く」，修飾後面的動詞「見たい」。`
+      },
+      {
+        id: `s8`,
+        jpKana: `かんたんだから、ちずはみなくていいよ`,
+        jpKanji: `簡単だから、地図は見なくていいよ`,
+        target: `かんたんだから`,
+        zh: `因為簡單，所以不用看地圖`,
+        cat: `te-reason`,
+        grammar: `な形容詞「簡単」接「から」表原因時，普通體須先加上「だ」成為「簡単だから」。`
+      },
+      {
+        id: `s9`,
+        jpKana: `ふるいジャケットよりあたらしいジャケットのほうがすきです`,
+        jpKanji: `古いジャケットより新しいジャケットのほうが好きです`,
+        target: `ふるい／あたらしい／すきです`,
+        zh: `我比較喜歡新的夾克而不是舊的夾克`,
+        cat: `compare`,
+        grammar: `い形容詞直接修飾名詞（古いジャケット），搭配比較句「AよりBのほうが好きです」。`
+      },
+      {
+        id: `s10`,
+        jpKana: `レインコートはかさよりべんりです`,
+        jpKanji: `レインコートは傘より便利です`,
+        target: `べんりです`,
+        zh: `雨衣比雨傘更方便`,
+        cat: `compare`,
+        grammar: `「AはBより〜」比較句型，搭配な形容詞「便利＋です」。`
+      },
+      {
+        id: `s11`,
+        jpKana: `むずかしくなくなります`,
+        jpKanji: `難しくなくなります`,
+        target: `むずかしくなくなります`,
+        zh: `不會變得難`,
+        cat: `adverb`,
+        grammar: `「難しい」去い＋「く」→「難しく」，再接「ない」的副詞形「なくなる」（變得不……）。`
+      },
+      {
+        id: `s12`,
+        jpKana: `ごごからくらくなるのがはやいでしょう`,
+        jpKanji: `午後から暗くなるのが早いでしょう`,
+        target: `くらくなる`,
+        zh: `從下午開始天黑得很早吧`,
+        cat: `adverb`,
+        grammar: `「暗い」去い＋「く」＋動詞「なる」，表示狀態的變化（變暗）。`
+      },
+      {
+        id: `s13`,
+        jpKana: `つまらないじかんだった`,
+        jpKanji: `つまらない時間だった`,
+        target: `つまらない／だった`,
+        zh: `那是一段無聊的時間`,
+        cat: `neg-past`,
+        grammar: `い形容詞「つまらない」直接修飾名詞「時間」，名詞句過去普通體以「だった」結尾。`
+      },
+      {
+        id: `s14`,
+        jpKana: `あめがひどかった`,
+        jpKanji: `雨がひどかった`,
+        target: `ひどかった`,
+        zh: `雨下得很大（很嚴重）`,
+        cat: `neg-past`,
+        grammar: `い形容詞「ひどい」去い＋「かった」為過去普通體。`
+      },
+      {
+        id: `s15`,
+        jpKana: `おなかがへんなのでてんいんにいいたいです`,
+        jpKanji: `おなかが変なので店員に言いたいです`,
+        target: `へんなので`,
+        zh: `因為肚子怪怪，所以想告訴店員`,
+        cat: `te-reason`,
+        grammar: `な形容詞「変」接委婉原因「ので」時，必須保留「な」成為「変なので」。`
+      },
+      {
+        id: `s16`,
+        jpKana: `リビングがカフェみたいになりました`,
+        jpKanji: `リビングがカフェみたいになりました`,
+        target: `みたいになりました`,
+        zh: `客廳變得像咖啡館一樣了`,
+        cat: `adverb`,
+        grammar: `「みたいだ」比喻助動詞按な形容詞規則變化，接動詞「なる」時使用「〜みたいに」。`
+      },
+      {
+        id: `s17`,
+        jpKana: `からだにわるい／さかなはからだにいい`,
+        jpKanji: `体に悪い／魚は体にいい`,
+        target: `わるい／いい`,
+        zh: `對身體不好／魚對身體好`,
+        cat: `compare`,
+        grammar: `助詞「に」表示對象・益害方向（對身體而言），搭配相反詞「いい／悪い」。`
+      },
+      {
+        id: `s18`,
+        jpKana: `でんちがきれにくい`,
+        jpKanji: `電池が切れにくい`,
+        target: `きれにくい`,
+        zh: `電池不容易用完`,
+        cat: `compare`,
+        grammar: `動詞ます形去ます（切れ）＋「にくい」，構成「難以……」的い形容詞。`
+      }
+    ];
+
+    const CATEGORY_LABELS = {
+      space: `尺寸・空間`,
+      time: `速度・難易`,
+      weather: `溫度・環境`,
+      taste: `味覺・質感`,
+      value: `價值・評價`,
+      emotion: `情感・外觀`,
+      color: `日本色彩`
+    };
+
+    const TYPE_LABELS = {
+      i: `い形容詞`,
+      na: `な形容詞`,
+      no: `名詞・の型`,
+      phrase: `短語・狀態`
+    };
+
+    /* ============================================================
+       2. APPLICATION STATE & PERSISTENCE
+       ============================================================ */
+    let appState = {
+      masteredIds: [],
+      reviewIds: [],
+      quizHistory: [],
+      bestStreak: 0
+    };
+
+    let currentCategory = `all`;
+    let spotlightRevealed = true;
+    let currentSpotlightId = `atarashii`;
+    let antonymMaskMode = `none`;
+    let labHighlightOn = true;
+    let sentenceFilter = `all`;
+    let sentenceShowKanji = true;
+    let sentenceHideZh = false;
+
+    let activeQuiz = null;
+
+    function getAdjById(id) {
+      return ADJECTIVES.find(function (item) { return item.id === id; }) || null;
+    }
+
+    async function saveState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          /* Ignore transient storage failure */
+        }
+      }
+    }
+
+    function updateKpis() {
+      const totalEl = document.getElementById(`kpi-total-words`);
+      const pairsEl = document.getElementById(`kpi-total-pairs`);
+      const masteredEl = document.getElementById(`kpi-mastered`);
+      const masteredNoteEl = document.getElementById(`kpi-mastered-note`);
+      const streakEl = document.getElementById(`kpi-best-streak`);
+      const quizSummaryEl = document.getElementById(`kpi-quiz-summary`);
+
+      if (totalEl) totalEl.textContent = String(ADJECTIVES.length);
+      if (pairsEl) pairsEl.textContent = String(ANTONYM_PAIRS.length);
+      if (masteredEl) masteredEl.textContent = String(appState.masteredIds.length);
+      if (masteredNoteEl) {
+        const pct = Math.round((appState.masteredIds.length / ADJECTIVES.length) * 100);
+        masteredNoteEl.textContent = appState.masteredIds.length > 0
+          ? `已完成詞庫 ${pct}%（待複習 ${appState.reviewIds.length} 詞）`
+          : `點擊卡片「標記熟記」累積進度`;
+      }
+      if (streakEl) streakEl.textContent = String(appState.bestStreak || 0);
+      if (quizSummaryEl) {
+        if (appState.quizHistory && appState.quizHistory.length > 0) {
+          const last = appState.quizHistory[appState.quizHistory.length - 1];
+          quizSummaryEl.textContent = `最近測驗：${last.score}/${last.total} 題（累計 ${appState.quizHistory.length} 回）`;
+        } else {
+          quizSummaryEl.textContent = `尚未進行測驗，前往第六節挑戰`;
+        }
+      }
+    }
+
+    /* ============================================================
+       3. SECTION 02: VOCABULARY ATLAS & FLASHCARD SPOTLIGHT
+       ============================================================ */
+    function renderSpotlight() {
+      const adj = getAdjById(currentSpotlightId) || ADJECTIVES[0];
+      const kanaEl = document.getElementById(`spot-kana`);
+      const kanjiEl = document.getElementById(`spot-kanji`);
+      const typeEl = document.getElementById(`spot-type`);
+      const jlptEl = document.getElementById(`spot-jlpt`);
+      const meaningEl = document.getElementById(`spot-meaning`);
+      const labBtn = document.getElementById(`spot-lab-btn`);
+
+      if (kanaEl) kanaEl.textContent = adj.kana;
+      if (kanjiEl) kanjiEl.textContent = adj.kanji || ``;
+      if (typeEl) {
+        typeEl.textContent = TYPE_LABELS[adj.type] || adj.type;
+        typeEl.className = `tag ${adj.type === `i` ? `tag-i` : adj.type === `na` ? `tag-na` : `tag-no`}`;
+      }
+      if (jlptEl) jlptEl.textContent = adj.jlpt === `unrated` ? `補充` : adj.jlpt;
+      if (labBtn) {
+        const canConj = adj.type === `i` || adj.type === `na`;
+        labBtn.disabled = !canConj;
+        labBtn.textContent = canConj ? `套用活用` : `此詞類不需詞尾活用`;
+      }
+      if (meaningEl) {
+        if (spotlightRevealed) {
+          meaningEl.textContent = `${adj.zh}${adj.en ? `（${adj.en}）` : ``}${adj.note ? ` — ${adj.note}` : ``}`;
+        } else {
+          meaningEl.textContent = `［已遮蔽釋義，請先回憶詞義再點擊顯示］`;
+        }
+      }
+    }
+
+    function drawRandomFlashcard() {
+      const idx = Math.floor(Math.random() * ADJECTIVES.length);
+      currentSpotlightId = ADJECTIVES[idx].id;
+      spotlightRevealed = true;
+      renderSpotlight();
+    }
+
+    function toggleSpotlightAnswer() {
+      spotlightRevealed = !spotlightRevealed;
+      renderSpotlight();
+    }
+
+    function sendSpotlightToLab() {
+      sendToLab(currentSpotlightId);
+    }
+
+    function setCategoryFilter(cat, btn) {
+      currentCategory = cat;
+      const strip = document.getElementById(`category-filter-strip`);
+      if (strip) {
+        const buttons = strip.querySelectorAll(`.filter-btn`);
+        buttons.forEach(function (b) { b.classList.remove(`active`); });
+      }
+      if (btn) btn.classList.add(`active`);
+      renderVocabGrid();
+    }
+
+    function handleFilterChange() {
+      renderVocabGrid();
+    }
+
+    function resetAtlasFilters() {
+      const searchEl = document.getElementById(`vocab-search`);
+      const typeEl = document.getElementById(`vocab-type-select`);
+      const jlptEl = document.getElementById(`vocab-jlpt-select`);
+      const statusEl = document.getElementById(`vocab-status-select`);
+      if (searchEl) searchEl.value = ``;
+      if (typeEl) typeEl.value = `all`;
+      if (jlptEl) jlptEl.value = `all`;
+      if (statusEl) statusEl.value = `all`;
+      currentCategory = `all`;
+      const strip = document.getElementById(`category-filter-strip`);
+      if (strip) {
+        const buttons = strip.querySelectorAll(`.filter-btn`);
+        buttons.forEach(function (b) {
+          if (b.dataset.cat === `all`) b.classList.add(`active`);
+          else b.classList.remove(`active`);
+        });
+      }
+      renderVocabGrid();
+    }
+
+    function getTypeBadgeClass(type) {
+      if (type === `i`) return `tag-i`;
+      if (type === `na`) return `tag-na`;
+      if (type === `no`) return `tag-no`;
+      return ``;
+    }
+
+    function renderVocabGrid() {
+      const grid = document.getElementById(`vocab-grid`);
+      const countLabel = document.getElementById(`atlas-count-label`);
+      if (!grid) return;
+
+      const searchEl = document.getElementById(`vocab-search`);
+      const typeEl = document.getElementById(`vocab-type-select`);
+      const jlptEl = document.getElementById(`vocab-jlpt-select`);
+      const statusEl = document.getElementById(`vocab-status-select`);
+
+      const q = (searchEl ? searchEl.value : ``).trim().toLowerCase();
+      const typeVal = typeEl ? typeEl.value : `all`;
+      const jlptVal = jlptEl ? jlptEl.value : `all`;
+      const statusVal = statusEl ? statusEl.value : `all`;
+
+      const filtered = ADJECTIVES.filter(function (item) {
+        if (currentCategory !== `all` && item.cat !== currentCategory) return false;
+        if (typeVal !== `all` && item.type !== typeVal) return false;
+        if (jlptVal !== `all` && item.jlpt !== jlptVal) return false;
+
+        const isMastered = appState.masteredIds.indexOf(item.id) !== -1;
+        const isReview = appState.reviewIds.indexOf(item.id) !== -1;
+        if (statusVal === `mastered` && !isMastered) return false;
+        if (statusVal === `unmastered` && isMastered) return false;
+        if (statusVal === `review` && !isReview) return false;
+
+        if (q) {
+          const hay = `${item.kana} ${item.kanji} ${item.zh} ${item.en} ${item.jlpt} ${item.note}`.toLowerCase();
+          if (hay.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+
+      if (countLabel) {
+        countLabel.textContent = `顯示 ${filtered.length} / ${ADJECTIVES.length} 筆詞條`;
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1 / -1;"><p style="margin:0 0 var(--space-sm); font-weight:600;">找不到符合條件的形容詞</p><p style="margin:0 0 var(--space-md); color:var(--on-surface-variant);">請嘗試清除關鍵字或重設分類與級別篩選。</p><button type="button" class="btn btn-primary btn-sm" onclick="resetAtlasFilters()">重設所有篩選</button></div>`;
+        return;
+      }
+
+      const cardsHtml = filtered.map(function (item) {
+        const isMastered = appState.masteredIds.indexOf(item.id) !== -1;
+        const isReview = appState.reviewIds.indexOf(item.id) !== -1;
+        const canConjugate = (item.type === `i` || item.type === `na`) && item.cat !== `color` ? true : (item.type === `i`);
+        const swatchHtml = item.swatch
+          ? `<div class="color-swatch-row"><span class="color-swatch" style="background-color: var(--swatch-${item.swatch});" aria-hidden="true"></span><span class="vocab-meaning">${item.zh}</span></div>`
+          : `<div class="vocab-meaning">${item.zh}</div>`;
+
+        return `<article class="vocab-card ${isMastered ? `is-mastered` : ``}">
+          <div class="vocab-card-head">
+            <div>
+              <div class="vocab-kana">${item.kana}</div>
+              ${item.kanji ? `<div class="vocab-kanji">${item.kanji}</div>` : ``}
+            </div>
+            <div class="vocab-tags">
+              <span class="tag ${getTypeBadgeClass(item.type)}">${TYPE_LABELS[item.type]}</span>
+              <span class="tag tag-jlpt">${item.jlpt === `unrated` ? `補充` : item.jlpt}</span>
+            </div>
+          </div>
+          ${swatchHtml}
+          ${item.en ? `<div class="vocab-english">${item.en} · ${CATEGORY_LABELS[item.cat]}</div>` : `<div class="vocab-english">${CATEGORY_LABELS[item.cat]}</div>`}
+          ${item.note ? `<div class="vocab-note">${item.note}</div>` : ``}
+          <div class="vocab-actions">
+            <button type="button" class="btn btn-sm ${isMastered ? `btn-active` : ``}" onclick="toggleMastered('${item.id}')">${isMastered ? `已熟記` : `標記熟記`}</button>
+            <button type="button" class="btn btn-sm ${isReview ? `btn-tertiary` : ``}" onclick="toggleReview('${item.id}')">${isReview ? `移出複習` : `加入複習`}</button>
+            ${canConjugate ? `<button type="button" class="btn btn-sm" onclick="sendToLab('${item.id}')">套用活用</button>` : ``}
+            <button type="button" class="btn btn-sm" onclick="speakJapanese('${item.kana}')">發音</button>
+          </div>
+        </article>`;
+      }).join(``);
+
+      grid.innerHTML = cardsHtml;
+    }
+
+    async function toggleMastered(id) {
+      const idx = appState.masteredIds.indexOf(id);
+      if (idx === -1) {
+        appState.masteredIds.push(id);
+      } else {
+        appState.masteredIds.splice(idx, 1);
+      }
+      updateKpis();
+      renderVocabGrid();
+      await saveState();
+    }
+
+    async function toggleReview(id) {
+      const idx = appState.reviewIds.indexOf(id);
+      if (idx === -1) {
+        appState.reviewIds.push(id);
+      } else {
+        appState.reviewIds.splice(idx, 1);
+      }
+      updateKpis();
+      renderVocabGrid();
+      await saveState();
+    }
+
+    function speakJapanese(text) {
+      if (`speechSynthesis` in window) {
+        try {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = `ja-JP`;
+          utter.rate = 0.9;
+          window.speechSynthesis.speak(utter);
+        } catch (err) {
+          /* Safe no-op if speech synthesis unavailable */
+        }
+      }
+    }
+
+    /* ============================================================
+       4. SECTION 03: ANTONYM CONTRAST PAIRS
+       ============================================================ */
+    function setAntonymMask(mode) {
+      antonymMaskMode = mode;
+      const modes = [`none`, `right`, `left`, `meaning`];
+      modes.forEach(function (m) {
+        const btn = document.getElementById(`mask-${m}`);
+        if (btn) {
+          if (m === mode) btn.classList.add(`btn-active`);
+          else btn.classList.remove(`btn-active`);
+        }
+      });
+      renderAntonymGrid();
+    }
+
+    function revealAntonymSide(btn) {
+      if (!btn) return;
+      btn.classList.remove(`is-masked`);
+      btn.querySelectorAll(`.is-masked`).forEach(function (el) {
+        el.classList.remove(`is-masked`);
+      });
+    }
+
+    function renderAntonymGrid() {
+      const grid = document.getElementById(`antonym-grid`);
+      if (!grid) return;
+
+      const html = ANTONYM_PAIRS.map(function (pair) {
+        const left = getAdjById(pair.leftId);
+        const right = getAdjById(pair.rightId);
+        if (!left || !right) return ``;
+
+        const leftMasked = antonymMaskMode === `left` ? `is-masked` : ``;
+        const rightMasked = antonymMaskMode === `right` ? `is-masked` : ``;
+        const meaningMasked = antonymMaskMode === `meaning` ? `is-masked` : ``;
+
+        return `<div class="antonym-pair">
+          <button type="button" class="antonym-side ${leftMasked}" onclick="revealAntonymSide(this)">
+            <div style="display:flex; justify-content:space-between; gap:4px; align-items:center;">
+              <span class="tag ${getTypeBadgeClass(left.type)}">${TYPE_LABELS[left.type]}</span>
+              <span class="tag tag-jlpt">${left.jlpt === `unrated` ? `補充` : left.jlpt}</span>
+            </div>
+            <div class="vocab-kana maskable">${left.kana}</div>
+            ${left.kanji ? `<div class="vocab-kanji maskable">${left.kanji}</div>` : ``}
+            <div class="maskable ${meaningMasked}" style="font-weight:600; margin-top:4px;">${left.zh}</div>
+          </button>
+          <div class="antonym-axis">
+            <span style="font-weight:600; color:var(--on-surface-variant);">${pair.axis}</span>
+            <span aria-hidden="true">↔</span>
+          </div>
+          <button type="button" class="antonym-side ${rightMasked}" onclick="revealAntonymSide(this)">
+            <div style="display:flex; justify-content:space-between; gap:4px; align-items:center;">
+              <span class="tag ${getTypeBadgeClass(right.type)}">${TYPE_LABELS[right.type]}</span>
+              <span class="tag tag-jlpt">${right.jlpt === `unrated` ? `補充` : right.jlpt}</span>
+            </div>
+            <div class="vocab-kana maskable">${right.kana}</div>
+            ${right.kanji ? `<div class="vocab-kanji maskable">${right.kanji}</div>` : ``}
+            <div class="maskable ${meaningMasked}" style="font-weight:600; margin-top:4px;">${right.zh}</div>
+          </button>
+        </div>`;
+      }).join(``);
+
+      grid.innerHTML = html;
+    }
+
+    /* ============================================================
+       5. SECTION 04: CONJUGATION ENGINE & INTERACTIVE LAB
+       ============================================================ */
+    function conjugateAdjective(adj, politeness) {
+      const isPolite = politeness === `polite`;
+      const isGoodSpecial = adj.kana === `いい` || adj.kana === `かっこいい`;
+
+      if (adj.type === `i`) {
+        let stem = adj.kana.slice(0, -1);
+        if (adj.kana === `いい`) stem = `よ`;
+        else if (adj.kana === `かっこいい`) stem = `かっこよ`;
+
+        const dictStem = adj.kana.slice(0, -1);
+        const dictEnd = `い`;
+
+        return [
+          {
+            label: `辭書形（原型）`,
+            stem: dictStem,
+            ending: dictEnd,
+            suffix: isPolite ? `です` : ``,
+            formula: `直接修飾名詞：${adj.kana}＋名詞`,
+            isException: false
+          },
+          {
+            label: `現在否定形`,
+            stem: stem,
+            ending: isPolite ? `くないです` : `くない`,
+            alt: isPolite ? `${stem}くありません` : ``,
+            formula: isGoodSpecial ? `例外：詞尾「いい」先改為「よ」＋くない` : `去掉「い」＋くない${isPolite ? `です` : ``}`,
+            isException: isGoodSpecial
+          },
+          {
+            label: `過去肯定形（た型）`,
+            stem: stem,
+            ending: isPolite ? `かったです` : `かった`,
+            formula: isGoodSpecial ? `例外：「いい」→「よ」＋かった` : `去掉「い」＋かった${isPolite ? `です` : ``}`,
+            isException: isGoodSpecial
+          },
+          {
+            label: `過去否定形`,
+            stem: stem,
+            ending: isPolite ? `くなかったです` : `くなかった`,
+            formula: `去掉「い」＋くなかった${isPolite ? `です` : ``}`,
+            isException: isGoodSpecial
+          },
+          {
+            label: `て型（並列・原因）`,
+            stem: stem,
+            ending: `くて`,
+            formula: `去掉「い」＋くて（表「又……又……」或原因）`,
+            isException: isGoodSpecial
+          },
+          {
+            label: `假定形（ば型）`,
+            stem: stem,
+            ending: `ければ`,
+            formula: `去掉「い」＋ければ（如果……的話）`,
+            isException: isGoodSpecial
+          },
+          {
+            label: `副詞化（接動詞）`,
+            stem: stem,
+            ending: `く`,
+            suffix: `なる／する`,
+            formula: `去掉「い」＋く＋動詞（變得……）`,
+            isException: isGoodSpecial
+          },
+          {
+            label: `越……越……`,
+            stem: `${stem}ければ`,
+            ending: `${adj.kana}ほど`,
+            formula: `ば型＋辭書型＋ほど`,
+            isException: isGoodSpecial
+          }
+        ];
+      }
+
+      /* な形容詞 */
+      const stem = adj.kana;
+      return [
+        {
+          label: `修飾名詞形`,
+          stem: stem,
+          ending: `な`,
+          suffix: `＋名詞`,
+          formula: `な形容詞接名詞必須加「な」`,
+          isException: adj.kana === `きれい` || adj.kana === `ゆうめい` || adj.kana === `きらい` || adj.kana === `とくい` || adj.kana === `ていねい`
+        },
+        {
+          label: `現在肯定形`,
+          stem: stem,
+          ending: isPolite ? `です` : `だ`,
+          formula: `語幹＋${isPolite ? `です（丁寧體）` : `だ（普通體）`}`,
+          isException: false
+        },
+        {
+          label: `現在否定形`,
+          stem: stem,
+          ending: isPolite ? `じゃないです` : `じゃない`,
+          alt: isPolite ? `${stem}ではありません` : `${stem}ではない`,
+          formula: `語幹＋じゃない${isPolite ? `です／ではありません` : `／ではない`}`,
+          isException: false
+        },
+        {
+          label: `過去肯定形（た型）`,
+          stem: stem,
+          ending: isPolite ? `でした` : `だった`,
+          formula: `語幹＋${isPolite ? `でした（丁寧體）` : `だった（普通體）`}`,
+          isException: false
+        },
+        {
+          label: `過去否定形`,
+          stem: stem,
+          ending: isPolite ? `じゃなかったです` : `じゃなかった`,
+          alt: isPolite ? `${stem}ではありませんでした` : `${stem}ではなかった`,
+          formula: `語幹＋じゃなかった${isPolite ? `です` : ``}`,
+          isException: false
+        },
+        {
+          label: `て型（並列・原因）`,
+          stem: stem,
+          ending: `で`,
+          formula: `語幹＋で（接續下一個形容詞或句子）`,
+          isException: false
+        },
+        {
+          label: `假定形（ば型）`,
+          stem: stem,
+          ending: `なら（ば）`,
+          alt: `${stem}であれば`,
+          formula: `語幹＋なら（ば）／であれば`,
+          isException: false
+        },
+        {
+          label: `副詞化（接動詞）`,
+          stem: stem,
+          ending: `に`,
+          suffix: `なる／する`,
+          formula: `語幹＋に＋動詞（變得……／……地做）`,
+          isException: false
+        }
+      ];
+    }
+
+    function populateLabSelect() {
+      const sel = document.getElementById(`lab-word-select`);
+      if (!sel) return;
+      const conjugatable = ADJECTIVES.filter(function (a) {
+        return a.type === `i` || a.type === `na`;
+      });
+      sel.innerHTML = conjugatable.map(function (a) {
+        return `<option value="${a.id}">${a.kana}${a.kanji ? `（${a.kanji}）` : ``} — ${a.zh}［${TYPE_LABELS[a.type]}］</option>`;
+      }).join(``);
+      sel.value = `takai_price`;
+    }
+
+    function onLabWordSelect() {
+      renderConjugationLab();
+    }
+
+    function selectLabWordByKana(kana) {
+      const target = ADJECTIVES.find(function (a) { return a.kana === kana && (a.type === `i` || a.type === `na`); });
+      if (!target) return;
+      const sel = document.getElementById(`lab-word-select`);
+      if (sel) {
+        sel.value = target.id;
+        renderConjugationLab();
+      }
+    }
+
+    function sendToLab(id) {
+      const sel = document.getElementById(`lab-word-select`);
+      if (sel) {
+        sel.value = id;
+        renderConjugationLab();
+      }
+      const labEl = document.getElementById(`sec-conjugation`);
+      if (labEl) labEl.scrollIntoView({ behavior: `smooth` });
+    }
+
+    function toggleLabHighlight() {
+      labHighlightOn = !labHighlightOn;
+      const btn = document.getElementById(`lab-highlight-toggle`);
+      if (btn) {
+        btn.classList.toggle(`btn-active`, labHighlightOn);
+        btn.textContent = labHighlightOn ? `已開啟詞尾標紅拆解` : `已關閉詞尾拆解`;
+      }
+      renderConjugationLab();
+    }
+
+    function renderConjugationLab() {
+      const sel = document.getElementById(`lab-word-select`);
+      const polSel = document.getElementById(`lab-politeness-select`);
+      const banner = document.getElementById(`lab-active-banner`);
+      const grid = document.getElementById(`lab-results-grid`);
+      if (!sel || !grid) return;
+
+      const adj = getAdjById(sel.value) || ADJECTIVES[0];
+      const politeness = polSel ? polSel.value : `polite`;
+      const forms = conjugateAdjective(adj, politeness);
+
+      if (banner) {
+        banner.innerHTML = `<div style="display:flex; flex-wrap:wrap; align-items:center; gap:var(--space-sm);">
+          <span class="vocab-kana">${adj.kana}</span>
+          ${adj.kanji ? `<span class="vocab-kanji">${adj.kanji}</span>` : ``}
+          <span class="tag ${getTypeBadgeClass(adj.type)}">${TYPE_LABELS[adj.type]}</span>
+          <span style="font-weight:600;">${adj.zh}</span>
+          ${adj.note ? `<span style="color:var(--tertiary); font-size:0.875rem;">（${adj.note}）</span>` : ``}
+        </div>`;
+      }
+
+      grid.innerHTML = forms.map(function (f) {
+        const renderedWord = labHighlightOn
+          ? `<span class="stem-part">${f.stem}</span><span class="ending-part">${f.ending}</span>${f.suffix ? `<span style="color:var(--on-surface-variant); font-size:1rem;"> ${f.suffix}</span>` : ``}`
+          : `${f.stem}${f.ending}${f.suffix ? ` ${f.suffix}` : ``}`;
+
+        return `<div class="conj-card ${f.isException ? `is-exception` : ``}">
+          <div class="conj-form-title">${f.label}</div>
+          <div class="conj-output">${renderedWord}</div>
+          ${f.alt ? `<div class="conj-formula" style="margin-bottom:4px;">亦可說：<strong>${f.alt}</strong></div>` : ``}
+          <div class="conj-formula">${f.formula}</div>
+        </div>`;
+      }).join(``);
+    }
+
+    /* ============================================================
+       6. SECTION 05: CONTEXTUAL SENTENCES
+       ============================================================ */
+    function setSentenceFilter(cat, btn) {
+      sentenceFilter = cat;
+      const strip = document.getElementById(`sentence-filter-strip`);
+      if (strip) {
+        strip.querySelectorAll(`.filter-btn`).forEach(function (b) { b.classList.remove(`active`); });
+      }
+      if (btn) btn.classList.add(`active`);
+      renderSentences();
+    }
+
+    function toggleSentenceScript() {
+      sentenceShowKanji = !sentenceShowKanji;
+      const btn = document.getElementById(`btn-toggle-kanji`);
+      if (btn) btn.textContent = sentenceShowKanji ? `切換純假名版本` : `切換漢字版本`;
+      renderSentences();
+    }
+
+    function toggleSentenceTranslation() {
+      sentenceHideZh = !sentenceHideZh;
+      const btn = document.getElementById(`btn-toggle-zh`);
+      if (btn) btn.classList.toggle(`btn-active`, sentenceHideZh);
+      renderSentences();
+    }
+
+    function revealSentenceZh(el) {
+      if (el) el.classList.remove(`is-hidden`);
+    }
+
+    function renderSentences() {
+      const grid = document.getElementById(`sentence-grid`);
+      if (!grid) return;
+
+      const list = SENTENCES.filter(function (s) {
+        return sentenceFilter === `all` || s.cat === sentenceFilter;
+      });
+
+      grid.innerHTML = list.map(function (s) {
+        const jpMain = sentenceShowKanji ? s.jpKanji : s.jpKana;
+        const jpSub = sentenceShowKanji ? s.jpKana : s.jpKanji;
+        return `<article class="sentence-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:var(--space-xs);">
+            <span class="tag">${s.target}</span>
+            <button type="button" class="btn btn-sm" onclick="speakJapanese('${s.jpKana}')">朗讀</button>
+          </div>
+          <div class="sentence-jp">${jpMain}</div>
+          <div style="font-size:0.875rem; color:var(--on-surface-variant);">${jpSub}</div>
+          <div class="sentence-zh ${sentenceHideZh ? `is-hidden` : ``}" onclick="revealSentenceZh(this)">${s.zh}</div>
+          <div class="sentence-grammar">${s.grammar}</div>
+        </article>`;
+      }).join(``);
+    }
+
+    /* ============================================================
+       7. SECTION 06: INTERACTIVE QUIZ ENGINE
+       ============================================================ */
+    function shuffleArray(arr) {
+      const copy = arr.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = tmp;
+      }
+      return copy;
+    }
+
+    function buildQuizPool(level) {
+      return ADJECTIVES.filter(function (item) {
+        if (level === `N5`) return item.jlpt === `N5`;
+        if (level === `N4`) return item.jlpt === `N5` || item.jlpt === `N4`;
+        if (level === `N3+`) return item.jlpt === `N3` || item.jlpt === `N2` || item.jlpt === `N1`;
+        return true;
+      });
+    }
+
+    function makeMeaningQuestion(pool) {
+      const target = pool[Math.floor(Math.random() * pool.length)];
+      const askJpToZh = Math.random() > 0.4;
+      const distractors = shuffleArray(ADJECTIVES.filter(function (a) {
+        return a.id !== target.id && a.zh !== target.zh;
+      })).slice(0, 3);
+
+      const options = shuffleArray([target].concat(distractors)).map(function (opt) {
+        return {
+          label: askJpToZh ? opt.zh : `${opt.kana}${opt.kanji ? `（${opt.kanji}）` : ``}`,
+          isCorrect: opt.id === target.id
+        };
+      });
+
+      return {
+        typeLabel: `詞義辨識`,
+        adjId: target.id,
+        prompt: askJpToZh ? `${target.kana}${target.kanji ? `（${target.kanji}）` : ``}` : target.zh,
+        subPrompt: askJpToZh ? `請選出正確的中文意思（${TYPE_LABELS[target.type]}・${target.jlpt === `unrated` ? `補充` : target.jlpt}）` : `請選出對應的日語形容詞`,
+        options: options,
+        explanation: `「${target.kana}${target.kanji ? `／${target.kanji}` : ``}」為${TYPE_LABELS[target.type]}，意思是「${target.zh}」${target.note ? `（${target.note}）` : ``}。`
+      };
+    }
+
+    function makeAntonymQuestion() {
+      const pair = ANTONYM_PAIRS[Math.floor(Math.random() * ANTONYM_PAIRS.length)];
+      const flip = Math.random() > 0.5;
+      const base = getAdjById(flip ? pair.rightId : pair.leftId);
+      const ans = getAdjById(flip ? pair.leftId : pair.rightId);
+      const distractors = shuffleArray(ADJECTIVES.filter(function (a) {
+        return a.id !== base.id && a.id !== ans.id && a.zh !== ans.zh;
+      })).slice(0, 3);
+
+      const options = shuffleArray([ans].concat(distractors)).map(function (opt) {
+        return {
+          label: `${opt.kana}${opt.kanji ? `（${opt.kanji}）` : ``} — ${opt.zh}`,
+          isCorrect: opt.id === ans.id
+        };
+      });
+
+      return {
+        typeLabel: `相反詞配對（${pair.axis}）`,
+        adjId: base.id,
+        prompt: `${base.kana}${base.kanji ? `（${base.kanji}）` : ``}「${base.zh}」`,
+        subPrompt: `請選出上列單字的相反詞`,
+        options: options,
+        explanation: `「${base.kana}（${base.zh}）」與「${ans.kana}（${ans.zh}）」為${pair.axis}相反詞對。`
+      };
+    }
+
+    function makeConjugationQuestion(pool) {
+      const conjugatable = pool.filter(function (a) { return a.type === `i` || a.type === `na`; });
+      const target = conjugatable[Math.floor(Math.random() * conjugatable.length)];
+      const forms = conjugateAdjective(target, `polite`);
+      /* Pick index 1..5 (neg, past, past-neg, te, ba) */
+      const formIdx = 1 + Math.floor(Math.random() * 4);
+      const chosen = forms[formIdx];
+      const correctStr = `${chosen.stem}${chosen.ending}`;
+
+      let wrongPool = [];
+      if (target.type === `i`) {
+        const stem = target.kana === `いい` ? `よ` : target.kana === `かっこいい` ? `かっこよ` : target.kana.slice(0, -1);
+        const rawStem = target.kana.slice(0, -1);
+        wrongPool = [
+          `${target.kana}じゃないです`,
+          `${rawStem}くないです`,
+          `${stem}かった`,
+          `${stem}くなかったです`,
+          `${stem}くて`,
+          `${stem}でした`,
+          `${stem}くないです`
+        ];
+      } else {
+        wrongPool = [
+          `${target.kana.slice(0, -1)}くないです`,
+          `${target.kana}かった`,
+          `${target.kana}くなかったです`,
+          `${target.kana}くて`,
+          `${target.kana}じゃないです`,
+          `${target.kana}でした`,
+          `${target.kana}じゃなかったです`
+        ];
+      }
+
+      const uniqueWrong = [];
+      wrongPool.forEach(function (w) {
+        if (w !== correctStr && uniqueWrong.indexOf(w) === -1) uniqueWrong.push(w);
+      });
+
+      const distractors = shuffleArray(uniqueWrong).slice(0, 3);
+      const options = shuffleArray([{ label: correctStr, isCorrect: true }].concat(distractors.map(function (d) {
+        return { label: d, isCorrect: false };
+      })));
+
+      return {
+        typeLabel: `詞尾活用實戰`,
+        adjId: target.id,
+        prompt: `${target.kana}${target.kanji ? `（${target.kanji}）` : ``} → ${chosen.label}`,
+        subPrompt: `詞類：${TYPE_LABELS[target.type]}｜請選出正確的丁寧體變化`,
+        options: options,
+        explanation: `${chosen.formula}，因此正確形態為「${correctStr}」。`
+      };
+    }
+
+    function makeSentenceQuestion() {
+      const bank = [
+        {
+          prompt: `このホテルは部屋が（　）です。`,
+          sub: `這家酒店的房間很乾淨。`,
+          ans: `綺麗`,
+          wrongs: [`綺麗な`, `綺麗く`, `綺麗だ`],
+          exp: `な形容詞「綺麗」接丁寧助動詞「です」時，詞幹直接加「です」，不加「な」或「だ」。`,
+          adjId: `kirei`
+        },
+        {
+          prompt: `映画を見たけど、あまり（　）。`,
+          sub: `我看了電影，不過不覺得好看。（過去否定丁寧體）`,
+          ans: `面白くなかったです`,
+          wrongs: [`面白くないです`, `面白かったでした`, `面白じゃないです`],
+          exp: `い形容詞「面白い」的過去否定丁寧體為去い加「くなかったです」。`,
+          adjId: `omoshiroi`
+        },
+        {
+          prompt: `午後から（　）なるのが早いでしょう。`,
+          sub: `從下午開始天黑得很早吧。（暗い＋なる）`,
+          ans: `暗く`,
+          wrongs: [`暗い`, `暗いに`, `暗くて`],
+          exp: `い形容詞修飾動詞「なる」時，須去掉詞尾「い」改為「く」（暗くなる）。`,
+          adjId: `kurai`
+        },
+        {
+          prompt: `かっこ（　）良かった！`,
+          sub: `真帥氣，太好了！（て型表原因）`,
+          ans: `よくて`,
+          wrongs: [`いくて`, `いいで`, `かった`],
+          exp: `「かっこいい」變化時詞尾「いい」必須改為「よ」，て型為「かっこよくて」。`,
+          adjId: `kakkoii`
+        },
+        {
+          prompt: `ここは図書館だから、（　）してください。`,
+          sub: `這裡是圖書館，請保持安靜。（静か＋する）`,
+          ans: `静かに`,
+          wrongs: [`静かく`, `静かな`, `静かで`],
+          exp: `な形容詞「静か」修飾動詞「する」時，詞幹後接「に」（静かにする）。`,
+          adjId: `shizuka`
+        },
+        {
+          prompt: `おなかが変（　）、店員に言いたいです。`,
+          sub: `因為肚子怪怪，所以想告訴店員。（接原因 ので）`,
+          ans: `なので`,
+          wrongs: [`だので`, `くので`, `ので`],
+          exp: `な形容詞「変」接「ので」表原因時，必須補「な」成為「変なので」。`,
+          adjId: `hen`
+        }
+      ];
+
+      const q = bank[Math.floor(Math.random() * bank.length)];
+      const options = shuffleArray([{ label: q.ans, isCorrect: true }].concat(q.wrongs.map(function (w) {
+        return { label: w, isCorrect: false };
+      })));
+
+      return {
+        typeLabel: `例句文法填空`,
+        adjId: q.adjId,
+        prompt: q.prompt,
+        subPrompt: `句意：${q.sub}`,
+        options: options,
+        explanation: q.exp
+      };
+    }
+
+    function startQuiz() {
+      const modeEl = document.getElementById(`quiz-mode-select`);
+      const levelEl = document.getElementById(`quiz-level-select`);
+      const countEl = document.getElementById(`quiz-count-select`);
+
+      const mode = modeEl ? modeEl.value : `mixed`;
+      const level = levelEl ? levelEl.value : `all`;
+      const count = parseInt(countEl ? countEl.value : `10`, 10) || 10;
+
+      const pool = buildQuizPool(level);
+      const questions = [];
+
+      for (let i = 0; i < count; i++) {
+        let qType = mode;
+        if (mode === `mixed`) {
+          const cycle = [`meaning`, `antonym`, `conjugation`, `sentence`];
+          qType = cycle[i % cycle.length];
+        }
+        if (qType === `meaning`) questions.push(makeMeaningQuestion(pool));
+        else if (qType === `antonym`) questions.push(makeAntonymQuestion());
+        else if (qType === `conjugation`) questions.push(makeConjugationQuestion(pool));
+        else questions.push(makeSentenceQuestion());
+      }
+
+      activeQuiz = {
+        mode: mode,
+        level: level,
+        questions: questions,
+        current: 0,
+        score: 0,
+        streak: 0,
+        answered: false,
+        missed: []
+      };
+
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const stage = document.getElementById(`quiz-stage`);
+      if (!stage || !activeQuiz) return;
+
+      if (activeQuiz.current >= activeQuiz.questions.length) {
+        renderQuizSummary();
+        return;
+      }
+
+      const q = activeQuiz.questions[activeQuiz.current];
+      const total = activeQuiz.questions.length;
+      const pct = Math.round((activeQuiz.current / total) * 100);
+
+      const optionsHtml = q.options.map(function (opt, idx) {
+        return `<button type="button" class="quiz-option-btn" data-idx="${idx}" onclick="submitQuizAnswer(${idx})">${opt.label}</button>`;
+      }).join(``);
+
+      stage.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-xs);">
+          <span class="label-mono cjk-clean">第 ${activeQuiz.current + 1} / ${total} 題 · ${q.typeLabel}</span>
+          <span class="label-mono cjk-clean" style="color:var(--secondary);">目前得分：${activeQuiz.score} · 連勝：${activeQuiz.streak}</span>
+        </div>
+        <div class="quiz-progress-track"><div class="quiz-progress-fill" style="width: ${pct}%;"></div></div>
+        <div class="quiz-prompt-box">
+          <div class="quiz-question-text">${q.prompt}</div>
+          <div style="color:var(--on-surface-variant);">${q.subPrompt}</div>
+        </div>
+        <div class="quiz-options" id="quiz-options">${optionsHtml}</div>
+        <div id="quiz-feedback-area"></div>
+      `;
+    }
+
+    async function submitQuizAnswer(idx) {
+      if (!activeQuiz || activeQuiz.answered) return;
+      activeQuiz.answered = true;
+
+      const q = activeQuiz.questions[activeQuiz.current];
+      const chosen = q.options[idx];
+      const isRight = Boolean(chosen && chosen.isCorrect);
+
+      if (isRight) {
+        activeQuiz.score += 1;
+        activeQuiz.streak += 1;
+        if (activeQuiz.streak > (appState.bestStreak || 0)) {
+          appState.bestStreak = activeQuiz.streak;
+        }
+      } else {
+        activeQuiz.streak = 0;
+        activeQuiz.missed.push({
+          prompt: q.prompt,
+          explanation: q.explanation,
+          adjId: q.adjId
+        });
+      }
+
+      const optionsBox = document.getElementById(`quiz-options`);
+      if (optionsBox) {
+        const btns = optionsBox.querySelectorAll(`.quiz-option-btn`);
+        btns.forEach(function (btn, i) {
+          btn.disabled = true;
+          if (q.options[i].isCorrect) btn.classList.add(`opt-correct`);
+          else if (i === idx && !isRight) btn.classList.add(`opt-wrong`);
+        });
+      }
+
+      const fbArea = document.getElementById(`quiz-feedback-area`);
+      if (fbArea) {
+        const isLast = activeQuiz.current === activeQuiz.questions.length - 1;
+        const alreadyInReview = q.adjId && appState.reviewIds.indexOf(q.adjId) !== -1;
+        fbArea.innerHTML = `<div class="quiz-feedback ${isRight ? `is-success` : `is-error`}">
+          <div style="font-weight:700; margin-bottom:4px;">${isRight ? `回答正確！` : `答錯了，正確觀念解析：`}</div>
+          <p style="margin:0 0 var(--space-sm);">${q.explanation}</p>
+          <div style="display:flex; flex-wrap:wrap; gap:var(--space-xs);">
+            <button type="button" class="btn btn-primary btn-sm" onclick="nextQuizQuestion()">${isLast ? `查看測驗結果` : `下一題`}</button>
+            ${!isRight && q.adjId ? `<button type="button" class="btn btn-sm" id="btn-add-missed" onclick="addMissedToReview('${q.adjId}', this)">${alreadyInReview ? `已在複習清單` : `加入待複習清單`}</button>` : ``}
+          </div>
+        </div>`;
+      }
+
+      updateKpis();
+      await saveState();
+    }
+
+    async function addMissedToReview(id, btn) {
+      if (appState.reviewIds.indexOf(id) === -1) {
+        appState.reviewIds.push(id);
+        await saveState();
+        updateKpis();
+        renderVocabGrid();
+      }
+      if (btn) {
+        btn.textContent = `已加入複習清單`;
+        btn.disabled = true;
+      }
+    }
+
+    function nextQuizQuestion() {
+      if (!activeQuiz) return;
+      activeQuiz.current += 1;
+      activeQuiz.answered = false;
+      renderQuizQuestion();
+    }
+
+    async function renderQuizSummary() {
+      const stage = document.getElementById(`quiz-stage`);
+      if (!stage || !activeQuiz) return;
+
+      const total = activeQuiz.questions.length;
+      const pct = Math.round((activeQuiz.score / total) * 100);
+
+      appState.quizHistory.push({
+        mode: activeQuiz.mode,
+        level: activeQuiz.level,
+        score: activeQuiz.score,
+        total: total,
+        date: new Date().toISOString().slice(0, 10)
+      });
+      if (appState.quizHistory.length > 20) {
+        appState.quizHistory = appState.quizHistory.slice(-20);
+      }
+
+      updateKpis();
+      await saveState();
+
+      const missedHtml = activeQuiz.missed.length === 0
+        ? `<div class="quiz-feedback is-success"><strong>全數答對！</strong>這輪測驗沒有錯題，建議可挑戰更高 JLPT 級別或詞尾活用題型。</div>`
+        : `<div style="margin-top:var(--space-md);">
+            <div class="label-mono cjk-clean" style="margin-bottom:var(--space-xs); color:var(--tertiary);">錯題回顧（${activeQuiz.missed.length} 題）</div>
+            ${activeQuiz.missed.map(function (m) {
+              return `<div class="washi-card" style="margin-bottom:var(--space-xs); border-left-color:var(--tertiary);">
+                <div style="font-weight:600;">${m.prompt}</div>
+                <div style="font-size:0.875rem; color:var(--on-surface-variant);">${m.explanation}</div>
+              </div>`;
+            }).join(``)}
+          </div>`;
+
+      stage.innerHTML = `
+        <div class="quiz-progress-track"><div class="quiz-progress-fill" style="width: 100%;"></div></div>
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-md);">
+          <div>
+            <div class="label-mono" style="color:var(--secondary);">ASSESSMENT COMPLETE</div>
+            <div class="section-heading" style="margin-top:4px;">本次成績：${activeQuiz.score} / ${total} 題（${pct}%）</div>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="startQuiz()">再測驗一次</button>
+        </div>
+        ${missedHtml}
+      `;
+    }
+
+    /* ============================================================
+       8. EXPORT & RESET (NO confirm()/alert())
+       ============================================================ */
+    function exportProgressCsv() {
+      const rows = [`日文假名,漢字,詞類,JLPT,中文釋義,學習狀態`];
+      ADJECTIVES.forEach(function (item) {
+        const isM = appState.masteredIds.indexOf(item.id) !== -1;
+        const isR = appState.reviewIds.indexOf(item.id) !== -1;
+        const status = isM ? `已熟記` : isR ? `待複習` : `未標記`;
+        rows.push(`"${item.kana}","${item.kanji}","${TYPE_LABELS[item.type]}","${item.jlpt}","${item.zh}","${status}"`);
+      });
+      const csvContent = `\uFEFF` + rows.join(`\n`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: csvContent,
+          contentType: `text/csv`,
+          encoding: `UTF-8`,
+          filename: `japanese_adjectives_progress.csv`
+        });
+      }
+    }
+
+    async function handleResetProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `再點一次確認重設`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `重設學習紀錄`;
+      appState = {
+        masteredIds: [],
+        reviewIds: [],
+        quizHistory: [],
+        bestStreak: 0
+      };
+      updateKpis();
+      renderVocabGrid();
+      await saveState();
+    }
+
+    /* ============================================================
+       9. BOOTSTRAP & STATE RESTORATION
+       ============================================================ */
+    async function initApp() {
+      populateLabSelect();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            appState = {
+              masteredIds: Array.isArray(saved.masteredIds) ? saved.masteredIds : [],
+              reviewIds: Array.isArray(saved.reviewIds) ? saved.reviewIds : [],
+              quizHistory: Array.isArray(saved.quizHistory) ? saved.quizHistory : [],
+              bestStreak: typeof saved.bestStreak === `number` ? saved.bestStreak : 0
+            };
+          }
+        } catch (err) {
+          /* Start with clean default state */
+        }
+      }
+
+      updateKpis();
+      renderSpotlight();
+      renderVocabGrid();
+      renderAntonymGrid();
+      renderConjugationLab();
+      renderSentences();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
