@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="artifact-type" content="tool">
+<meta name="design-style" content="kiln">
+<title>日語動詞活用與單字記憶工坊</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+
+  /* Kiln Palette */
+  --background: #f4f1ea;
+  --surface-container-low: #ebe6db;
+  --surface-container: #e3ddd0;
+  --surface-container-high: #d9d1c2;
+
+  --on-surface: #1c1b18;
+  --on-surface-variant: #5e5a51;
+
+  --outline: #1c1b18;
+  --outline-variant: #d2cbbd;
+
+  --primary: #1c1b18;
+  --on-primary: #f4f1ea;
+  --primary-container: #ebe6db;
+  --on-primary-container: #1c1b18;
+  --secondary: #4a5d46;
+  --tertiary: #9e3b2b;
+  --error: #9e2a22;
+  --on-error: #f4f1ea;
+
+  --data-1: #4a5d46;
+  --data-2: #9e3b2b;
+  --data-3: #1c1b18;
+  --data-4: #8a6f48;
+  --data-context: #c7bfb0;
+
+  /* Semantic & Focus */
+  --positive: #3e5c3a;
+  --warning: #8a6f48;
+  --focus: #1c1b18;
+
+  /* Typography */
+  --font-headline: 'Shippori Mincho', 'Noto Sans TC', serif;
+  --font-body: 'Noto Sans TC', 'Plus Jakarta Sans', sans-serif;
+  --font-label: 'Geist Mono', 'Noto Sans TC', monospace;
+
+  /* Type Scale (Tool) */
+  --display-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.35rem);
+  --headline-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.55rem);
+  --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.2rem);
+  --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+  --label-size: 0.75rem;
+
+  /* Shape & Rules */
+  --rounded: 0.125rem;
+  --rounded-lg: 0.125rem;
+  --rounded-full: 0.125rem;
+  --rule-sumi-left: 2px solid var(--outline);
+  --rule-moss-left: 3px solid var(--secondary);
+  --rule-cinnabar-left: 3px solid var(--tertiary);
+  --rule-sumi: 1px solid var(--outline);
+  --rule-linen: 1px solid var(--outline-variant);
+  --label-tracking: 0.1em;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+}
+
+/* Base Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  overflow-x: clip;
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: 1.6;
+}
+header { position: static !important; }
+button, input, select, textarea { font-family: inherit; }
+
+.page-grid {
+  display: grid;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.page-grid * { min-width: 0; }
+
+/* Focus Visible */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Header & Seal */
+.hero-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-lg);
+  align-items: start;
+  padding-bottom: var(--space-lg);
+  border-bottom: var(--rule-sumi);
+}
+.kicker {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 500;
+  color: var(--secondary);
+  letter-spacing: var(--label-tracking);
+  margin: 0 0 var(--space-xs) 0;
+}
+.display-title {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: var(--display-size);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--on-surface);
+}
+.subhead-moss {
+  font-family: var(--font-headline);
+  font-weight: 500;
+  font-size: var(--subhead-size);
+  color: var(--secondary);
+  margin: var(--space-sm) 0 0 0;
+  max-width: 65ch;
+}
+.seal-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-sm);
+}
+.seal-stamp {
+  border: 1px solid var(--tertiary);
+  color: var(--tertiary);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  letter-spacing: 0.14em;
+  padding: 0.4rem 0.35rem;
+  writing-mode: vertical-rl;
+  line-height: 1.2;
+  user-select: none;
+}
+
+/* Global Control Strip */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--surface-container-low);
+  border-left: var(--rule-sumi-left);
+  border-radius: var(--rounded);
+  padding: var(--space-md) var(--space-lg);
+}
+.nav-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+.tab-btn {
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  border: var(--rule-sumi);
+  border-radius: var(--rounded);
+  background: var(--background);
+  color: var(--on-surface);
+  font-size: var(--body-size);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+.tab-btn:hover { background: var(--surface-container); }
+.tab-btn.active {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.kanji-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.toggle-btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--rule-sumi);
+  border-radius: var(--rounded);
+  background: var(--background);
+  color: var(--on-surface);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.toggle-btn:hover { background: var(--surface-container); }
+.toggle-btn[aria-pressed="true"] {
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--on-primary);
+}
+.toggle-indicator {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  padding: 0.125rem 0.375rem;
+  border: 1px solid currentColor;
+  border-radius: var(--rounded);
+}
+
+/* KPI Strip */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: var(--space-md);
+}
+.washi-card {
+  background: var(--surface-container-low);
+  border-left: var(--rule-sumi-left);
+  border-radius: var(--rounded);
+  padding: var(--space-md) var(--space-lg);
+}
+.washi-card .label-line {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--on-surface-variant);
+  letter-spacing: 0.06em;
+}
+.washi-card .value-line {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: var(--headline-size);
+  color: var(--on-surface);
+  font-variant-numeric: tabular-nums;
+  margin-top: var(--space-xs);
+}
+.washi-card .note-line {
+  font-size: 0.8125rem;
+  color: var(--secondary);
+  margin-top: var(--space-xs);
+}
+.progress-track {
+  margin-top: var(--space-sm);
+  height: 6px;
+  background: var(--surface-container-high);
+  border-radius: var(--rounded);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--secondary);
+  width: 0%;
+  transition: width var(--dur-long) var(--ease-out);
+}
+
+/* Section Layout */
+.workspace-panel {
+  display: none;
+  gap: var(--space-lg);
+}
+.workspace-panel.active {
+  display: grid;
+}
+.section-head {
+  border-bottom: var(--rule-linen);
+  padding-bottom: var(--space-sm);
+}
+.section-title {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: var(--headline-size);
+  margin: 0;
+  color: var(--on-surface);
+}
+.section-desc {
+  margin: var(--space-xs) 0 0 0;
+  color: var(--on-surface-variant);
+  max-width: 68ch;
+}
+
+/* Shared Buttons */
+.btn-primary {
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--primary);
+  color: var(--on-primary);
+  border: var(--rule-sumi);
+  border-radius: var(--rounded);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.btn-primary:hover { background: var(--secondary); border-color: var(--secondary); }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-secondary {
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface-container-low);
+  color: var(--on-surface);
+  border: var(--rule-sumi);
+  border-radius: var(--rounded);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.btn-secondary:hover { background: var(--surface-container-high); }
+.btn-secondary.active {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-accent {
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--tertiary);
+  color: var(--on-primary);
+  border: 1px solid var(--tertiary);
+  border-radius: var(--rounded);
+  font-weight: 500;
+  cursor: pointer;
+}
+.btn-accent:hover { opacity: 0.9; }
+
+/* Filter Bar */
+.filter-panel {
+  background: var(--surface-container-low);
+  border-left: var(--rule-sumi-left);
+  border-radius: var(--rounded);
+  padding: var(--space-md) var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(175px, 100%), 1fr));
+  gap: var(--space-md);
+  align-items: end;
+}
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.field-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 500;
+  color: var(--on-surface-variant);
+}
+.field-input, .field-select {
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--background);
+  color: var(--on-surface);
+  border: var(--rule-sumi);
+  border-radius: var(--rounded);
+  font-size: var(--body-size);
+}
+.field-select { padding-right: var(--space-xl); }
+.filter-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: var(--rule-linen);
+}
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.2rem 0.5rem;
+  border: var(--rule-linen);
+  border-radius: var(--rounded);
+  background: var(--background);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--secondary);
+}
+.status-tag.cinnabar {
+  color: var(--tertiary);
+  border-color: var(--tertiary);
+}
+
+/* Explorer Split Layout */
+.explorer-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+.verb-list-wrap {
+  border-top: var(--rule-sumi);
+  border-bottom: var(--rule-sumi);
+  background: var(--background);
+  max-height: 620px;
+  overflow-y: auto;
+}
+.verb-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.verb-table th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-container-low);
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  color: var(--on-surface);
+  border-bottom: var(--rule-sumi);
+  z-index: 1;
+}
+.verb-table td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: var(--rule-linen);
+  vertical-align: middle;
+}
+.verb-row {
+  cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.verb-row:hover { background: var(--surface-container-low); }
+.verb-row.selected { background: var(--surface-container); }
+.jp-main {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: var(--on-surface);
+}
+.jp-sub {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+}
+
+/* Detail Drawer / Inspector */
+.inspector-card {
+  background: var(--surface-container-low);
+  border-left: var(--rule-sumi-left);
+  border-radius: var(--rounded);
+  padding: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+.inspector-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  border-bottom: var(--rule-linen);
+  padding-bottom: var(--space-md);
+}
+.inspector-word {
+  font-family: var(--font-headline);
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.conj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+.conj-cell {
+  background: var(--background);
+  border: var(--rule-linen);
+  border-radius: var(--rounded);
+  padding: var(--space-sm) var(--space-md);
+}
+.conj-cell-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--secondary);
+}
+.conj-cell-val {
+  font-family: var(--font-headline);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.rule-breakdown {
+  background: var(--background);
+  border-left: var(--rule-moss-left);
+  padding: var(--space-md);
+  border-radius: var(--rounded);
+  font-size: 0.9375rem;
+}
+.pattern-list {
+  display: grid;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pattern-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  border-bottom: var(--rule-linen);
+  font-size: 0.875rem;
+}
+
+/* Grammar & Conjugation Lab */
+.grammar-layout {
+  display: grid;
+  gap: var(--space-lg);
+}
+.group-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-md);
+}
+.grammar-card {
+  background: var(--surface-container-low);
+  border-left: var(--rule-sumi-left);
+  border-radius: var(--rounded);
+  padding: var(--space-lg);
+  display: grid;
+  gap: var(--space-sm);
+}
+.grammar-card h3 {
+  font-family: var(--font-headline);
+  font-size: var(--subhead-size);
+  margin: 0;
+}
+.rule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.rule-table th {
+  text-align: left;
+  padding: var(--space-xs) var(--space-sm);
+  border-bottom: var(--rule-sumi);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--secondary);
+}
+.rule-table td {
+  padding: var(--space-xs) var(--space-sm);
+  border-bottom: var(--rule-linen);
+}
+.lab-box {
+  background: var(--surface-container-low);
+  border-left: var(--rule-cinnabar-left);
+  border-radius: var(--rounded);
+  padding: var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+.lab-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--space-md);
+  align-items: end;
+}
+.step-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: var(--space-sm);
+}
+.step-box {
+  background: var(--background);
+  border: var(--rule-linen);
+  border-radius: var(--rounded);
+  padding: var(--space-md);
+}
+.step-num {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--tertiary);
+}
+.step-val {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: var(--space-xs);
+}
+.step-note {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  margin-top: var(--space-xs);
+}
+
+/* Practice & Quiz */
+.practice-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+.stage-card {
+  background: var(--surface-container-low);
+  border-left: var(--rule-sumi-left);
+  border-radius: var(--rounded);
+  padding: var(--space-xl) var(--space-lg);
+  display: grid;
+  gap: var(--space-md);
+}
+.flashcard-face {
+  background: var(--background);
+  border: var(--rule-sumi);
+  border-radius: var(--rounded);
+  padding: var(--space-xl) var(--space-lg);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+}
+.flashcard-main {
+  font-family: var(--font-headline);
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  font-weight: 600;
+}
+.quiz-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+.quiz-opt {
+  min-height: 52px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--background);
+  border: var(--rule-sumi);
+  border-radius: var(--rounded);
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+.quiz-opt:hover:not(:disabled) { background: var(--surface-container); }
+.quiz-opt.correct {
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--on-primary);
+}
+.quiz-opt.wrong {
+  background: var(--error);
+  border-color: var(--error);
+  color: var(--on-error);
+}
+.feedback-banner {
+  background: var(--background);
+  border-left: var(--rule-moss-left);
+  padding: var(--space-md);
+  border-radius: var(--rounded);
+}
+.feedback-banner.is-error {
+  border-left: var(--rule-cinnabar-left);
+}
+
+.mistake-list {
+  display: grid;
+  gap: var(--space-xs);
+  max-height: 320px;
+  overflow-y: auto;
+}
+.mistake-item {
+  background: var(--background);
+  border: var(--rule-linen);
+  border-radius: var(--rounded);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.footer-note {
+  border-top: var(--rule-linen);
+  padding-top: var(--space-md);
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+@media (max-width: 860px) {
+  .explorer-layout, .practice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .page-grid { padding: var(--space-md); }
+  .hero-header { grid-template-columns: 1fr; }
+  .seal-box { flex-direction: row; align-items: center; }
+  .seal-stamp { writing-mode: horizontal-tb; }
+  .quiz-options, .conj-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<main class="page-grid">
+  <header class="hero-header">
+    <div>
+      <p class="kicker">JAPANESE VERB WORKSHOP · 日語動詞學習</p>
+      <h1 class="display-title">日文動詞變化與多維記憶工坊</h1>
+      <p class="subhead-moss">系統化拆解五段、一段與不規則動詞的ます形、て形、ない形、た形活用規則，結合漢字顯示切換與情境專項測驗。</p>
+    </div>
+    <div class="seal-box">
+      <div class="seal-stamp" aria-hidden="true">動詞活用帖</div>
+    </div>
+  </header>
+
+  <!-- Global Navigation & Kanji Toggle -->
+  <section class="toolbar" aria-label="學習模式與顯示控制">
+    <nav class="nav-pills" role="tablist" aria-label="學習分頁">
+      <button type="button" class="tab-btn active" id="tab-btn-explore" role="tab" aria-selected="true" onclick="switchTab('explore')">1. 多維詞庫探索</button>
+      <button type="button" class="tab-btn" id="tab-btn-grammar" role="tab" aria-selected="false" onclick="switchTab('grammar')">2. 動詞變化解析</button>
+      <button type="button" class="tab-btn" id="tab-btn-practice" role="tab" aria-selected="false" onclick="switchTab('practice')">3. 記憶字卡與測驗</button>
+    </nav>
+    <div class="kanji-control">
+      <button type="button" class="toggle-btn" id="kanji-toggle-btn" aria-pressed="true" onclick="toggleKanjiDisplay()">
+        <span>漢字顯示</span>
+        <span class="toggle-indicator" id="kanji-toggle-label">開啟（漢字＋假名）</span>
+      </button>
+      <button type="button" class="btn-secondary" id="reset-progress-btn" onclick="handleResetProgress(this)">重設進度</button>
+    </div>
+  </section>
+
+  <!-- KPI Summary Strip -->
+  <section class="kpi-grid" aria-label="學習進度摘要">
+    <div class="washi-card">
+      <div class="label-line">收錄精選動詞</div>
+      <div class="value-line" id="kpi-total">0</div>
+      <div class="note-line" id="kpi-filtered-note">目前篩選 0 個動詞</div>
+    </div>
+    <div class="washi-card">
+      <div class="label-line">已熟記單字</div>
+      <div class="value-line" id="kpi-mastered">0</div>
+      <div class="progress-track"><div class="progress-fill" id="kpi-mastered-bar"></div></div>
+      <div class="note-line" id="kpi-mastered-pct">掌握率 0%</div>
+    </div>
+    <div class="washi-card">
+      <div class="label-line">測驗答對率</div>
+      <div class="value-line" id="kpi-accuracy">—</div>
+      <div class="note-line" id="kpi-streak">目前連勝 0 題</div>
+    </div>
+    <div class="washi-card">
+      <div class="label-line">待複習錯題</div>
+      <div class="value-line" id="kpi-mistakes">0</div>
+      <div class="note-line">答錯題目將自動收入錯題本</div>
+    </div>
+  </section>
+
+  <!-- Shared Multi-Dimensional Filter Panel -->
+  <section class="filter-panel" id="shared-filter-panel" aria-label="多維度分類篩選">
+    <div class="filter-grid">
+      <div class="field-group">
+        <label class="field-label" for="filter-search">關鍵字搜尋（中文 / 假名 / 漢字 / 英文）</label>
+        <input class="field-input" id="filter-search" type="search" placeholder="例如：買、かう、食べる、meet" oninput="applyFilters()">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="filter-jlpt">JLPT 學習等級</label>
+        <select class="field-select" id="filter-jlpt" onchange="applyFilters()">
+          <option value="ALL">全部等級</option>
+          <option value="N5">N5（入門基礎）</option>
+          <option value="N4">N4（初級進階）</option>
+          <option value="N3">N3（中級實用）</option>
+          <option value="N2">N2（中高階）</option>
+          <option value="EXTRA">補充生活表現</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="filter-group">動詞組別（活用分類）</label>
+        <select class="field-select" id="filter-group" onchange="applyFilters()">
+          <option value="ALL">全部組別</option>
+          <option value="I">I 類（五段動詞）</option>
+          <option value="II">II 類（一段動詞）</option>
+          <option value="III">III 類（する・くる 不規則）</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="filter-category">情境類別</label>
+        <select class="field-select" id="filter-category" onchange="applyFilters()">
+          <option value="ALL">全部情境</option>
+          <option value="移動外出">移動與外出</option>
+          <option value="生活飲食">飲食與日常</option>
+          <option value="人際溝通">人際與溝通</option>
+          <option value="工作學習">工作與學習</option>
+          <option value="購物金錢">購物與金錢</option>
+          <option value="數位系統">數位與系統</option>
+          <option value="狀態自然">狀態與自然</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="filter-transitivity">動作類型</label>
+        <select class="field-select" id="filter-transitivity" onchange="applyFilters()">
+          <option value="ALL">全部動作類型</option>
+          <option value="他動詞">他動詞（對對象施動 ＋を）</option>
+          <option value="自動詞">自動詞（主體自然動作 ＋が）</option>
+          <option value="自他兩用">自他兩用 / 狀態表現</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="filter-mastery">熟記狀態</label>
+        <select class="field-select" id="filter-mastery" onchange="applyFilters()">
+          <option value="ALL">全部單字</option>
+          <option value="UNMASTERED">僅顯示未熟記</option>
+          <option value="MASTERED">僅顯示已熟記</option>
+        </select>
+      </div>
+    </div>
+    <div class="filter-footer">
+      <div class="chip-row" id="active-filter-chips"></div>
+      <button type="button" class="btn-secondary" onclick="clearAllFilters()">清除全部篩選</button>
+    </div>
+  </section>
+
+  <!-- PANEL 1: Multi-Dimensional Explorer -->
+  <section class="workspace-panel active" id="panel-explore" aria-labelledby="tab-btn-explore">
+    <div class="section-head">
+      <h2 class="section-title">詞庫瀏覽與單字活用檢視</h2>
+      <p class="section-desc">點擊左側任一動詞，右側即顯示辭書形、ます形、て形、ない形、た形完整活用與變化解析。關閉「漢字顯示」即可練習純假名認讀。</p>
+    </div>
+
+    <div class="explorer-layout">
+      <div class="verb-list-wrap">
+        <table class="verb-table">
+          <thead>
+            <tr>
+              <th>動詞（依漢字設定）</th>
+              <th>中文釋義</th>
+              <th>組別</th>
+              <th>等級</th>
+              <th>狀態</th>
+            </tr>
+          </thead>
+          <tbody id="verb-table-body"></tbody>
+        </table>
+      </div>
+
+      <aside class="inspector-card" id="verb-inspector" aria-label="動詞詳細活用面板">
+        <!-- Populated dynamically -->
+      </aside>
+    </div>
+  </section>
+
+  <!-- PANEL 2: Conjugation Rules & Interactive Lab -->
+  <section class="workspace-panel" id="panel-grammar" aria-labelledby="tab-btn-grammar">
+    <div class="section-head">
+      <h2 class="section-title">日語動詞變化規則總覽與即時拆解</h2>
+      <p class="section-desc">掌握 I 類（五段）、II 類（一段）與 III 類不規則動詞的核心分類原則，以及音便口訣與句型接續。</p>
+    </div>
+
+    <!-- Interactive Conjugation Step Lab -->
+    <div class="lab-box">
+      <div class="lab-controls">
+        <div class="field-group">
+          <label class="field-label" for="lab-verb-select">選擇來源動詞進行變化推演</label>
+          <select class="field-select" id="lab-verb-select" onchange="renderLabSteps()"></select>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="lab-target-form">選擇目標變化形</label>
+          <select class="field-select" id="lab-target-form" onchange="renderLabSteps()">
+            <option value="masu">ます形（丁寧禮貌體）</option>
+            <option value="te">て形（連接／請求／進行式）</option>
+            <option value="nai">ない形（普通體否定）</option>
+            <option value="ta">た形（普通體過去式）</option>
+            <option value="ba">ば形（假定條件形）</option>
+            <option value="potential">可能形（能夠做…）</option>
+            <option value="volitional">意向形（意志／邀約）</option>
+          </select>
+        </div>
+      </div>
+      <div class="step-flow" id="lab-step-flow"></div>
+      <div class="rule-breakdown" id="lab-sentence-tip"></div>
+    </div>
+
+    <!-- Three Verb Groups Breakdown -->
+    <div class="group-cards">
+      <article class="grammar-card">
+        <span class="status-tag">GROUP I · 五段活用</span>
+        <h3>I 類動詞（非る結尾，或非い/え段＋る）</h3>
+        <p class="section-desc">字尾位於「う段」（う、く、ぐ、す、つ、ぬ、ぶ、む、る）。變化時依五十音行移動段位，て/た形須注意「音便」。</p>
+        <table class="rule-table">
+          <thead>
+            <tr><th>變化形</th><th>轉換規則</th><th>範例（書く・話す）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ます形</td><td>う段 → い段 ＋ ます</td><td>かきます・はなします</td></tr>
+            <tr><td>ない形</td><td>う段 → あ段 ＋ ない（う→わ）</td><td>かかない・あわない</td></tr>
+            <tr><td>て / た形</td><td>依詞尾發生促音/撥音/い音便</td><td>かいて・はなして</td></tr>
+            <tr><td>ば / 可能形</td><td>う段 → え段 ＋ ば / る</td><td>かけば・かける</td></tr>
+            <tr><td>意向形</td><td>う段 → お段 ＋ う</td><td>かこう・はなそう</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="grammar-card">
+        <span class="status-tag">GROUP II · 上・下一段</span>
+        <h3>II 類動詞（い段 / え段假名 ＋ る）</h3>
+        <p class="section-desc">字尾必為「る」，且倒數第二音為「い段」或「え段」（少數例外如 帰る、切る、入る、知る、走る 屬 I 類）。去「る」直接接續，最規律！</p>
+        <table class="rule-table">
+          <thead>
+            <tr><th>變化形</th><th>轉換規則</th><th>範例（食べる・起きる）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ます形</td><td>去 る ＋ ます</td><td>たべます・おきます</td></tr>
+            <tr><td>ない形</td><td>去 る ＋ ない</td><td>たべない・おきない</td></tr>
+            <tr><td>て / た形</td><td>去 る ＋ て / た</td><td>たべて・おきた</td></tr>
+            <tr><td>ば形</td><td>去 る ＋ れば</td><td>たべれば・おきれば</td></tr>
+            <tr><td>可能 / 意向</td><td>去 る ＋ られる / よう</td><td>たべられる・たべよう</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="grammar-card">
+        <span class="status-tag cinnabar">GROUP III · 不規則</span>
+        <h3>III 類動詞（する・来る）</h3>
+        <p class="section-desc">僅「する（以及 名詞＋する 複合動詞）」與「来る（くる）」兩組核心不規則動詞，必須整體記憶詞幹讀音變化。</p>
+        <table class="rule-table">
+          <thead>
+            <tr><th>變化形</th><th>する（勉強する）</th><th>来る（くる）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ます形</td><td>します（べんきょうします）</td><td>きます（きます）</td></tr>
+            <tr><td>ない形</td><td>しない</td><td>こない（注意讀音 こ）</td></tr>
+            <tr><td>て / た形</td><td>して / した</td><td>きて / きた</td></tr>
+            <tr><td>ば形</td><td>すれば</td><td>くれば</td></tr>
+            <tr><td>可能 / 意向</td><td>できる / しよう</td><td>こられる / こよう</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+
+    <!-- Te-form & Ta-form Onbin Cheat Sheet + Common Grammar Patterns -->
+    <div class="group-cards">
+      <article class="grammar-card">
+        <span class="status-tag cinnabar">I 類動詞 音便口訣</span>
+        <h3>て形・た形 音便快速記憶表</h3>
+        <table class="rule-table">
+          <thead>
+            <tr><th>詞尾</th><th>音便變化</th><th>來源動詞實例</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>う・つ・る</td><td>→ って / った（促音便）</td><td>買う→かって、待つ→まって、帰る→かえって</td></tr>
+            <tr><td>む・ぶ・ぬ</td><td>→ んで / んだ（撥音便）</td><td>飲む→のんで、遊ぶ→あそんで、死ぬ→しんで</td></tr>
+            <tr><td>く</td><td>→ いて / いた（い音便）</td><td>書く→かいて、聞く→きいて（例外：行く→いって）</td></tr>
+            <tr><td>ぐ</td><td>→ いで / いだ（濁音便）</td><td>泳ぐ→およいで、急ぐ→いそいで、脱ぐ→ぬいで</td></tr>
+            <tr><td>す</td><td>→ して / した（無音便）</td><td>話す→はなして、出す→だして、消す→けして</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article class="grammar-card">
+        <span class="status-tag">來源文法句型對照</span>
+        <h3>常見動詞活用接續句型</h3>
+        <table class="rule-table">
+          <thead>
+            <tr><th>接續形式</th><th>語意與用法</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>て形 ＋ ください / もいいですか</td><td>請做… / 我可以…嗎？</td></tr>
+            <tr><td>て形 ＋ はいけません / います</td><td>不可以… / 正在進行・狀態持續</td></tr>
+            <tr><td>て形 ＋ みます / おきます</td><td>試著做… / 預先做好（為了將來）</td></tr>
+            <tr><td>ない形 ＋ でください / なければならない</td><td>請不要… / 必須…</td></tr>
+            <tr><td>た形 ＋ ことがある / ばかり / あとで</td><td>曾經… / 剛剛… / …之後</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+  </section>
+
+  <!-- PANEL 3: Flashcards & Conjugation Quiz -->
+  <section class="workspace-panel" id="panel-practice" aria-labelledby="tab-btn-practice">
+    <div class="section-head">
+      <h2 class="section-title">專項記憶字卡與互動測驗</h2>
+      <p class="section-desc">自動套用上方所選的「JLPT 等級 / 動詞組別 / 情境 / 動作類型」篩選範圍。選擇「錯題複習」模式可針對曾答錯的動詞集中特訓。</p>
+    </div>
+
+    <div class="practice-grid">
+      <div class="stage-card">
+        <div class="chip-row">
+          <button type="button" class="btn-secondary active" id="mode-btn-flash" onclick="setPracticeMode('flash')">記憶翻字卡</button>
+          <button type="button" class="btn-secondary" id="mode-btn-conj" onclick="setPracticeMode('conj')">動詞變化測驗</button>
+          <button type="button" class="btn-secondary" id="mode-btn-meaning" onclick="setPracticeMode('meaning')">詞義配對測驗</button>
+          <button type="button" class="btn-secondary" id="mode-btn-mistakes" onclick="setPracticeMode('mistakes')">錯題專項複習</button>
+        </div>
+
+        <!-- Flashcard View -->
+        <div id="practice-flash-view">
+          <div class="chip-row" style="margin-bottom: var(--space-md);">
+            <button type="button" class="btn-secondary" id="flash-dir-btn" onclick="toggleFlashDirection()">正面題示：日文 → 中文</button>
+            <span class="status-tag" id="flash-counter">第 1 / 1 張</span>
+          </div>
+          <div class="flashcard-face" id="flashcard-face" tabindex="0" role="button" aria-label="點擊翻轉字卡" onclick="flipFlashcard()">
+            <div class="kicker" id="flash-meta">N5 · I 類</div>
+            <div class="flashcard-main" id="flash-front-text">—</div>
+            <div class="jp-sub" id="flash-hint-text">點擊卡片翻面檢視詳解與完整變化</div>
+          </div>
+          <div id="flash-back-details" style="display:none; margin-top: var(--space-md);">
+            <div class="conj-grid" id="flash-conj-grid"></div>
+          </div>
+          <div class="chip-row" style="margin-top: var(--space-md); justify-content: space-between;">
+            <div class="chip-row">
+              <button type="button" class="btn-secondary" onclick="prevFlashcard()">上一張</button>
+              <button type="button" class="btn-secondary" onclick="nextFlashcard()">下一張</button>
+            </div>
+            <div class="chip-row">
+              <button type="button" class="btn-secondary" id="flash-master-btn" onclick="toggleCurrentFlashMastered()">標記為已熟記</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz View (Conjugation & Meaning & Mistakes) -->
+        <div id="practice-quiz-view" style="display:none;">
+          <div class="chip-row" style="justify-content: space-between; margin-bottom: var(--space-sm);">
+            <span class="status-tag" id="quiz-type-badge">動詞變化挑戰</span>
+            <span class="status-tag cinnabar" id="quiz-target-badge">目標：て形</span>
+          </div>
+          <div class="flashcard-face" style="min-height: 150px; cursor: default;">
+            <div class="kicker" id="quiz-prompt-meta">—</div>
+            <div class="flashcard-main" id="quiz-prompt-word">—</div>
+            <div class="jp-sub" id="quiz-prompt-sub">—</div>
+          </div>
+          <div class="quiz-options" id="quiz-options-grid" style="margin-top: var(--space-md);"></div>
+          <div class="feedback-banner" id="quiz-feedback" style="display:none; margin-top: var(--space-md);"></div>
+          <div class="chip-row" style="margin-top: var(--space-md); justify-content: space-between;">
+            <button type="button" class="btn-primary" id="quiz-next-btn" onclick="generateQuizQuestion()">下一題</button>
+            <button type="button" class="btn-secondary" onclick="markQuizWordMastered()">將本題標記熟記</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mistake Notebook & Practice Scope -->
+      <aside class="inspector-card" aria-label="錯題本與練習統計">
+        <div class="inspector-top">
+          <div>
+            <div class="kicker">MISTAKE LOG · 重點複習</div>
+            <h3 style="margin:0; font-family:var(--font-headline);">待複習錯題清單</h3>
+          </div>
+          <button type="button" class="btn-secondary" onclick="clearMistakes()">清空錯題</button>
+        </div>
+        <div class="mistake-list" id="mistake-list-box"></div>
+        <div class="rule-breakdown" id="scope-summary-box"></div>
+      </aside>
+    </div>
+  </section>
+
+  <footer class="footer-note">
+    <span>資料來源：使用者提供之「日文 - 動詞」與「日文 - 動詞文法」筆記整理</span>
+    <span>提示：可於右上角隨時切換「漢字顯示」與「純假名」模式</span>
+  </footer>
+</main>
+
+<api-shim></api-shim>
+<script>
+// Compact verified verb dataset from user source:
+// [id, zh, dict, masu, te, kanji, en, jlpt, grp, cat, tr]
+const VERB_RAW = [
+  ['v01','見面','あう','あいます','あって','会う','meet','N5','I','人際溝通','自動詞'],
+  ['v02','上樓梯','あがる','あがります','あがって','上がる','go up','N5','I','移動外出','自動詞'],
+  ['v03','開（門/窗）','あける','あけます','あけて','開ける','open','N5','II','生活飲食','他動詞'],
+  ['v04','給','あげる','あげます','あげて','上げる','give','N5','II','人際溝通','他動詞'],
+  ['v05','玩','あそぶ','あそびます','あそんで','遊ぶ','play','N5','I','生活飲食','自動詞'],
+  ['v06','洗手','あらう','あらいます','あらって','洗う','wash','N5','I','生活飲食','他動詞'],
+  ['v07','有・在（無生命）','ある','あります','あって','有る','there is','N5','I','狀態自然','自動詞'],
+  ['v08','步行','あるく','あるきます','あるいて','歩く','walk','N5','I','移動外出','自動詞'],
+  ['v09','說・叫作','いう','いいます','いって','言う','say','N5','I','人際溝通','他動詞'],
+  ['v10','去','いく','いきます','いって','行く','go','N5','I','移動外出','自動詞'],
+  ['v11','趕快','いそぐ','いそぎます','いそいで','急ぐ','hurry','N5','I','移動外出','自動詞'],
+  ['v12','在・有（人/動物）','いる','います','いて','居る','be here','N5','II','狀態自然','自動詞'],
+  ['v13','需要','いる','いります','いって','要る','need','N5','I','購物金錢','自動詞'],
+  ['v14','唱歌','うたう','うたいます','うたって','歌う','sing','N5','I','生活飲食','他動詞'],
+  ['v15','賣','うる','うります','うって','売る','sell','N5','I','購物金錢','他動詞'],
+  ['v16','起床','おきる','おきます','おきて','起きる','wake up','N5','II','生活飲食','自動詞'],
+  ['v17','放置・離開','おく','おきます','おいて','置く','put / leave','N5','I','生活飲食','他動詞'],
+  ['v18','教・告訴','おしえる','おしえます','おしえて','教える','teach / tell','N5','II','工作學習','他動詞'],
+  ['v19','按・推・蓋章','おす','おします','おして','押す','push / press','N5','I','生活飲食','他動詞'],
+  ['v20','請求・拜託','おねがいする','おねがいします','おねがいして','お願いする','please','N5','III','人際溝通','他動詞'],
+  ['v21','記住','おぼえる','おぼえます','おぼえて','覚える','remember','N5','II','工作學習','他動詞'],
+  ['v22','想・認為','おもう','おもいます','おもって','思う','think','N5','I','人際溝通','他動詞'],
+  ['v23','游泳','およぐ','およぎます','およいで','泳ぐ','swim','N5','I','移動外出','自動詞'],
+  ['v24','下車','おりる','おります','おりて','降りる','get off','N5','II','移動外出','自動詞'],
+  ['v25','結束','おわる','おわります','おわって','終わる','end / over','N5','I','工作學習','自動詞'],
+  ['v26','買','かう','かいます','かって','買う','buy','N5','I','購物金錢','他動詞'],
+  ['v27','歸還','かえす','かえします','かえして','返す','return (sth)','N5','I','購物金錢','他動詞'],
+  ['v28','回去','かえる','かえります','かえって','帰る','go back','N5','I','移動外出','自動詞'],
+  ['v29','花費（時間/金錢）','かかる','かかります','かかって','掛かる','take (time/cost)','N5','I','購物金錢','自動詞'],
+  ['v30','掛・戴眼鏡・鎖門','かける','かけます','かけて','掛ける','hang / wear','N5','II','生活飲食','他動詞'],
+  ['v31','借出','かす','かします','かして','貸す','lend','N5','I','購物金錢','他動詞'],
+  ['v32','借入','かりる','かります','かりて','借りる','borrow','N5','II','購物金錢','他動詞'],
+  ['v33','消失','きえる','きえます','きえて','消える','disappear','N5','II','狀態自然','自動詞'],
+  ['v34','聽・問','きく','ききます','きいて','聞く','listen / ask','N5','I','人際溝通','他動詞'],
+  ['v35','穿（上衣）','きる','きます','きて','着る','wear','N5','II','生活飲食','他動詞'],
+  ['v36','切','きる','きります','きって','切る','cut','N5','I','生活飲食','他動詞'],
+  ['v37','小心・注意','きをつける','きをつけます','きをつけて','気を付ける','be careful','N5','II','狀態自然','自動詞'],
+  ['v38','來','くる','きます','きて','来る','come','N5','III','移動外出','自動詞'],
+  ['v39','關（燈/電源）','けす','けします','けして','消す','turn off','N5','I','數位系統','他動詞'],
+  ['v40','複印','コピーする','コピーします','コピーして','コピーする','copy','N5','III','工作學習','他動詞'],
+  ['v41','困擾','こまる','こまります','こまって','困る','be troubled','N5','I','狀態自然','自動詞'],
+  ['v42','開花','さく','さきます','さいて','咲く','bloom','N5','I','狀態自然','自動詞'],
+  ['v43','散步','さんぽする','さんぽします','さんぽして','散歩する','take a walk','N5','III','移動外出','自動詞'],
+  ['v44','工作','しごとする','しごとします','しごとして','仕事する','work','N5','III','工作學習','自動詞'],
+  ['v45','死','しぬ','しにます','しんで','死ぬ','die','N5','I','狀態自然','自動詞'],
+  ['v46','關（門/窗）','しめる','しめます','しめて','閉める','close','N5','II','生活飲食','他動詞'],
+  ['v47','知道','しる','しります','しって','知る','know','N5','I','工作學習','他動詞'],
+  ['v48','住','すむ','すみます','すんで','住む','live','N5','I','生活飲食','自動詞'],
+  ['v49','做','する','します','して','する','do','N5','III','工作學習','他動詞'],
+  ['v50','坐','すわる','すわります','すわって','座る','sit','N5','I','生活飲食','自動詞'],
+  ['v51','洗衣服','せんたくする','せんたくします','せんたくして','洗濯する','wash clothes','N5','III','生活飲食','他動詞'],
+  ['v52','打掃','そうじする','そうじします','そうじして','掃除する','clean up','N5','III','生活飲食','他動詞'],
+  ['v53','拿出・寄出・開店','だす','だします','だして','出す','take out','N5','I','生活飲食','他動詞'],
+  ['v54','站立','たつ','たちます','たって','立つ','stand','N5','I','生活飲食','自動詞'],
+  ['v55','吃','たべる','たべます','たべて','食べる','eat','N5','II','生活飲食','他動詞'],
+  ['v56','使用','つかう','つかいます','つかって','使う','use','N5','I','數位系統','他動詞'],
+  ['v57','累了','つかれる','つかれます','つかれて','疲れる','get tired','N5','II','狀態自然','自動詞'],
+  ['v58','到達','つく','つきます','ついて','着く','arrive','N5','I','移動外出','自動詞'],
+  ['v59','製作・創造','つくる','つくります','つくって','作る','make','N5','I','工作學習','他動詞'],
+  ['v60','開（電源）・點火','つける','つけます','つけて','付ける','turn on','N5','II','數位系統','他動詞'],
+  ['v61','出門','でかける','でかけます','でかけて','出かける','go out','N5','II','移動外出','自動詞'],
+  ['v62','能夠・完成','できる','できます','できて','出来る','can / be ready','N5','II','工作學習','自動詞'],
+  ['v63','離開・出去・參加','でる','でます','でて','出る','leave / appear','N5','II','移動外出','自動詞'],
+  ['v64','打電話','でんわする','でんわします','でんわして','電話する','call','N5','III','人際溝通','自動詞'],
+  ['v65','飛・跳','とぶ','とびます','とんで','飛ぶ','fly / jump','N5','I','移動外出','自動詞'],
+  ['v66','停下（自動）','とまる','とまります','とまって','止まる','stop (intr.)','N5','I','移動外出','自動詞'],
+  ['v67','停（他動）','とめる','とめます','とめて','止める','stop (tr.)','N5','II','移動外出','他動詞'],
+  ['v68','拍照・拿取','とる','とります','とって','撮る','take (photo)','N5','I','生活飲食','他動詞'],
+  ['v69','弄丟','なくす','なくします','なくして','無くす','lose','N5','I','生活飲食','他動詞'],
+  ['v70','學習（跟隨老師）','ならう','ならいます','ならって','習う','learn','N5','I','工作學習','他動詞'],
+  ['v71','排隊','ならぶ','ならびます','ならんで','並ぶ','line up','N5','I','移動外出','自動詞'],
+  ['v72','成為・變成','なる','なります','なって','成る','become','N5','I','狀態自然','自動詞'],
+  ['v73','脫鞋・脫衣','ぬぐ','ぬぎます','ぬいで','脱ぐ','take off','N5','I','生活飲食','他動詞'],
+  ['v74','睡覺','ねる','ねます','ねて','寝る','sleep','N5','II','生活飲食','自動詞'],
+  ['v75','爬・登','のぼる','のぼります','のぼって','登る','climb','N5','I','移動外出','自動詞'],
+  ['v76','喝','のむ','のみます','のんで','飲む','drink','N5','I','生活飲食','他動詞'],
+  ['v77','搭車・乘坐','のる','のります','のって','乗る','ride','N5','I','移動外出','自動詞'],
+  ['v78','進入・加入・洗澡','はいる','はいります','はいって','入る','enter','N5','I','移動外出','自動詞'],
+  ['v79','穿（鞋/褲子）','はく','はきます','はいて','履く','wear (shoes/pants)','N5','I','生活飲食','他動詞'],
+  ['v80','開始（自動）','はじまる','はじまります','はじまって','始まる','begin (intr.)','N5','I','狀態自然','自動詞'],
+  ['v81','開始（他動）','はじめる','はじめます','はじめて','始める','begin (tr.)','N5','II','工作學習','他動詞'],
+  ['v82','說・交談','はなす','はなします','はなして','話す','talk','N5','I','人際溝通','他動詞'],
+  ['v83','貼','はる','はります','はって','貼る','stick','N5','I','生活飲食','他動詞'],
+  ['v84','彈奏（樂器）','ひく','ひきます','ひいて','弾く','play (instrument)','N5','I','生活飲食','他動詞'],
+  ['v85','複習','ふくしゅうする','ふくしゅうします','ふくしゅうして','復習する','review','N5','III','工作學習','他動詞'],
+  ['v86','等待','まつ','まちます','まって','待つ','wait','N5','I','人際溝通','他動詞'],
+  ['v87','給你看・展示','みせる','みせます','みせて','見せる','show','N5','II','人際溝通','他動詞'],
+  ['v88','看・嘗試','みる','みます','みて','見る','look / try','N5','II','生活飲食','他動詞'],
+  ['v89','拿・攜帶','もつ','もちます','もって','持つ','hold / carry','N5','I','生活飲食','他動詞'],
+  ['v90','休假・請假','やすむ','やすみます','やすんで','休む','rest / take off','N5','I','工作學習','自動詞'],
+  ['v91','辭職・停止','やめる','やめます','やめて','辞める','quit','N5','II','工作學習','他動詞'],
+  ['v92','呼叫・叫上','よぶ','よびます','よんで','呼ぶ','call','N5','I','人際溝通','他動詞'],
+  ['v93','讀','よむ','よみます','よんで','読む','read','N5','I','工作學習','他動詞'],
+  ['v94','旅行','りょこうする','りょこうします','りょこうして','旅行する','travel','N5','III','移動外出','自動詞'],
+  ['v95','練習','れんしゅうする','れんしゅうします','れんしゅうして','練習する','practice','N5','III','工作學習','他動詞'],
+  ['v96','明白・懂','わかる','わかります','わかって','分かる','understand','N5','I','工作學習','自動詞'],
+  ['v97','忘記','わすれる','わすれます','わすれて','忘れる','forget','N5','II','工作學習','他動詞'],
+  ['v98','橫過・渡過','わたる','わたります','わたって','渡る','cross','N5','I','移動外出','自動詞'],
+
+  // N4
+  ['v99','空著・變空','あく','あきます','あいて','空く','become empty','N4','I','狀態自然','自動詞'],
+  ['v100','聚集・集合','あつまる','あつまります','あつまって','集まる','gather','N4','I','人際溝通','自動詞'],
+  ['v101','收集','あつめる','あつめます','あつめて','集める','collect','N4','II','工作學習','他動詞'],
+  ['v102','安心・放心','あんしんする','あんしんします','あんしんして','安心する','feel relieved','N4','III','狀態自然','自動詞'],
+  ['v103','引導・帶路','あんないする','あんないします','あんないして','案内する','guide','N4','III','移動外出','他動詞'],
+  ['v104','移動（自動）','うごく','うごきます','うごいて','動く','move','N4','I','移動外出','自動詞'],
+  ['v105','開車','うんてんする','うんてんします','うんてんして','運転する','drive','N4','III','移動外出','他動詞'],
+  ['v106','選擇','えらぶ','えらびます','えらんで','選ぶ','choose','N4','I','購物金錢','他動詞'],
+  ['v107','發送・寄送','おくる','おくります','おくって','送る','send','N4','I','人際溝通','他動詞'],
+  ['v108','遲到','おくれる','おくれます','おくれて','遅れる','be late','N4','II','移動外出','自動詞'],
+  ['v109','生氣','おこる','おこります','おこって','怒る','get angry','N4','I','人際溝通','自動詞'],
+  ['v110','掉落（他動）','おとす','おとします','おとして','落とす','drop','N4','I','生活飲食','他動詞'],
+  ['v111','跳舞','おどる','おどります','おどって','踊る','dance','N4','I','生活飲食','自動詞'],
+  ['v112','驚訝','おどろく','おどろきます','おどろいて','驚く','be surprised','N4','I','狀態自然','自動詞'],
+  ['v113','改變・更換','かえる','かえます','かえて','変える','change','N4','II','工作學習','他動詞'],
+  ['v114','確認','かくにんする','かくにんします','かくにんして','確認する','confirm / check','N4','III','工作學習','他動詞'],
+  ['v115','收拾・整理','かたづける','かたづけます','かたづけて','片付ける','clean up','N4','II','生活飲食','他動詞'],
+  ['v116','贏','かつ','かちます','かって','勝つ','win','N4','I','工作學習','自動詞'],
+  ['v117','通勤・定期前往','かよう','かよいます','かよって','通う','commute / attend','N4','I','移動外出','自動詞'],
+  ['v118','思考・考慮','かんがえる','かんがえます','かんがえて','考える','think','N4','II','工作學習','他動詞'],
+  ['v119','努力・加油','がんばる','がんばります','がんばって','頑張る','do one’s best','N4','I','工作學習','自動詞'],
+  ['v120','換衣服','きがえる','きがえます','きがえて','着替える','change clothes','N4','II','生活飲食','自動詞'],
+  ['v121','聽得見','きこえる','きこえます','きこえて','聞こえる','can hear','N4','II','狀態自然','自動詞'],
+  ['v122','決定・設定','きめる','きめます','きめて','決める','decide','N4','II','工作學習','他動詞'],
+  ['v123','沒電・用完','きれる','きれます','きれて','切れる','run out','N4','II','數位系統','自動詞'],
+  ['v124','擁擠','こむ','こみます','こんで','込む','be crowded','N4','I','移動外出','自動詞'],
+  ['v125','壞掉（自動）','こわれる','こわれます','こわれて','壊れる','break (intr.)','N4','II','數位系統','自動詞'],
+  ['v126','尋找','さがす','さがします','さがして','探す','search','N4','I','生活飲食','他動詞'],
+  ['v127','下降','さがる','さがります','さがって','下がる','go down','N4','I','狀態自然','自動詞'],
+  ['v128','參加','さんかする','さんかします','さんかして','参加する','participate','N4','III','人際溝通','自動詞'],
+  ['v129','加班','ざんぎょうする','ざんぎょうします','ざんぎょうして','残業する','work overtime','N4','III','工作學習','自動詞'],
+  ['v130','查詢・調查','しらべる','しらべます','しらべて','調べる','check / look up','N4','II','工作學習','他動詞'],
+  ['v131','扔掉・丟棄','すてる','すてます','すてて','捨てる','throw away','N4','II','生活飲食','他動詞'],
+  ['v132','說明','せつめいする','せつめいします','せつめいして','説明する','explain','N4','III','工作學習','他動詞'],
+  ['v133','諮詢・商量','そうだんする','そうだんします','そうだんして','相談する','consult','N4','III','人際溝通','自動詞'],
+  ['v134','畢業','そつぎょうする','そつぎょうします','そつぎょうして','卒業する','graduate','N4','III','工作學習','他動詞'],
+  ['v135','足夠','たりる','たります','たりて','足りる','be enough','N4','II','購物金錢','自動詞'],
+  ['v136','存錢','ちょきんする','ちょきんします','ちょきんして','貯金する','save money','N4','III','購物金錢','他動詞'],
+  ['v137','幫忙','てつだう','てつだいます','てつだって','手伝う','help','N4','I','人際溝通','他動詞'],
+  ['v138','繼續（他動）','つづける','つづけます','つづけて','続ける','continue','N4','II','工作學習','他動詞'],
+  ['v139','住宿','とまる','とまります','とまって','泊まる','stay overnight','N4','I','移動外出','自動詞'],
+  ['v140','治癒・痊癒','なおる','なおります','なおって','治る','recover / get fixed','N4','I','狀態自然','自動詞'],
+  ['v141','哭','なく','なきます','ないて','泣く','cry','N4','I','人際溝通','自動詞'],
+  ['v142','習慣・適應','なれる','なれます','なれて','慣れる','get used to','N4','II','狀態自然','自動詞'],
+  ['v143','適合','にあう','にあいます','にあって','似合う','suit / fit','N4','I','購物金錢','自動詞'],
+  ['v144','睡過頭','ねぼうする','ねぼうします','ねぼうして','寝坊する','oversleep','N4','III','生活飲食','自動詞'],
+  ['v145','換乘','のりかえる','のりかえます','のりかえて','乗り換える','transfer','N4','II','移動外出','他動詞'],
+  ['v146','跑步','はしる','はしります','はしって','走る','run','N4','I','移動外出','自動詞'],
+  ['v147','搬家','ひっこす','ひっこします','ひっこして','引っ越す','move house','N4','I','生活飲食','自動詞'],
+  ['v148','撿起','ひろう','ひろいます','ひろって','拾う','pick up','N4','I','生活飲食','他動詞'],
+  ['v149','增加（自動）','ふえる','ふえます','ふえて','増える','increase (intr.)','N4','II','狀態自然','自動詞'],
+  ['v150','列印','プリントする','プリントします','プリントして','プリントする','print','N4','III','數位系統','他動詞'],
+  ['v151','輸','まける','まけます','まけて','負ける','lose','N4','II','工作學習','自動詞'],
+  ['v152','弄錯','まちがえる','まちがえます','まちがえて','間違える','make a mistake','N4','II','工作學習','他動詞'],
+  ['v153','來得及・趕上','まにあう','まにあいます','まにあって','間に合う','make it in time','N4','I','移動外出','自動詞'],
+  ['v154','尋找・發現','みつける','みつけます','みつけて','見つける','find','N4','II','生活飲食','他動詞'],
+  ['v155','放回去（他動）','もどす','もどします','もどして','戻す','put back','N4','I','生活飲食','他動詞'],
+  ['v156','回到（自動）','もどる','もどります','もどって','戻る','return','N4','I','移動外出','自動詞'],
+  ['v157','拿到・得到','もらう','もらいます','もらって','貰う','receive','N4','I','人際溝通','他動詞'],
+  ['v158','預訂・預約','よやくする','よやくします','よやくして','予約する','reserve','N4','III','購物金錢','他動詞'],
+  ['v159','聯絡','れんらくする','れんらくします','れんらくして','連絡する','contact','N4','III','人際溝通','他動詞'],
+  ['v160','分手・別離','わかれる','わかれます','わかれて','別れる','separate','N4','II','人際溝通','自動詞'],
+  ['v161','笑','わらう','わらいます','わらって','笑う','laugh','N4','I','人際溝通','自動詞'],
+
+  // N3 & N2 & Extra
+  ['v162','保管','あずかる','あずかります','あずかって','預かる','keep / take care','N3','I','購物金錢','他動詞'],
+  ['v163','寄存・存','あずける','あずけます','あずけて','預ける','deposit / entrust','N3','II','購物金錢','他動詞'],
+  ['v164','處理・對待','あつかう','あつかいます','あつかって','扱う','handle','N3','I','工作學習','他動詞'],
+  ['v165','進行更新','アップデートする','アップデートします','アップデートして','アップデートする','update','N3','III','數位系統','他動詞'],
+  ['v166','安裝','インストールする','インストールします','インストールして','インストールする','install','N3','III','數位系統','他動詞'],
+  ['v167','接收（物品）','うけとる','うけとります','うけとって','受け取る','receive','N3','I','購物金錢','他動詞'],
+  ['v168','進行・舉辦','おこなう','おこないます','おこなって','行う','carry out','N3','I','工作學習','他動詞'],
+  ['v169','舉辦','かいさいする','かいさいします','かいさいして','開催する','hold (event)','N3','III','人際溝通','他動詞'],
+  ['v170','藏・躲起來','かくれる','かくれます','かくれて','隠れる','hide','N3','II','生活飲食','自動詞'],
+  ['v171','管理','かんりする','かんりします','かんりして','管理する','manage','N3','III','工作學習','他動詞'],
+  ['v172','注意到','きづく','きづきます','きづいて','気づく','notice','N3','I','狀態自然','自動詞'],
+  ['v173','取消','キャンセルする','キャンセルします','キャンセルして','キャンセルする','cancel','N3','III','數位系統','他動詞'],
+  ['v174','合作・協力','きょうりょくする','きょうりょくします','きょうりょくして','協力する','cooperate','N3','III','工作學習','自動詞'],
+  ['v175','交換','こうかんする','こうかんします','こうかんして','交換する','exchange','N3','III','購物金錢','他動詞'],
+  ['v176','拒絕','ことわる','ことわります','ことわって','断る','refuse','N3','I','人際溝通','他動詞'],
+  ['v177','重新啟動','さいきどうする','さいきどうします','さいきどうして','再起動する','reboot','N3','III','數位系統','他動詞'],
+  ['v178','刪除','さくじょする','さくじょします','さくじょして','削除する','delete','N3','III','數位系統','他動詞'],
+  ['v179','集中','しゅうちゅうする','しゅうちゅうします','しゅうちゅうして','集中する','concentrate','N3','III','工作學習','自動詞'],
+  ['v180','充電','じゅうでんする','じゅうでんします','じゅうでんして','充電する','charge','N3','III','數位系統','他動詞'],
+  ['v181','度過','すごす','すごします','すごして','過ごす','spend time','N3','I','生活飲食','他動詞'],
+  ['v182','推薦','すすめる','すすめます','すすめて','勧める','recommend','N3','II','人際溝通','他動詞'],
+  ['v183','成功','せいこうする','せいこうします','せいこうして','成功する','succeed','N3','III','工作學習','自動詞'],
+  ['v184','節約','せつやくする','せつやくします','せつやくして','節約する','save / economize','N3','III','購物金錢','他動詞'],
+  ['v185','下載','ダウンロードする','ダウンロードします','ダウンロードして','ダウンロードする','download','N3','III','數位系統','他動詞'],
+  ['v186','負責・擔任','たんとうする','たんとうします','たんとうして','担当する','be in charge','N3','III','工作學習','他動詞'],
+  ['v187','連接（自動）','つながる','つながります','つながって','繋がる','connect','N3','I','數位系統','自動詞'],
+  ['v188','送達・到達','とどく','とどきます','とどいて','届く','arrive / reach','N3','I','購物金錢','自動詞'],
+  ['v189','輸入（資料）','にゅうりょくする','にゅうりょくします','にゅうりょくして','入力する','input','N3','III','數位系統','他動詞'],
+  ['v190','遠離・離開','はなれる','はなれます','はなれて','離れる','separate from','N3','II','移動外出','自動詞'],
+  ['v191','減少（他動）','へらす','へらします','へらして','減らす','reduce','N3','I','購物金錢','他動詞'],
+  ['v192','退貨','へんぴんする','へんぴんします','へんぴんして','返品する','return goods','N3','III','購物金錢','他動詞'],
+  ['v193','整理・總結','まとめる','まとめます','まとめて','纏める','summarize','N3','II','工作學習','他動詞'],
+  ['v194','申請','もうしこむ','もうしこみます','もうしこんで','申し込む','apply','N3','I','工作學習','他動詞'],
+  ['v195','高興・感到開心','よろこぶ','よろこびます','よろこんで','喜ぶ','be happy','N3','I','人際溝通','自動詞'],
+  ['v196','請客','おごる','おごります','おごって','奢る','treat (pay)','N2','I','購物金錢','他動詞'],
+  ['v197','節制・控制','ひかえる','ひかえます','ひかえて','控える','refrain','N2','II','狀態自然','他動詞'],
+  ['v198','冷靜下來','おちつく','おちつきます','おちついて','落ち着く','calm down','EXTRA','I','狀態自然','自動詞'],
+  ['v199','洗澡（淋浴/泡澡）','あびる','あびます','あびて','浴びる','take a shower','EXTRA','II','生活飲食','他動詞'],
+  ['v200','依賴','たよる','たよります','たよって','頼る','rely on','EXTRA','I','人際溝通','自動詞']
+];
+
+const VERBS = VERB_RAW.map(r => {
+  const [id, zh, dict, masu, te, kanji, en, jlpt, grp, cat, tr] = r;
+  return { id, zh, dict, masu, te, kanji, en, jlpt, grp, cat, tr };
+});
+
+// Conjugation Engine (Accurate across Group I / II / III & irregular exceptions)
+const A_ROW = { 'う':'わ', 'く':'か', 'ぐ':'が', 'す':'さ', 'つ':'た', 'ぬ':'な', 'ぶ':'ば', 'む':'ま', 'る':'ら' };
+const I_ROW = { 'う':'い', 'く':'き', 'ぐ':'ぎ', 'す':'し', 'つ':'ち', 'ぬ':'に', 'ぶ':'び', 'む':'み', 'る':'り' };
+const E_ROW = { 'う':'え', 'く':'け', 'ぐ':'げ', 'す':'せ', 'つ':'て', 'ぬ':'ね', 'ぶ':'べ', 'む':'め', 'る':'れ' };
+const O_ROW = { 'う':'おう', 'く':'こう', 'ぐ':'ごう', 'す':'そう', 'つ':'とう', 'ぬ':'のう', 'ぶ':'ぼう', 'む':'もう', 'る':'ろう' };
+
+function conjugateVerb(v, useKanji) {
+  const base = (useKanji && v.kanji) ? v.kanji : v.dict;
+  const kanaDict = v.dict;
+
+  // Special handling for Group III & common exceptions
+  if (v.grp === 'III') {
+    if (kanaDict.endsWith('する')) {
+      const stemKana = kanaDict.slice(0, -2);
+      const stemDisp = base.endsWith('する') ? base.slice(0, -2) : stemKana;
+      return {
+        dict: base,
+        masu: stemDisp + 'します',
+        te: stemDisp + 'して',
+        nai: stemDisp + 'しない',
+        ta: stemDisp + 'した',
+        ba: stemDisp + 'すれば',
+        potential: stemDisp + 'できる',
+        volitional: stemDisp + 'しよう',
+        stem: stemDisp,
+        ending: 'する',
+        ruleNote: 'III 類サ變動詞：詞尾「する」整體轉換為「し / す / せ」。'
+      };
+    }
+    if (kanaDict === 'くる') {
+      const stem = useKanji ? '来' : '';
+      return {
+        dict: useKanji ? '来る' : 'くる',
+        masu: useKanji ? '来ます（きます）' : 'きます',
+        te: useKanji ? '来て（きて）' : 'きて',
+        nai: useKanji ? '来ない（こない）' : 'こない',
+        ta: useKanji ? '来た（きた）' : 'きた',
+        ba: useKanji ? '来れば（くれば）' : 'くれば',
+        potential: useKanji ? '来られる（こられる）' : 'こられる',
+        volitional: useKanji ? '来よう（こよう）' : 'こよう',
+        stem: useKanji ? '来' : 'く',
+        ending: 'くる',
+        ruleNote: 'III 類カ變動詞：「来る」依不同變化讀作 き（ます/て/た）、こ（ない/られ/よう）、く（辭書/ば）。'
+      };
+    }
+  }
+
+  if (v.grp === 'II') {
+    const stem = base.slice(0, -1);
+    return {
+      dict: base,
+      masu: stem + 'ます',
+      te: stem + 'て',
+      nai: stem + 'ない',
+      ta: stem + 'た',
+      ba: stem + 'れば',
+      potential: stem + 'られる',
+      volitional: stem + 'よう',
+      stem,
+      ending: 'る',
+      ruleNote: 'II 類一段動詞：直接去掉詞尾「る」，再接上對應詞尾即可。'
+    };
+  }
+
+  // Group I
+  const stem = base.slice(0, -1);
+  const last = kanaDict.slice(-1);
+  const teKanaEnd = v.te.slice(-2);
+  const teDisp = stem + (kanaDict === 'いく' ? 'って' : teKanaEnd);
+  const taEnd = teKanaEnd.replace('て', 'た').replace('で', 'だ');
+  const taDisp = stem + (kanaDict === 'いく' ? 'った' : taEnd);
+
+  let naiDisp = stem + (A_ROW[last] || '') + 'ない';
+  if (kanaDict === 'ある') {
+    naiDisp = 'ない';
+  }
+
+  const masuDisp = stem + (I_ROW[last] || '') + 'ます';
+  const baDisp = stem + (E_ROW[last] || '') + 'ば';
+  const potDisp = stem + (E_ROW[last] || '') + 'る';
+  const volDisp = stem + (O_ROW[last] || '');
+
+  let onbinNote = '無特殊音便';
+  if (kanaDict === 'いく') onbinNote = '例外促音便（いく → いって / いった）';
+  else if ('うつる'.includes(last)) onbinNote = '促音便（' + last + ' → って / った）';
+  else if ('むぶぬ'.includes(last)) onbinNote = '撥音便（' + last + ' → んで / んだ）';
+  else if (last === 'く') onbinNote = 'い音便（く → いて / いた）';
+  else if (last === 'ぐ') onbinNote = 'い音便濁化（ぐ → いで / いだ）';
+  else if (last === 'す') onbinNote = 'し變化（す → して / した）';
+
+  return {
+    dict: base,
+    masu: masuDisp,
+    te: teDisp,
+    nai: naiDisp,
+    ta: taDisp,
+    ba: baDisp,
+    potential: potDisp,
+    volitional: volDisp,
+    stem,
+    ending: last,
+    ruleNote: 'I 類五段動詞（詞尾「' + last + '」）：ます形轉い段、ない形轉あ段；て/た形採 ' + onbinNote + '。'
+  };
+}
+
+// App State
+const appState = {
+  activeTab: 'explore',
+  showKanji: true,
+  selectedVerbId: 'v01',
+  masteredIds: [],
+  mistakes: {}, // { verbId: count }
+  quizStats: { answered: 0, correct: 0, streak: 0 },
+  practiceMode: 'flash',
+  flashIndex: 0,
+  flashFlipped: false,
+  flashDir: 'jp2zh',
+  currentQuiz: null
+};
+
+let filteredVerbs = [...VERBS];
+
+function dispWord(v) {
+  if (!v) return '';
+  if (appState.showKanji && v.kanji && v.kanji !== v.dict) {
+    return v.kanji;
+  }
+  return v.dict;
+}
+
+function dispSub(v) {
+  if (!v) return '';
+  if (appState.showKanji && v.kanji && v.kanji !== v.dict) {
+    return v.dict + ' · ' + v.en;
+  }
+  return v.en || '';
+}
+
+function saveState() {
+  if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === 'function') {
+    window.notebookAppApi.setAppState({
+      showKanji: appState.showKanji,
+      masteredIds: appState.masteredIds,
+      mistakes: appState.mistakes,
+      quizStats: appState.quizStats,
+      selectedVerbId: appState.selectedVerbId
+    }).catch(() => {});
+  }
+}
+
+function switchTab(tabName) {
+  appState.activeTab = tabName;
+  ['explore', 'grammar', 'practice'].forEach(name => {
+    const btn = document.getElementById('tab-btn-' + name);
+    const panel = document.getElementById('panel-' + name);
+    if (btn) {
+      btn.classList.toggle('active', name === tabName);
+      btn.setAttribute('aria-selected', name === tabName ? 'true' : 'false');
+    }
+    if (panel) {
+      panel.classList.toggle('active', name === tabName);
+    }
+  });
+  const filterPanel = document.getElementById('shared-filter-panel');
+  if (filterPanel) {
+    filterPanel.style.display = tabName === 'grammar' ? 'none' : 'grid';
+  }
+  if (tabName === 'grammar') {
+    renderLabSelect();
+    renderLabSteps();
+  }
+  if (tabName === 'practice') {
+    refreshPracticeView();
+  }
+}
+
+function toggleKanjiDisplay() {
+  appState.showKanji = !appState.showKanji;
+  updateKanjiToggleUI();
+  renderExplorer();
+  renderInspector();
+  if (appState.activeTab === 'grammar') {
+    renderLabSelect();
+    renderLabSteps();
+  }
+  if (appState.activeTab === 'practice') {
+    refreshPracticeView();
+  }
+  saveState();
+}
+
+function updateKanjiToggleUI() {
+  const btn = document.getElementById('kanji-toggle-btn');
+  const lbl = document.getElementById('kanji-toggle-label');
+  if (btn) btn.setAttribute('aria-pressed', appState.showKanji ? 'true' : 'false');
+  if (lbl) lbl.textContent = appState.showKanji ? '開啟（顯示漢字）' : '關閉（純假名模式）';
+}
+
+function applyFilters() {
+  const q = (document.getElementById('filter-search')?.value || '').trim().toLowerCase();
+  const jlpt = document.getElementById('filter-jlpt')?.value || 'ALL';
+  const grp = document.getElementById('filter-group')?.value || 'ALL';
+  const cat = document.getElementById('filter-category')?.value || 'ALL';
+  const tr = document.getElementById('filter-transitivity')?.value || 'ALL';
+  const mastery = document.getElementById('filter-mastery')?.value || 'ALL';
+
+  filteredVerbs = VERBS.filter(v => {
+    if (jlpt !== 'ALL' && v.jlpt !== jlpt) return false;
+    if (grp !== 'ALL' && v.grp !== grp) return false;
+    if (cat !== 'ALL' && v.cat !== cat) return false;
+    if (tr !== 'ALL' && v.tr !== tr) return false;
+    const isMastered = appState.masteredIds.includes(v.id);
+    if (mastery === 'MASTERED' && !isMastered) return false;
+    if (mastery === 'UNMASTERED' && isMastered) return false;
+    if (q) {
+      const hay = `${v.zh} ${v.dict} ${v.kanji} ${v.masu} ${v.te} ${v.en}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (filteredVerbs.length > 0 && !filteredVerbs.some(v => v.id === appState.selectedVerbId)) {
+    appState.selectedVerbId = filteredVerbs[0].id;
+  }
+  appState.flashIndex = 0;
+  appState.flashFlipped = false;
+
+  renderFilterChips({ q, jlpt, grp, cat, tr, mastery });
+  updateKPIs();
+  renderExplorer();
+  renderInspector();
+  if (appState.activeTab === 'practice') {
+    refreshPracticeView();
+  }
+}
+
+function renderFilterChips(f) {
+  const box = document.getElementById('active-filter-chips');
+  if (!box) return;
+  const chips = [];
+  if (f.jlpt !== 'ALL') chips.push(`等級: ${f.jlpt}`);
+  if (f.grp !== 'ALL') chips.push(`組別: ${f.grp} 類`);
+  if (f.cat !== 'ALL') chips.push(`情境: ${f.cat}`);
+  if (f.tr !== 'ALL') chips.push(`類型: ${f.tr}`);
+  if (f.mastery !== 'ALL') chips.push(f.mastery === 'MASTERED' ? '已熟記' : '未熟記');
+  if (f.q) chips.push(`關鍵字: ${f.q}`);
+
+  if (chips.length === 0) {
+    box.innerHTML = `<span class="status-tag">顯示全部 ${VERBS.length} 個精選動詞</span>`;
+  } else {
+    box.innerHTML = chips.map(c => `<span class="status-tag cinnabar">${c}</span>`).join('') +
+      `<span class="status-tag">符合 ${filteredVerbs.length} 筆</span>`;
+  }
+}
+
+function clearAllFilters() {
+  const ids = ['filter-search','filter-jlpt','filter-group','filter-category','filter-transitivity','filter-mastery'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = id === 'filter-search' ? '' : 'ALL';
+  });
+  applyFilters();
+}
+
+function updateKPIs() {
+  const totalEl = document.getElementById('kpi-total');
+  const filtNote = document.getElementById('kpi-filtered-note');
+  const mastEl = document.getElementById('kpi-mastered');
+  const mastBar = document.getElementById('kpi-mastered-bar');
+  const mastPct = document.getElementById('kpi-mastered-pct');
+  const accEl = document.getElementById('kpi-accuracy');
+  const streakEl = document.getElementById('kpi-streak');
+  const mistEl = document.getElementById('kpi-mistakes');
+
+  const mCount = appState.masteredIds.length;
+  const pct = Math.round((mCount / VERBS.length) * 100);
+  if (totalEl) totalEl.textContent = VERBS.length;
+  if (filtNote) filtNote.textContent = `目前篩選 ${filteredVerbs.length} 個動詞`;
+  if (mastEl) mastEl.textContent = `${mCount} / ${VERBS.length}`;
+  if (mastBar) mastBar.style.width = `${pct}%`;
+  if (mastPct) mastPct.textContent = `整體掌握率 ${pct}%`;
+
+  const qs = appState.quizStats;
+  if (accEl) accEl.textContent = qs.answered > 0 ? `${Math.round((qs.correct / qs.answered) * 100)}%` : '—';
+  if (streakEl) streakEl.textContent = `目前連勝 ${qs.streak} 題（累計 ${qs.answered} 題）`;
+  if (mistEl) mistEl.textContent = Object.keys(appState.mistakes).length;
+}
+
+function renderExplorer() {
+  const tbody = document.getElementById('verb-table-body');
+  if (!tbody) return;
+
+  if (filteredVerbs.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="padding: var(--space-xl); text-align:center; color: var(--on-surface-variant);">找不到符合條件的動詞，請調整上方分類篩選或清除關鍵字。</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filteredVerbs.map(v => {
+    const isSel = v.id === appState.selectedVerbId;
+    const isMast = appState.masteredIds.includes(v.id);
+    return `
+      <tr class="verb-row ${isSel ? 'selected' : ''}" onclick="selectVerb('${v.id}')">
+        <td>
+          <div class="jp-main">${dispWord(v)}</div>
+          <div class="jp-sub">${dispSub(v)}</div>
+        </td>
+        <td>${v.zh}</td>
+        <td><span class="status-tag">${v.grp} 類</span></td>
+        <td><span class="status-tag">${v.jlpt}</span></td>
+        <td>${isMast ? '<span class="status-tag">已熟記</span>' : '<span class="status-tag cinnabar">待記</span>'}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function selectVerb(id) {
+  appState.selectedVerbId = id;
+  renderExplorer();
+  renderInspector();
+  saveState();
+}
+
+function toggleMastered(id) {
+  const idx = appState.masteredIds.indexOf(id);
+  if (idx >= 0) {
+    appState.masteredIds.splice(idx, 1);
+  } else {
+    appState.masteredIds.push(id);
+  }
+  updateKPIs();
+  renderExplorer();
+  renderInspector();
+  if (appState.activeTab === 'practice') refreshPracticeView();
+  saveState();
+}
+
+function renderInspector() {
+  const box = document.getElementById('verb-inspector');
+  if (!box) return;
+  const v = VERBS.find(x => x.id === appState.selectedVerbId) || filteredVerbs[0] || VERBS[0];
+  if (!v) return;
+
+  const c = conjugateVerb(v, appState.showKanji);
+  const isMast = appState.masteredIds.includes(v.id);
+
+  box.innerHTML = `
+    <div class="inspector-top">
+      <div>
+        <div class="kicker">${v.jlpt} · ${v.grp} 類動詞 · ${v.cat} · ${v.tr}</div>
+        <div class="inspector-word">${c.dict}</div>
+        <div class="jp-sub" style="margin-top:4px;">中文：${v.zh}${v.en ? ' ｜ 英文：' + v.en : ''}</div>
+      </div>
+      <button type="button" class="${isMast ? 'btn-primary' : 'btn-secondary'}" onclick="toggleMastered('${v.id}')">
+        ${isMast ? '✓ 已熟記' : '標記熟記'}
+      </button>
+    </div>
+
+    <div class="conj-grid">
+      <div class="conj-cell">
+        <div class="conj-cell-label">辭書形（原型）</div>
+        <div class="conj-cell-val">${c.dict}</div>
+      </div>
+      <div class="conj-cell">
+        <div class="conj-cell-label">ます形（禮貌體）</div>
+        <div class="conj-cell-val">${c.masu}</div>
+      </div>
+      <div class="conj-cell">
+        <div class="conj-cell-label">て形（接續・請求）</div>
+        <div class="conj-cell-val">${c.te}</div>
+      </div>
+      <div class="conj-cell">
+        <div class="conj-cell-label">ない形（普通否定）</div>
+        <div class="conj-cell-val">${c.nai}</div>
+      </div>
+      <div class="conj-cell">
+        <div class="conj-cell-label">た形（普通過去）</div>
+        <div class="conj-cell-val">${c.ta}</div>
+      </div>
+      <div class="conj-cell">
+        <div class="conj-cell-label">可能形 / 意向形</div>
+        <div class="conj-cell-val">${c.potential} / ${c.volitional}</div>
+      </div>
+    </div>
+
+    <div class="rule-breakdown">
+      <strong>變化解析：</strong>${c.ruleNote}
+    </div>
+
+    <div>
+      <div class="field-label" style="margin-bottom: var(--space-xs);">常用接續句型實例</div>
+      <ul class="pattern-list">
+        <li><span>${c.te}ください</span><span class="jp-sub">請（做此動作）</span></li>
+        <li><span>${c.te}います</span><span class="jp-sub">正在做／狀態持續</span></li>
+        <li><span>${c.nai}でください</span><span class="jp-sub">請不要（做此動作）</span></li>
+        <li><span>${c.ta}ことがあります</span><span class="jp-sub">曾經（做過…）</span></li>
+      </ul>
+    </div>
+  `;
+}
+
+// Grammar Lab Functions
+function renderLabSelect() {
+  const sel = document.getElementById('lab-verb-select');
+  if (!sel) return;
+  const cur = sel.value || appState.selectedVerbId || 'v01';
+  const showcaseIds = ['v10','v26','v28','v55','v76','v82','v23','v45','v49','v38','v07','v36'];
+  const list = VERBS.filter(v => showcaseIds.includes(v.id)).concat(
+    VERBS.filter(v => !showcaseIds.includes(v.id)).slice(0, 35)
+  );
+  sel.innerHTML = list.map(v => `<option value="${v.id}">${dispWord(v)}（${v.zh} · ${v.grp}類）</option>`).join('');
+  if (list.some(v => v.id === cur)) sel.value = cur;
+}
+
+function renderLabSteps() {
+  const sel = document.getElementById('lab-verb-select');
+  const formSel = document.getElementById('lab-target-form');
+  const flow = document.getElementById('lab-step-flow');
+  const tip = document.getElementById('lab-sentence-tip');
+  if (!sel || !formSel || !flow || !tip) return;
+
+  const v = VERBS.find(x => x.id === sel.value) || VERBS[0];
+  const target = formSel.value;
+  const c = conjugateVerb(v, appState.showKanji);
+
+  const labelMap = {
+    masu: 'ます形',
+    te: 'て形',
+    nai: 'ない形',
+    ta: 'た形',
+    ba: 'ば形（假定）',
+    potential: '可能形',
+    volitional: '意向形'
+  };
+
+  let step2Title = '步驟 2 · 詞幹與詞尾切分';
+  let step2Val = `${c.stem} ＋ ${c.ending}`;
+  let step2Note = v.grp === 'I' ? `五段詞尾為「${c.ending}」` : v.grp === 'II' ? '一段去掉詞尾「る」' : '不規則詞幹轉換';
+
+  let step3Val = c[target];
+  let step3Note = c.ruleNote;
+
+  flow.innerHTML = `
+    <div class="step-box">
+      <div class="step-num">步驟 1 · 判定組別與辭書形</div>
+      <div class="step-val">${c.dict}</div>
+      <div class="step-note">${v.grp} 類動詞｜中文：${v.zh}</div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">${step2Title}</div>
+      <div class="step-val">${step2Val}</div>
+      <div class="step-note">${step2Note}</div>
+    </div>
+    <div class="step-box">
+      <div class="step-num">步驟 3 · 轉換為「${labelMap[target]}」</div>
+      <div class="step-val" style="color: var(--tertiary);">${step3Val}</div>
+      <div class="step-note">${step3Note}</div>
+    </div>
+  `;
+
+  const sentenceMap = {
+    masu: `丁寧對話：${c.masu}（禮貌肯定）／ ${c.masu.replace('ます', 'ません')}（禮貌否定）。`,
+    te: `請求與進行：${c.te}ください（請…）／ ${c.te}もいいですか（可以…嗎？）／ ${c.te}います（正在…）。`,
+    nai: `否定與義務：${c.nai}でください（請不要…）／ ${c.nai.slice(0,-1)}ければなりません（必須…）。`,
+    ta: `經驗與過去：${c.ta}ことがあります（曾經…）／ ${c.ta}あとで（…之後）。`,
+    ba: `假定條件：${c.ba}、〜（如果…的話，就會…）。`,
+    potential: `能力表達：對象 ＋ が ＋ ${c.potential}（能夠做到…）。`,
+    volitional: `意志與邀約：${c.volitional}と思います（我打算…）。`
+  };
+  tip.innerHTML = `<strong>實戰句型延伸：</strong>${sentenceMap[target]}`;
+}
+
+// Practice & Quiz Logic
+function getPracticePool() {
+  if (appState.practiceMode === 'mistakes') {
+    const mIds = Object.keys(appState.mistakes);
+    const pool = VERBS.filter(v => mIds.includes(v.id));
+    return pool;
+  }
+  return filteredVerbs.length > 0 ? filteredVerbs : VERBS;
+}
+
+function setPracticeMode(mode) {
+  appState.practiceMode = mode;
+  ['flash', 'conj', 'meaning', 'mistakes'].forEach(m => {
+    const btn = document.getElementById('mode-btn-' + m);
+    if (btn) btn.classList.toggle('active', m === mode);
+  });
+  refreshPracticeView();
+}
+
+function refreshPracticeView() {
+  const flashView = document.getElementById('practice-flash-view');
+  const quizView = document.getElementById('practice-quiz-view');
+  if (!flashView || !quizView) return;
+
+  if (appState.practiceMode === 'flash') {
+    flashView.style.display = 'block';
+    quizView.style.display = 'none';
+    renderFlashcard();
+  } else {
+    flashView.style.display = 'none';
+    quizView.style.display = 'block';
+    generateQuizQuestion();
+  }
+  renderMistakeSidebar();
+}
+
+function toggleFlashDirection() {
+  appState.flashDir = appState.flashDir === 'jp2zh' ? 'zh2jp' : 'jp2zh';
+  appState.flashFlipped = false;
+  const btn = document.getElementById('flash-dir-btn');
+  if (btn) btn.textContent = appState.flashDir === 'jp2zh' ? '正面題示：日文 → 中文' : '正面題示：中文 → 日文';
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  const pool = filteredVerbs;
+  const metaEl = document.getElementById('flash-meta');
+  const frontEl = document.getElementById('flash-front-text');
+  const hintEl = document.getElementById('flash-hint-text');
+  const backBox = document.getElementById('flash-back-details');
+  const conjGrid = document.getElementById('flash-conj-grid');
+  const counterEl = document.getElementById('flash-counter');
+  const mastBtn = document.getElementById('flash-master-btn');
+
+  if (!pool || pool.length === 0) {
+    if (frontEl) frontEl.textContent = '目前篩選無符合動詞';
+    if (hintEl) hintEl.textContent = '請調整上方的多維度篩選條件';
+    if (backBox) backBox.style.display = 'none';
+    if (counterEl) counterEl.textContent = '0 / 0';
+    return;
+  }
+
+  if (appState.flashIndex >= pool.length) appState.flashIndex = 0;
+  const v = pool[appState.flashIndex];
+  const c = conjugateVerb(v, appState.showKanji);
+  const isMast = appState.masteredIds.includes(v.id);
+
+  if (counterEl) counterEl.textContent = `第 ${appState.flashIndex + 1} / ${pool.length} 張`;
+  if (metaEl) metaEl.textContent = `${v.jlpt} · ${v.grp} 類 · ${v.cat} · ${v.tr}`;
+  if (mastBtn) mastBtn.textContent = isMast ? '✓ 已熟記（點擊取消）' : '標記為已熟記';
+
+  if (!appState.flashFlipped) {
+    if (frontEl) frontEl.textContent = appState.flashDir === 'jp2zh' ? c.dict : v.zh;
+    if (hintEl) hintEl.textContent = appState.flashDir === 'jp2zh' ? (appState.showKanji ? v.dict : '純假名認讀練習') + '（點擊翻面）' : (v.en || '點擊翻面檢視日文與變化');
+    if (backBox) backBox.style.display = 'none';
+  } else {
+    if (frontEl) frontEl.textContent = appState.flashDir === 'jp2zh' ? v.zh : c.dict;
+    if (hintEl) hintEl.textContent = `${c.dict}（${v.dict}）— ${v.zh}`;
+    if (backBox) backBox.style.display = 'block';
+    if (conjGrid) {
+      conjGrid.innerHTML = `
+        <div class="conj-cell"><div class="conj-cell-label">ます形</div><div class="conj-cell-val">${c.masu}</div></div>
+        <div class="conj-cell"><div class="conj-cell-label">て形</div><div class="conj-cell-val">${c.te}</div></div>
+        <div class="conj-cell"><div class="conj-cell-label">ない形</div><div class="conj-cell-val">${c.nai}</div></div>
+        <div class="conj-cell"><div class="conj-cell-label">た形</div><div class="conj-cell-val">${c.ta}</div></div>
+      `;
+    }
+  }
+}
+
+function flipFlashcard() {
+  if (filteredVerbs.length === 0) return;
+  appState.flashFlipped = !appState.flashFlipped;
+  renderFlashcard();
+}
+function nextFlashcard() {
+  if (filteredVerbs.length === 0) return;
+  appState.flashIndex = (appState.flashIndex + 1) % filteredVerbs.length;
+  appState.flashFlipped = false;
+  renderFlashcard();
+}
+function prevFlashcard() {
+  if (filteredVerbs.length === 0) return;
+  appState.flashIndex = (appState.flashIndex - 1 + filteredVerbs.length) % filteredVerbs.length;
+  appState.flashFlipped = false;
+  renderFlashcard();
+}
+function toggleCurrentFlashMastered() {
+  if (filteredVerbs.length === 0) return;
+  const v = filteredVerbs[appState.flashIndex];
+  if (v) toggleMastered(v.id);
+}
+
+function generateQuizQuestion() {
+  const pool = getPracticePool();
+  const typeBadge = document.getElementById('quiz-type-badge');
+  const targetBadge = document.getElementById('quiz-target-badge');
+  const metaEl = document.getElementById('quiz-prompt-meta');
+  const wordEl = document.getElementById('quiz-prompt-word');
+  const subEl = document.getElementById('quiz-prompt-sub');
+  const optGrid = document.getElementById('quiz-options-grid');
+  const fb = document.getElementById('quiz-feedback');
+
+  if (!optGrid || !fb) return;
+  fb.style.display = 'none';
+
+  if (pool.length === 0) {
+    if (typeBadge) typeBadge.textContent = appState.practiceMode === 'mistakes' ? '錯題本目前為空' : '篩選無題目';
+    if (targetBadge) targetBadge.textContent = '無題目';
+    if (wordEl) wordEl.textContent = appState.practiceMode === 'mistakes' ? '太棒了，沒有待複習錯題！' : '找不到符合篩選條件的動詞';
+    if (subEl) subEl.textContent = '請切換其他測驗模式或放寬上方分類篩選條件。';
+    optGrid.innerHTML = '';
+    appState.currentQuiz = null;
+    return;
+  }
+
+  const v = pool[Math.floor(Math.random() * pool.length)];
+  const c = conjugateVerb(v, appState.showKanji);
+  const isConjMode = appState.practiceMode === 'conj' || (appState.practiceMode === 'mistakes' && Math.random() > 0.4);
+
+  if (isConjMode) {
+    const forms = [
+      { key: 'te', name: 'て形' },
+      { key: 'masu', name: 'ます形' },
+      { key: 'nai', name: 'ない形' },
+      { key: 'ta', name: 'た形' }
+    ];
+    const target = forms[Math.floor(Math.random() * forms.length)];
+    const correctAns = c[target.key];
+
+    // Build plausible distractors
+    const distractors = new Set();
+    const stem = c.stem;
+    if (v.grp === 'I') {
+      const candidates = [
+        stem + 'って', stem + 'いて', stem + 'んで', stem + 'して', stem + 'て',
+        stem + 'った', stem + 'いた', stem + 'んだ', stem + 'した',
+        stem + 'ない', stem + 'らない', stem + 'わない', stem + 'ます', stem + 'ります'
+      ];
+      candidates.forEach(cand => {
+        if (cand !== correctAns && distractors.size < 3) distractors.add(cand);
+      });
+    } else if (v.grp === 'II') {
+      const candidates = [
+        stem + 'って', stem + 'ります', stem + 'らない', stem + 'った',
+        stem + 'て', stem + 'ます', stem + 'ない', stem + 'た'
+      ];
+      candidates.forEach(cand => {
+        if (cand !== correctAns && distractors.size < 3) distractors.add(cand);
+      });
+    }
+    while (distractors.size < 3) {
+      const rv = VERBS[Math.floor(Math.random() * VERBS.length)];
+      const rc = conjugateVerb(rv, appState.showKanji)[target.key];
+      if (rc !== correctAns) distractors.add(rc);
+    }
+
+    const options = [correctAns, ...Array.from(distractors).slice(0, 3)].sort(() => Math.random() - 0.5);
+    appState.currentQuiz = {
+      verb: v,
+      kind: 'conj',
+      targetName: target.name,
+      correctAns,
+      ruleNote: c.ruleNote,
+      answered: false
+    };
+
+    if (typeBadge) typeBadge.textContent = appState.practiceMode === 'mistakes' ? '錯題複習 · 動詞變化' : '動詞變化挑戰';
+    if (targetBadge) targetBadge.textContent = `請選出正確的「${target.name}」`;
+    if (metaEl) metaEl.textContent = `${v.jlpt} · ${v.grp} 類 · ${v.cat}`;
+    if (wordEl) wordEl.textContent = c.dict;
+    if (subEl) subEl.textContent = `中文意義：${v.zh}（請轉換成 ${target.name}）`;
+
+    optGrid.innerHTML = options.map((opt, idx) =>
+      `<button type="button" class="quiz-opt" onclick="submitQuizAnswer(${idx}, this)" data-val="${opt}">${opt}</button>`
+    ).join('');
+  } else {
+    // Meaning match quiz
+    const correctAns = v.zh;
+    const distractors = new Set();
+    while (distractors.size < 3) {
+      const rv = VERBS[Math.floor(Math.random() * VERBS.length)];
+      if (rv.zh !== correctAns) distractors.add(rv.zh);
+    }
+    const options = [correctAns, ...Array.from(distractors)].sort(() => Math.random() - 0.5);
+    appState.currentQuiz = {
+      verb: v,
+      kind: 'meaning',
+      targetName: '中文詞義',
+      correctAns,
+      ruleNote: `辭書形 ${c.dict}（ます形 ${c.masu}／て形 ${c.te}）`,
+      answered: false
+    };
+
+    if (typeBadge) typeBadge.textContent = appState.practiceMode === 'mistakes' ? '錯題複習 · 詞義辨識' : '詞義配對挑戰';
+    if (targetBadge) targetBadge.textContent = '請選出對應的中文意思';
+    if (metaEl) metaEl.textContent = `${v.jlpt} · ${v.grp} 類 · ${v.tr}`;
+    if (wordEl) wordEl.textContent = c.dict;
+    if (subEl) subEl.textContent = appState.showKanji ? `讀音：${v.dict}` : '純假名模式辨識';
+
+    optGrid.innerHTML = options.map((opt, idx) =>
+      `<button type="button" class="quiz-opt" onclick="submitQuizAnswer(${idx}, this)" data-val="${opt}">${opt}</button>`
+    ).join('');
+  }
+}
+
+function submitQuizAnswer(idx, btn) {
+  const q = appState.currentQuiz;
+  if (!q || q.answered) return;
+  q.answered = true;
+
+  const chosen = btn.getAttribute('data-val');
+  const isCorrect = chosen === q.correctAns;
+  const allBtns = document.querySelectorAll('#quiz-options-grid .quiz-opt');
+  allBtns.forEach(b => {
+    b.disabled = true;
+    const val = b.getAttribute('data-val');
+    if (val === q.correctAns) b.classList.add('correct');
+    else if (b === btn && !isCorrect) b.classList.add('wrong');
+  });
+
+  appState.quizStats.answered += 1;
+  if (isCorrect) {
+    appState.quizStats.correct += 1;
+    appState.quizStats.streak += 1;
+    if (appState.practiceMode === 'mistakes' && appState.mistakes[q.verb.id]) {
+      delete appState.mistakes[q.verb.id];
+    }
+  } else {
+    appState.quizStats.streak = 0;
+    appState.mistakes[q.verb.id] = (appState.mistakes[q.verb.id] || 0) + 1;
+  }
+
+  const fb = document.getElementById('quiz-feedback');
+  if (fb) {
+    fb.style.display = 'block';
+    fb.className = isCorrect ? 'feedback-banner' : 'feedback-banner is-error';
+    fb.innerHTML = isCorrect
+      ? `<strong>答對了！</strong> 正確答案為「${q.correctAns}」。${q.ruleNote}`
+      : `<strong>再記一次：</strong> 正確答案為「${q.correctAns}」。${q.ruleNote}`;
+  }
+
+  updateKPIs();
+  renderMistakeSidebar();
+  saveState();
+}
+
+function markQuizWordMastered() {
+  if (!appState.currentQuiz) return;
+  const id = appState.currentQuiz.verb.id;
+  if (!appState.masteredIds.includes(id)) {
+    toggleMastered(id);
+  }
+}
+
+function renderMistakeSidebar() {
+  const box = document.getElementById('mistake-list-box');
+  const scopeBox = document.getElementById('scope-summary-box');
+  if (scopeBox) {
+    scopeBox.innerHTML = `<strong>目前專項範圍：</strong>共 ${filteredVerbs.length} 個動詞（可透過上方篩選列隨時切換 JLPT 等級、動詞組別與情境類別）。`;
+  }
+  if (!box) return;
+  const ids = Object.keys(appState.mistakes);
+  if (ids.length === 0) {
+    box.innerHTML = `<div class="jp-sub" style="padding: var(--space-md) 0;">目前沒有錯題紀錄。進行測驗時，答錯的動詞會自動收錄於此。</div>`;
+    return;
+  }
+  box.innerHTML = ids.map(id => {
+    const v = VERBS.find(x => x.id === id);
+    if (!v) return '';
+    return `
+      <div class="mistake-item">
+        <div>
+          <strong>${dispWord(v)}</strong>（${v.zh}）
+          <div class="jp-sub">錯 ${appState.mistakes[id]} 次 · ${v.grp} 類</div>
+        </div>
+        <button type="button" class="btn-secondary" onclick="inspectMistake('${v.id}')">檢視</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function inspectMistake(id) {
+  appState.selectedVerbId = id;
+  switchTab('explore');
+  renderExplorer();
+  renderInspector();
+}
+
+function clearMistakes() {
+  appState.mistakes = {};
+  updateKPIs();
+  renderMistakeSidebar();
+  if (appState.practiceMode === 'mistakes') generateQuizQuestion();
+  saveState();
+}
+
+function handleResetProgress(btn) {
+  if (!btn) return;
+  if (btn.dataset.armed !== 'true') {
+    btn.dataset.armed = 'true';
+    btn.textContent = '再點一次確認重設';
+    setTimeout(() => {
+      if (btn.dataset.armed === 'true') {
+        btn.dataset.armed = 'false';
+        btn.textContent = '重設進度';
+      }
+    }, 4000);
+    return;
+  }
+  btn.dataset.armed = 'false';
+  btn.textContent = '重設進度';
+  appState.masteredIds = [];
+  appState.mistakes = {};
+  appState.quizStats = { answered: 0, correct: 0, streak: 0 };
+  applyFilters();
+  renderMistakeSidebar();
+  saveState();
+}
+
+// Initialization & Persistence
+async function initApp() {
+  try {
+    if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === 'function') {
+      const saved = await window.notebookAppApi.getAppState();
+      if (saved) {
+        if (typeof saved.showKanji === 'boolean') appState.showKanji = saved.showKanji;
+        if (Array.isArray(saved.masteredIds)) appState.masteredIds = saved.masteredIds;
+        if (saved.mistakes && typeof saved.mistakes === 'object') appState.mistakes = saved.mistakes;
+        if (saved.quizStats && typeof saved.quizStats === 'object') appState.quizStats = saved.quizStats;
+        if (saved.selectedVerbId) appState.selectedVerbId = saved.selectedVerbId;
+      }
+    }
+  } catch (e) {
+    // fallback gracefully
+  }
+
+  updateKanjiToggleUI();
+  applyFilters();
+  renderLabSelect();
+  renderLabSteps();
+  renderMistakeSidebar();
+
+  if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === 'function') {
+    window.notebookAppApi.notifyAppReady();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>
