@@ -1,0 +1,4216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="tool">
+  <meta name="design-style" content="kiln">
+  <title>日語單字互動配對演習</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces: unbleached linen and river clay */
+      --background: #f4f1ea;
+      --surface-container-low: #ebe6db;
+      --surface-container: #e3ddd0;
+      --surface-container-high: #d9d1c2;
+      --surface-paper: #f9f7f2;
+
+      /* Ink */
+      --on-surface: #1c1b18;
+      --on-surface-variant: #5e5a51;
+
+      /* Rules */
+      --outline: #1c1b18;
+      --outline-variant: #d2cbbd;
+
+      /* Accents */
+      --primary: #1c1b18;
+      --on-primary: #f4f1ea;
+      --primary-container: #ebe6db;
+      --on-primary-container: #1c1b18;
+      --secondary: #4a5d46;
+      --secondary-soft: #dfe6dc;
+      --tertiary: #9e3b2b;
+      --tertiary-soft: #f2e1de;
+      --error: #9e2a22;
+      --on-error: #f4f1ea;
+
+      /* Semantic */
+      --positive: #4a5d46;
+      --warning: #8a6f48;
+      --focus: #1c1b18;
+
+      /* Data series */
+      --data-1: #4a5d46;
+      --data-2: #9e3b2b;
+      --data-3: #1c1b18;
+      --data-4: #8a6f48;
+      --data-context: #c7bfb0;
+
+      /* Fonts */
+      --font-headline: 'Shippori Mincho', 'Noto Sans TC', 'Noto Sans JP', serif;
+      --font-body: 'Plus Jakarta Sans', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
+      --font-jp: 'Shippori Mincho', 'Noto Sans JP', serif;
+      --font-label: 'Geist Mono', 'Noto Sans TC', monospace;
+
+      /* Type scale (tool) */
+      --display-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.35rem);
+      --headline-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+      --subhead-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --body-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+
+      /* Shape */
+      --rounded: 0.125rem;
+      --rounded-lg: 0.125rem;
+      --rounded-full: 0.125rem;
+
+      /* Style effects */
+      --rule-sumi-left: 2px solid var(--outline);
+      --rule-sumi-right: 2px solid var(--outline);
+      --rule-sumi: 1px solid var(--outline);
+      --rule-linen: 1px solid var(--outline-variant);
+      --label-tracking: 0.12em;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-lg);
+      padding: var(--space-lg);
+      max-width: 1180px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Masthead */
+    .masthead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-lg);
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--rule-linen);
+    }
+    .kicker {
+      font-family: var(--font-label);
+      font-weight: 500;
+      font-size: var(--label-size);
+      color: var(--secondary);
+      letter-spacing: 0.06em;
+      margin: 0 0 var(--space-xs) 0;
+    }
+    .kicker-latin {
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+    }
+    .display-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      line-height: 1.15;
+      letter-spacing: 0;
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .subhead-moss {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      font-size: var(--subhead-size);
+      color: var(--secondary);
+      margin: var(--space-xs) 0 0 0;
+      line-height: 1.45;
+    }
+    .seal-stamp {
+      border: 1px solid var(--tertiary);
+      color: var(--tertiary);
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 0.14em;
+      padding: var(--space-sm) var(--space-xs);
+      writing-mode: vertical-rl;
+      flex-shrink: 0;
+      user-select: none;
+      line-height: 1.2;
+    }
+
+    /* Metrics Strip */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .washi-card {
+      background: var(--surface-container-low);
+      border-left: var(--rule-sumi-left);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .washi-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+    .washi-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.4rem, 1.2rem + 0.6vw, 1.85rem);
+      line-height: 1.15;
+      color: var(--on-surface);
+      font-variant-numeric: tabular-nums;
+    }
+    .washi-note {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--secondary);
+    }
+    .coverage-track {
+      width: 100%;
+      height: 4px;
+      background: var(--surface-container-high);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      margin-top: var(--space-xs);
+    }
+    .coverage-fill {
+      height: 100%;
+      background: var(--secondary);
+      width: 0%;
+      transition: width var(--dur-short) var(--ease-out);
+    }
+
+    /* Controls Panel */
+    .controls-panel {
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .control-group-label {
+      display: block;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .cat-chip {
+      min-height: 40px;
+      padding: var(--space-xs) var(--space-md);
+      border: var(--rule-linen);
+      background: var(--surface-paper);
+      color: var(--on-surface);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .cat-chip:hover {
+      background: var(--surface-container-high);
+    }
+    .cat-chip.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .cat-count {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      opacity: 0.78;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding-top: var(--space-md);
+      border-top: var(--rule-linen);
+    }
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+    }
+    .field-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    /* Tactile Switch & Buttons */
+    .btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      border: var(--rule-sumi);
+      background: var(--surface-paper);
+      color: var(--on-surface);
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--on-surface-variant);
+    }
+    .btn-secondary-moss {
+      background: var(--secondary);
+      color: var(--on-primary);
+      border-color: var(--secondary);
+    }
+    .btn-secondary-moss:hover:not(:disabled) {
+      background: var(--on-surface);
+    }
+    .btn-danger-armed {
+      background: var(--tertiary);
+      color: var(--on-error);
+      border-color: var(--tertiary);
+    }
+    .btn-danger-armed:hover:not(:disabled) {
+      background: var(--error);
+    }
+
+    .switch-btn {
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border: var(--rule-sumi);
+      border-radius: var(--rounded);
+      background: var(--surface-paper);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .switch-btn:hover {
+      background: var(--surface-container-high);
+    }
+    .switch-track {
+      width: 36px;
+      height: 20px;
+      border: var(--rule-sumi);
+      border-radius: var(--rounded);
+      background: var(--surface-container);
+      position: relative;
+      flex-shrink: 0;
+      transition: background-color var(--dur-short) var(--ease-in-out);
+    }
+    .switch-thumb {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      background: var(--on-surface);
+      border-radius: var(--rounded);
+      transition: transform var(--dur-short) var(--ease-in-out), background-color var(--dur-short) var(--ease-in-out);
+    }
+    .switch-btn[aria-pressed="true"] .switch-track {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+    .switch-btn[aria-pressed="true"] .switch-thumb {
+      transform: translateX(16px);
+      background: var(--on-primary);
+    }
+
+    .select-input, .text-input {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border: var(--rule-sumi);
+      border-radius: var(--rounded);
+      background: var(--surface-paper);
+      color: var(--on-surface);
+      font-size: 0.875rem;
+    }
+    .select-input {
+      padding-right: var(--space-xl);
+    }
+
+    /* Feedback Banner */
+    .feedback-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      background: var(--surface-container-low);
+      border-left: 3px solid var(--outline);
+      border-radius: var(--rounded);
+      min-height: 58px;
+      transition: background-color var(--dur-short) var(--ease-out);
+    }
+    .feedback-bar.state-success {
+      background: var(--secondary-soft);
+      border-left-color: var(--secondary);
+    }
+    .feedback-bar.state-error {
+      background: var(--tertiary-soft);
+      border-left-color: var(--error);
+    }
+    .feedback-bar.state-complete {
+      background: var(--secondary-soft);
+      border-left-color: var(--secondary);
+    }
+    .feedback-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--on-surface);
+    }
+    .feedback-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* Matching Arena */
+    .arena-wrapper {
+      position: relative;
+      background: var(--surface-paper);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+    }
+    .arena-headers {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+      gap: 0;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--rule-sumi);
+    }
+    .col-heading {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .col-heading-right {
+      text-align: right;
+      justify-content: flex-end;
+      gap: var(--space-sm);
+    }
+
+    .arena-board {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+      align-items: stretch;
+    }
+    .cards-column {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      position: relative;
+      z-index: 2;
+    }
+    .gutter-spacer {
+      position: relative;
+      z-index: 1;
+    }
+    .match-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: visible;
+    }
+    .match-line {
+      fill: none;
+      stroke: var(--secondary);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    .match-line-dot {
+      fill: var(--secondary);
+    }
+    .preview-line {
+      fill: none;
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+      opacity: 0.55;
+    }
+
+    /* Word Cards */
+    .word-card {
+      position: relative;
+      min-height: 60px;
+      width: 100%;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      text-align: left;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-micro) var(--ease-out),
+                  transform var(--dur-micro) var(--ease-out);
+    }
+    .word-card-left {
+      border-left: var(--rule-sumi-left);
+      padding-right: var(--space-lg);
+    }
+    .word-card-right {
+      border-right: var(--rule-sumi-right);
+      padding-left: var(--space-lg);
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+    .word-card:hover:not(:disabled) {
+      background: var(--surface-container-high);
+    }
+    .word-card.is-selected {
+      background: var(--surface-container);
+      box-shadow: inset 0 0 0 2px var(--primary);
+    }
+    .word-card.is-matched {
+      background: var(--secondary-soft);
+      border-color: var(--secondary);
+      border-left-color: var(--secondary);
+      border-right-color: var(--secondary);
+      cursor: default;
+    }
+    .word-card.is-error {
+      background: var(--tertiary-soft);
+      box-shadow: inset 0 0 0 2px var(--error);
+      animation: card-shake 320ms var(--ease-out);
+    }
+
+    @keyframes card-shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .card-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .card-text-zh {
+      font-size: 1.0625rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--on-surface);
+    }
+    .card-text-jp {
+      font-family: var(--font-jp);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--on-surface);
+    }
+    .card-meta-sub {
+      font-size: 0.78rem;
+      color: var(--on-surface-variant);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .word-card-right .card-meta-sub {
+      justify-content: flex-end;
+    }
+    .tag-pill {
+      display: inline-block;
+      padding: 1px 6px;
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      font-weight: 500;
+      border: var(--rule-linen);
+      background: var(--surface-paper);
+      color: var(--secondary);
+      border-radius: var(--rounded);
+    }
+
+    .anchor-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--rounded);
+      border: 1.5px solid var(--outline);
+      background: var(--surface-paper);
+      flex-shrink: 0;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .word-card.is-selected .anchor-dot {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .word-card.is-matched .anchor-dot {
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .speak-mini-btn {
+      min-width: 32px;
+      min-height: 32px;
+      padding: var(--space-xs);
+      border: var(--rule-linen);
+      background: var(--surface-paper);
+      color: var(--on-surface-variant);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .speak-mini-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+
+    /* Section Dividers & Review / Glossary */
+    .section-block {
+      border-top: var(--rule-linen);
+      padding-top: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .section-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: var(--space-md);
+    }
+    .section-title {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      margin: 0;
+      color: var(--on-surface);
+    }
+    .section-sub {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin: var(--space-xs) 0 0 0;
+    }
+
+    .tab-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .tab-btn {
+      min-height: 40px;
+      padding: var(--space-xs) var(--space-md);
+      border: var(--rule-linen);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      border-radius: var(--rounded);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--surface-paper);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+    }
+    .vocab-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .vocab-table th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-align: left;
+      padding: var(--space-sm) var(--space-md);
+      border-top: var(--rule-sumi);
+      border-bottom: var(--rule-sumi);
+      background: var(--surface-container-low);
+      white-space: nowrap;
+    }
+    .vocab-table td {
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: var(--rule-linen);
+      vertical-align: middle;
+    }
+    .vocab-table tr:last-child td {
+      border-bottom: none;
+    }
+    .vocab-table tbody tr:hover {
+      background: var(--surface-container-low);
+    }
+    .jp-cell {
+      font-family: var(--font-jp);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .empty-state {
+      padding: var(--space-xl);
+      text-align: center;
+      color: var(--on-surface-variant);
+      background: var(--surface-container-low);
+      border: var(--rule-linen);
+      border-radius: var(--rounded);
+    }
+
+    .glossary-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: var(--space-md);
+    }
+    .pagination-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .site-footer {
+      border-top: var(--rule-linen);
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-xl);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-size: 0.8125rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* Mobile breakpoint */
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-md);
+      }
+      .metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .arena-wrapper {
+        padding: var(--space-md) var(--space-sm);
+      }
+      .arena-headers, .arena-board {
+        grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+      }
+      .word-card {
+        padding: var(--space-sm) var(--space-sm);
+        min-height: 56px;
+        gap: var(--space-xs);
+      }
+      .word-card-left {
+        padding-right: var(--space-sm);
+      }
+      .word-card-right {
+        padding-left: var(--space-sm);
+      }
+      .card-text-zh {
+        font-size: 0.9375rem;
+      }
+      .card-text-jp {
+        font-size: 1.0625rem;
+      }
+      .seal-stamp {
+        font-size: 0.75rem;
+        padding: var(--space-xs);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-grid">
+    <!-- Masthead -->
+    <header class="masthead">
+      <div>
+        <p class="kicker"><span class="kicker-latin">JLPT N5–N2 VOCABULARY STUDIO</span> · 日語詞彙交互記憶</p>
+        <h1 class="display-title">日語單字互動配對演習</h1>
+        <p class="subhead-moss">左邊中文、右邊日文直接對照連線；支援漢字自由切換與跨輪次循環挑戰。</p>
+      </div>
+      <div class="seal-stamp" aria-hidden="true">和語演習</div>
+    </header>
+
+    <!-- Status / Metrics -->
+    <section class="metrics-grid" aria-label="學習進度與得分統計">
+      <div class="washi-card">
+        <div class="washi-label">
+          <span>當前輪次</span>
+          <span class="kicker-latin" id="metric-round-badge">ROUND 01</span>
+        </div>
+        <div class="washi-value" id="metric-round">第 1 輪</div>
+        <div class="washi-note" id="metric-round-progress">本輪進度 0 / 6 組</div>
+      </div>
+
+      <div class="washi-card">
+        <div class="washi-label">
+          <span>累計得分</span>
+          <span class="kicker-latin">SCORE</span>
+        </div>
+        <div class="washi-value" id="metric-score">0</div>
+        <div class="washi-note" id="metric-score-note">每配對成功 +10 分</div>
+      </div>
+
+      <div class="washi-card">
+        <div class="washi-label">
+          <span>連對與準確率</span>
+          <span class="kicker-latin">STREAK</span>
+        </div>
+        <div class="washi-value" id="metric-streak">0 連勝</div>
+        <div class="washi-note" id="metric-accuracy">準確率 100%（最高 0 連勝）</div>
+      </div>
+
+      <div class="washi-card">
+        <div class="washi-label">
+          <span>詞庫循環進度</span>
+          <span class="kicker-latin">COVERAGE</span>
+        </div>
+        <div class="washi-value" id="metric-coverage">0 / 0</div>
+        <div class="washi-note" id="metric-coverage-note">目前分類覆蓋率 0%</div>
+        <div class="coverage-track" aria-hidden="true">
+          <div class="coverage-fill" id="coverage-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="controls-panel" aria-label="練習分類與顯示設定">
+      <div>
+        <span class="control-group-label" id="category-group-label">詞性與主題分類篩選（點選切換練習範圍）</span>
+        <div class="category-chips" id="category-chips" role="group" aria-labelledby="category-group-label"></div>
+      </div>
+
+      <div class="toolbar-row">
+        <div class="toolbar-left">
+          <div class="field-block">
+            <span class="control-group-label">日文漢字顯示開關</span>
+            <button type="button" class="switch-btn" id="kanji-toggle-btn" aria-pressed="true" onclick="toggleKanji()">
+              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+              <span id="kanji-toggle-label">顯示漢字：開啟</span>
+            </button>
+          </div>
+
+          <div class="field-block">
+            <label class="control-group-label" for="round-size-select">每輪配對題數</label>
+            <select id="round-size-select" class="select-input" onchange="changeRoundSize(this.value)">
+              <option value="5">5 組 ／ 輪</option>
+              <option value="6" selected>6 組 ／ 輪</option>
+              <option value="8">8 組 ／ 輪</option>
+              <option value="10">10 組 ／ 輪</option>
+            </select>
+          </div>
+
+          <div class="field-block">
+            <span class="control-group-label">日語語音朗讀</span>
+            <button type="button" class="switch-btn" id="speak-toggle-btn" aria-pressed="false" onclick="toggleAutoSpeak()">
+              <span class="switch-track" aria-hidden="true"><span class="switch-thumb"></span></span>
+              <span id="speak-toggle-label">點擊發音：關閉</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <button type="button" class="btn" id="refresh-round-btn" onclick="skipToNextRound()">換一組題目</button>
+          <button type="button" class="btn" id="reset-progress-btn" onclick="handleResetProgress(this)">重置分數與進度</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Feedback -->
+    <div class="feedback-bar" id="feedback-bar" role="status" aria-live="polite">
+      <div class="feedback-text" id="feedback-text">請點選左側「中文」字卡，再點選右側對應的「日文」字卡完成配對。</div>
+      <div class="feedback-actions" id="feedback-actions"></div>
+    </div>
+
+    <!-- Main Left-Right Matching Arena -->
+    <main class="arena-wrapper" aria-label="左右對照配對遊戲區">
+      <div class="arena-headers">
+        <div class="col-heading">
+          <span>中文語意（左側）</span>
+          <span class="kicker-latin">CHINESE</span>
+        </div>
+        <div></div>
+        <div class="col-heading col-heading-right">
+          <span class="kicker-latin" id="jp-mode-tag">KANJI + KANA</span>
+          <span id="jp-col-title">日文詞彙（漢字優先）</span>
+        </div>
+      </div>
+
+      <div class="arena-board" id="arena-board">
+        <div class="cards-column" id="left-column" aria-label="中文單字列表"></div>
+        <div class="gutter-spacer" aria-hidden="true"></div>
+        <div class="cards-column" id="right-column" aria-label="日文單字列表"></div>
+        <svg class="match-svg" id="match-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+      </div>
+    </main>
+
+    <!-- Session & Mistake Review -->
+    <section class="section-block" aria-label="單字複習與錯題整理">
+      <div class="section-header-row">
+        <div>
+          <h2 class="section-title">本輪複習與錯題紀錄</h2>
+          <p class="section-sub">配對後自動記錄假名、漢字、英文釋義與動詞變化，方便即時鞏固記憶。</p>
+        </div>
+        <div class="tab-row" role="tablist" aria-label="複習檢視切換">
+          <button type="button" class="tab-btn active" id="tab-matched-btn" role="tab" aria-selected="true" onclick="setReviewTab('matched')">最近配對 (<span id="count-matched-tab">0</span>)</button>
+          <button type="button" class="tab-btn" id="tab-mistakes-btn" role="tab" aria-selected="false" onclick="setReviewTab('mistakes')">易錯單字 (<span id="count-mistakes-tab">0</span>)</button>
+        </div>
+      </div>
+      <div id="review-container"></div>
+    </section>
+
+    <!-- Full Vocabulary Explorer -->
+    <section class="section-block" aria-label="全詞庫查閱總覽">
+      <div class="section-header-row">
+        <div>
+          <h2 class="section-title">完整收錄詞彙表</h2>
+          <p class="section-sub" id="glossary-subtitle">收錄課程筆記全部 11 大類詞彙，可依關鍵字檢索或切換漢字顯示檢視。</p>
+        </div>
+        <button type="button" class="btn" id="toggle-glossary-btn" aria-expanded="false" onclick="toggleGlossary()">展開完整詞彙表</button>
+      </div>
+
+      <div id="glossary-panel" hidden>
+        <div class="glossary-controls">
+          <div class="field-block" style="flex: 1; min-width: 220px;">
+            <label class="control-group-label" for="glossary-search">搜尋中文、假名、漢字或英文</label>
+            <input type="search" id="glossary-search" class="text-input" placeholder="例如：食べる、見面、ラーメン、N5…" oninput="handleGlossarySearch(this.value)">
+          </div>
+          <div class="field-block">
+            <label class="control-group-label" for="glossary-cat-select">詞彙表分類篩選</label>
+            <select id="glossary-cat-select" class="select-input" onchange="handleGlossaryCatChange(this.value)"></select>
+          </div>
+        </div>
+        <div id="glossary-table-wrap" style="margin-top: var(--space-md);"></div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>資料來源：使用者日文學習筆記（動詞、數量、食物、形容詞、日期、地方、人物、指示方向、交通、動物、其他）</span>
+      <span>狀態自動儲存於工作區</span>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+
+  <script>
+    // =========================================================================
+    // 1. COMPLETE VOCABULARY DATASET (parsed from backtick template literals)
+    // Format: zh|kana|kanji|en|jlpt|masu|te|note
+    // =========================================================================
+    const CATEGORY_META = [
+      { id: `all`, label: `全部種類` },
+      { id: `verbs`, label: `動詞` },
+      { id: `adjectives`, label: `形容詞` },
+      { id: `food`, label: `食物` },
+      { id: `numbers`, label: `數量` },
+      { id: `dates`, label: `日期` },
+      { id: `places`, label: `地方` },
+      { id: `people`, label: `人物` },
+      { id: `directions`, label: `指示方向` },
+      { id: `transport`, label: `交通` },
+      { id: `animals`, label: `動物` },
+      { id: `others`, label: `其他` }
+    ];
+
+    const RAW_DATA = {
+      verbs: `
+見面|あう|会う|meet|N5|あいます|あって|
+上樓梯|あがる|上がる|go up|N5|あがります|あがって|
+空著|あく|空く||N4|あいています|あいて|
+開(門/窗)|あける|開ける||N5|あけます|あけて|
+打開|あける|開ける||N5|あけます|あけて|
+給|あげる|上げる|give|N5|あげます|あげて|
+保管|あずかる|預かる|take care of|N3|あずかります|あずかって|
+存|あずける|預ける|deposit|N3|あずけます|あずけて|
+玩|あそぶ|遊ぶ|play|N5|あそびます|あそんで|
+處理|あつかう|扱う|handle|N3|あつかいます|あつかって|
+進行更新|アップデートをする||update|N3|アップデートをします|アップデートをして|
+聚集/集合|あつまる|集まる||N4|あつまります|あつまって|
+收集|あつめる|集める|collect|N4|あつめます|あつめて|
+洗手|あらう|洗う||N5|あらいます|あらって|
+在|ある|有る||N5|あります|あって|
+有(死物)|ある|有る|there is|N5|あります|あって|
+有興趣|ある|有る|I'm interested in|N5|あります|あって|
+步行|あるく|歩く|walk|N5|あるきます|あるいて|
+放心|あんしんする|安心する||N4|あんしんします|あんしんして|
+引導|あんないする|案内する|guide|N4|あんないします|あんないして|
+叫|いう|言う|is called|N5|いいます|いって|
+去|いく|行く|go|N5|いきます|いって|
+跟著|いく|行く||N5|いきます|いって|
+接|いく|行く|I will come to pick you up|N5|いきます|いって|
+順利進行|いく|行く||N5|いきます|いって|
+必須|いけない|||N5|いけません|いけなくて|
+趕|いそぐ|急ぐ|hurry|N5|いそぎます|いそいで|
+我要開動了|いただく|頂く||N4|いただきます|いただいて|
+吃飽了|いっぱいだ|一杯だ||N5|いっぱいです|いっぱいで|
+祈禱|いのる|祈る||N3|いのります|いのって|
+煩躁|イライラする||annoy|N3|イライラします|イライラして|
+在/有(人)|いる|居る|i am here|N5|います|いて|
+有嗎|いる|居る||N5|いますか|いて|
+需要|いる|要る|need|N5|いります|いって|
+安裝|インストールする||install|N3|インストールします|インストールして|
+種植|うえる|植える|plant|N4|うえます|うえて|
+接收|うけとる|受け取る|accept/receive|N3|うけとります|うけとって|
+接受|うける|受ける||N4|うけます|うけて|
+動|うごく|動く|move|N4|うごきます|うごいて|
+唱|うたう|歌う|sing|N5|うたいます|うたって|
+唱歌|うたう|歌う|sing|N5|うたいます|うたって|
+撞|うつ|打つ|shoot|N4|うちます|うって|
+賣|うる|売る|sell|N5|うります|うって|
+開車|うんてんする|運転する|drive|N4|うんてんします|うんてんして|
+選擇|えらぶ|選ぶ|choose|N4|えらびます|えらんで|
+太多了|おおすぎる|多すぎる||N3|おおすぎます|おおすぎて|
+續|おかわりする|お代わりする|have another one|N3|おかわりします|おかわりして|
+起床|おきる|起きる|wake up|N5|おきます|おきて|
+離開|おく|置く|leave|N5|おきます|おいて|
+放|おく|置く|put|N5|おきます|おいて|
+發送|おくる|送る|send|N4|おくります|おくって|
+遲到|おくれる|遅れる|late|N4|おくれます|おくれて|
+去了|おこなう|行う|carried out|N3|おこないます|おこなって|
+生氣|おこる|怒る|angry|N4|おこります|おこって|
+請客|おごる|奢る||N2|おごります|おごって|
+講/教|おしえる|教える|teach/tell|N5|おしえます|おしえて|
+告訴|おしえる|教える|tell me|N5|おしえます|おしえて|
+放(推)|おす|押す|push|N5|おします|おして|
+按|おす|押す||N5|おします|おして|
+蓋章|おす|押す||N5|おします|おして|
+掉|おとす|落とす|drop|N4|おとします|おとして|
+掉落|おとす|落とす|drop|N4|おとします|おとして|
+跳舞|おどる|踊る|dance|N4|おどります|おどって|
+驚訝|おどろく|驚く||N4|おどろきます|おどろいて|
+請/叫/給|おねがいする|お願いする|please|N5|おねがいします|おねがいして|
+請結帳|おねがいする|お願いする|check please|N5|おねがいします|おねがいして|
+記住|おぼえる|覚える||N5|おぼえています|おぼえて|
+沒記住|おぼえる|覚える||N5|おぼえません|おぼえなくて|
+怎麼看|おもう|思う|do you think so|N5|おもいますか|おもって|
+打算|おもう|思う||N5|おもっています|おもって|
+游泳|およぐ|泳ぐ|swim|N5|およぎます|およいで|
+下車|おりる|降りる||N5|おります|おりて|
+在(謙遜)|おる|居る|I'm in|N4|おります|おって|
+斷|おれる|折れる||N4|おれます|おれて|
+結束(做完)|おわりにする|終わりにする||N4|おわりにします|終わりにして|
+結束|おわる|終わる|over|N5|おわります|おわって|
+完結|おわる|終わる|end|N5|おわります|おわって|
+舉辦|かいさいする|開催する||N3|かいさいします|かいさいして|
+買|かう|買う||N5|かいます|かって|
+養|かう|飼う||N4|かっています|かって|
+歸還|かえす|返す||N5|かえします|かえして|
+回來|かえってくる|帰って来る|come back|N5|かえってきます|かえってきて|
+回去|かえる|帰る|go back|N5|かえります|かえって|
+換成|かえる|変える||N4|かえます|かえて|
+換|かえる|変える|change|N4|かえます|かえて|
+需要|かかる|掛かる|it take|N5|かかります|かかって|
+花費(時間或金錢)|かかる|掛かる||N5|かかります|かかって|
+流汗|かく|掻く||N4|かきます|かいて|
+不太出汗|かく|掻く||N4|かきません|かかなくて|
+確認|かくにんする|確認する|check|N4|かくにんします|かくにんして|
+按下確認|かくにんする|確認する||N4|かくにんします|かくにんして|
+藏/躲|かくれる|隠れる|hide|N3|かくれます|かくれて|
+戴眼鏡|かける|掛ける|wearing|N5|かけています|かけて|
+掛|かける|掛ける||N5|かけます|かけて|
+鎖門|かける|掛ける||N5|かけます|かけて|
+借出|かす|貸す|lend|N5|かします|かして|
+收拾|かたづける|片付ける||N4|かたづけます|かたづけて|
+整理|かたづける|片付ける|clean up|N4|かたづけます|かたづけて|
+贏|かつ|勝つ|win|N4|かちます|かって|
+通勤/上班(定期)|かよう|通う|attend|N4|かよいます|かよって|
+借|かりる|借りる|borrow|N5|かります|かりて|
+思考/考慮|かんがえる|考える|think|N4|かんがえます|かんがえて|
+感染|かんせんする|感染する|infect|N3|かんせんします|かんせんして|
+觀看|かんせんする|観戦する||N3|かんせんします|かんせんして|
+努力|がんばる|頑張る||N4|がんばります|がんばって|
+管理|かんりする|管理する||N3|かんりします|かんりして|
+消失|きえる|消える|disappear|N5|きえます|きえて|
+換(衫)|きがえる|着替える|change|N4|きがえます|きがえて|
+聽|きく|聞く|listen|N5|ききます|きいて|
+聽/問|きこえる|聞こえる|hear|N4|きこえます|きこえて|
+注意到|きづく|気づく|notice|N3|きづきます|きづいて|
+試穿|きてみる|着てみる||N5|きてみます|きてみて|
+捐贈|きふする|寄付する||N3|きふします|きふして|
+決定|きめる|決める||N4|きめます|きめて|
+設定|きめる|決める|decide|N4|きめます|きめて|
+取消|キャンセルする||cancel|N3|キャンセルします|キャンセルして|
+協力/合作|きょうりょくする|協力する|cooperate|N3|きょうりょくします|きょうりょくして|
+穿|きる|着る|wear|N5|きます|きて|
+切|きる|切る|cut|N5|きります|きって|
+沒電了|きれる|切れる||N4|きれます|きれて|
+用完|きれる|切れる||N4|きれます|きれて|
+小心/注意|きをつける|気を付ける||N5|きをつけます|きをつけて|
+當心/注意|きをつける|気を付ける|be careful|N5|きをつけます|きをつけて|
+緊張|きんちょうする|緊張する||N4|きんちょうします|きんちょうして|
+不舒服|ぐあいがわるい|具合が悪い|not feeling well|N4|ぐあいがわるいです|ぐあいがわるくて|
+清除|クリアする||clear|N3|クリアします|クリアして|
+來|くる|来る|come|N5|きます|きて|
+來了|くる|来る||N5|きます|きて|
+可以給我嗎|くれる|呉れる||N4|くれます|くれて|
+送|くれる|呉れる||N4|くれます|くれて|
+添加/放入|くわえる|加える||N3|くわえます|くわえて|
+計劃|けいかくする|計画する||N3|けいかくします|けいかくして|
+受傷|けがする|怪我する||N4|けがします|けがして|
+關(電掣)|けす|消す||N5|けします|けして|
+吵架|けんかする|喧嘩する||N4|けんかします|けんかして|
+後悔|こうかいする|後悔する||N3|こうかいしています|こうかいして|
+合格/通過|ごうかくする|合格する||N4|ごうかくします|ごうかくして|
+交換|こうかんする|交換する|exchange|N3|こうかんします|こうかんして|
+攻擊|こうげきする|攻撃する||N3|こうげきします|こうげきして|
+交流|こうりゅうする|交流する||N3|こうりゅうします|こうりゅうして|
+拒絕|ことわる|断る||N3|ことわります|ことわって|
+複印|コピーする|||N5|コピーします|コピーして|
+灑|こぼす|零す||N3|こぼします|こぼして|
+困擾|こまる|困る||N5|こまっています|こまって|
+擁擠|こむ|込む|crowded|N4|こみます|こんで|
+跌倒|ころぶ|転ぶ|fall down|N4|ころびます|ころんで|
+壞掉|こわれる|壊れる|break|N4|こわれます|こわれて|
+重新啟動|さいきどうする|再起動する|reboot|N3|さいきどうします|さいきどうして|
+簽名|サインする|||N4|サインします|サインして|
+找|さがす|探す|search|N4|さがします|さがして|
+下降|さがる|下がる|go down|N4|さがります|さがって|
+開花|さく|咲く|bloom|N5|さきます|さいて|
+刪除|さくじょする|削除する||N3|さくじょします|さくじょして|
+參加|さんかする|参加する|participate|N4|さんかします|さんかして|
+加班|ざんぎょうする|残業する||N4|ざんぎょうします|ざんぎょうして|
+散步|さんぽする|散歩する|take a walk|N5|さんぽします|さんぽして|
+工作|しごとする|仕事する||N5|しごとします|しごとして|
+失禮|しつれいする|失礼する|excuse me|N4|しつれいします|しつれいして|
+死|しぬ|死ぬ||N5|しにます|しんで|
+關(門/窗)|しめる|閉める||N5|しめます|しめて|
+集中|しゅうちゅうする|集中する|concentrate|N3|しゅうちゅうします|しゅうちゅうして|
+充電|じゅうでんする|充電する|charging|N3|じゅうでんします|じゅうでんして|
+出身|しゅっしんだ|出身だ||N4|しゅっしんです|しゅっしんで|
+出發|しゅっぱつする|出発する||N4|しゅっぱつします|しゅっぱつして|
+介紹|しょうかいする|紹介する|let me introduce|N4|しょうかいします|しょうかいして|
+查找|しらべる|調べる|check|N4|しらべます|しらべて|
+知道|しる|知る|know|N5|しっています|しって|
+深呼吸|しんこきゅうをする|深呼吸をする||N3|しんこきゅうをします|しんこきゅうをして|
+喜歡|すく|好く|like|N5|すきます|すいて|
+肚餓|すく|空く|hungry|N4|すきます|すいて|
+空的|すく|空く||N4|すいています|すいて|
+度過|すごす|過ごす|spend|N3|すごします|すごして|
+推薦|すすめる|勧める|recommend|N3|すすめます|すすめて|
+清爽了|スッキリする|||N3|スッキリします|スッキリして|
+扔|すてる|捨てる|throw away|N4|すてます|すてて|
+住|すむ|住む|live|N5|すんでいます|すんで|
+做|する||will|N5|します|して|
+價值|する||cost|N5|します|して|
+使彎曲|する|||N5|します|して|
+坐|すわる|座る||N5|すわります|すわって|
+成功|せいこうする|成功する||N3|せいこうします|せいこうして|
+說明|せつめいする|説明する||N4|せつめいします|せつめいして|
+節約|せつやくする|節約する||N3|せつやくします|せつやくして|
+洗|せんたくする|洗濯する|wash|N5|せんたくします|せんたくして|
+打掃|そうじする|掃除する|clean up|N5|そうじします|そうじして|
+咨詢|そうだんする|相談する|consult|N4|そうだんします|そうだんして|
+種植(培育)|そだてる|育てる||N4|そだてます|そだてて|
+畢業|そつぎょうする|卒業する||N4|そつぎょうします|そつぎょうして|
+想|たい|||N5|たいです|たくて|
+請保重|だいじにする|大事にする||N4|だいじにしてください|だいじにして|
+非常喜歡|だいすきだ|大好きだ|love|N5|だいすきです|だいすきで|
+逮捕|たいほする|逮捕する||N3|たいほします|たいほして|
+下載|ダウンロードする||download|N3|ダウンロードします|ダウンロードして|
+開店|だす|出す||N5|だします|だして|
+開始一項業務|だす|出す||N5|だします|だして|
+戰鬥|たたかう|戦う||N3|たたかいます|たたかって|
+折疊|たたむ|畳む||N3|たたみます|たたんで|
+站起來|たちあがる|立ち上がる|stand up|N4|たちあがります|たちあがって|
+站|たつ|立つ||N5|たちます|たって|
+期待|たのしみだ|楽しみだ||N4|たのしみです|たのしみで|
+期待(盼望)|たのしみにする|楽しみにする|look forward|N4|たのしみにします|たのしみにして|
+吃|たべる|食べる|eat|N5|たべます|たべて|
+欺騙|だます|騙す||N3|だまします|だまして|
+堆積|たまる|溜まる|accumulate|N3|たまります|たまって|
+不夠|たりる|足りる|not enough|N4|たりません|たりなくて|
+足夠|たりる|足りる||N4|たります|たりて|
+負責|たんとうする|担当する||N3|たんとうします|たんとうして|
+退房|チェックアウトする|||N4|チェックアウトします|チェックアウトして|
+辦理入住|チェックインする|||N4|チェックインします|チェックインして|
+接近|ちかづく|近づく|approach|N3|ちかづきます|ちかづいて|
+充值|チャージする|||N3|チャージします|チャージして|
+注意|ちゅういする|注意する||N4|ちゅういします|ちゅういして|
+存錢|ちょきんする|貯金する||N4|ちょきんします|ちょきんして|
+使用|つかう|使う|use|N5|つかいます|つかって|
+抓|つかまえる|捕まえる|catch|N4|つかまえます|つかまえて|
+累了|つかれる|疲れる|I'm tired|N5|つかれます|つかれて|
+辛苦了|つかれる|疲れる||N5|おつかれさまでした|つかれて|
+交往/陪伴|つきあう|付き合う||N4|つきあいます|つきあって|
+賞月|つきみをする|月見をする||N4|つきみをします|つきみをして|
+到達|つく|着く|arrive|N5|つきます|ついて|
+說謊|つく|吐く||N4|つきます|ついて|
+造|つくる|作る|make|N5|つくります|つくって|
+創造回憶|つくる|作る||N5|つくります|つくって|
+開(電掣)|つける|付ける||N5|つけます|つけて|
+點火|つける|付ける||N5|つけます|つけて|
+打分|つける|付ける||N5|つけます|つけて|
+告訴|つたえる|伝える||N4|つたえます|つたえて|
+繼續|つづける|続ける|continue|N4|つづけます|つづけて|
+包|つつむ|包む|wrapping|N4|つつみます|つつんで|
+包裝|つつむ|包む|wrap|||
+連接|つながる|繋がる||N3|つながります|つながって|
+帶你去|つれていく|連れて行く||N4|つれていきます|つれていって|
+帶來|つれてくる|連れて来る|bring|N4|つれてきます|つれてきて|
+出門|でかける|出かける|go out|N5|でかけます|でかけて|
+會|できる|出来る|can|N5|できます|できて|
+準備好了|できる|出来る||N5|できました|できて|
+準備好了/已經完成了|できる|出来る||N5|できています|できて|
+能夠|できる|出来る|can|N5|できます|できて|
+幫忙|てつだう|手伝う||N4|てつだいます|てつだって|
+需要幫忙嗎|てつだう|手伝う||N4|てつだいます|てつだって|
+出來|でてくる|出て来る|come out|N4|でてきます|でてきて|
+離開|でる|出る|leaving|N5|でます|でて|
+參加|でる|出る|appear on|N5|でます|でて|
+出去|でる|出る|come out of|N5|でます|でて|
+結果會出來|でる|出る||N5|でます|でて|
+流鼻涕|でる|出る||N5|でます|でて|
+打電話|でんわする|電話する||N5|でんわします|でんわして|
+到達(寄到)|とどく|届く|arrive|N3|とどきます|とどいて|
+跳|とぶ|飛ぶ||N5|とびます|とんで|
+飛|とぶ|飛ぶ||N5|とびます|とんで|
+住宿|とまる|泊まる|stay|N4|とまります|とまって|
+停下|とまる|止まる|stop|N5|とまります|とまって|自動詞
+停|とめる|止める|stop|N5|とめます|とめて|他動詞
+取出|とりだす|取り出す||N3|とりだします|とりだして|
+取/拍照|とる|撮る|take|N5|とります|とって|
+請假|とる|取る||N5|とります|とって|
+好番|なおる|治る|fixed|N4|なおります|なおって|
+播放音樂|ながす|流す||N3|ながします|ながして|
+哭|なく|泣く|cry|N4|なきます|ないて|
+弄丟|なくす|無くす|lost|N5|なくします|なくして|
+用完|なくなる|無くなる||N4|なくなります|なくなって|
+消失/丟失/用完/結束|なくなる|無くなる||N4|なくなります|なくなって|
+撫摸|なでる|撫でる||N2|なでます|なでて|
+學習|ならう|習う|learn|N5|ならいます|ならって|
+排隊|ならぶ|並ぶ|line up|N5|ならびます|ならんで|
+成為|なる|成る|i will be|N5|なります|なって|
+變成/成為|なる|成る|become|N5|なります|なって|
+電話/警報響|なる|鳴る|it becomes|N5|なります|なって|
+在意/關心|なる|成る|curious|N4|なります|なって|
+變得更加(差)|なる|成る||N5|なります|なって|
+適應|なれる|慣れる||N4|なれます|なれて|
+適合|にあう|似合う|suit|N4|にあいます|にあって|
+適合我|にあう|似合う|it fits me well|N4|にあいます|にあって|
+很適合|にあう|似合う||N4|にあいます|にあって|
+臭/有味道|におう|匂う||N3|においます|におって|
+入職|にゅうしゃする|入社する||N3|にゅうしゃします|にゅうしゃして|
+輸入|にゅうりょくする|入力する|input|N3|にゅうりょくします|にゅうりょくして|
+脫鞋|ぬぐ|脱ぐ|take off|N5|ぬぎます|ぬいで|
+塗/擦|ぬる|塗る|apply|N3|ぬります|ぬって|
+睡過頭|ねぼうする|寝坊する|oversleep|N4|ねぼうします|ねぼうして|
+睡|ねる|寝る|sleep|N5|ねます|ねて|
+留/留下|のこる|残る|remaining|N4|のこります|のこって|
+爬|のぼる|登る|climb|N5|のぼります|のぼって|
+喝|飲む|飲む|drink|N5|のみます|のんで|
+換乘|のりかえる|乗り換える|transfer|N4|のりかえます|のりかえて|
+搭車/乘|のる|乗る|ride|N5|のります|のって|
+加入/進入|はいる|入る|enter|N5|はいります|はいって|
+不加入|はいる|入る|no need|N5|はいりません|はいらなくて|
+洗澡|はいる|入る|take a bath|N5|はいります|はいって|
+有嗎(裡面有)|はいる|入る||N5|はいっていますか|はいって|
+撕下|はがす|剥がす||N3|はがします|はがして|
+稱(重量)|はかる|量る|weigh|N3|はかります|はかって|
+量體溫|はかる|計る||N3|はかります|はかって|
+穿鞋|はく|履く|wearing|N5|はいています|はいて|
+穿(褲子)|はく|履く|wear|N5|はきます|はいて|
+彈奏|はじく|弾く||N3|はじきます|はじいて|
+開始(自動詞)|はじまる|始まる|begin|N5|はじまります|はじまって|
+開始(他動詞)|はじめる|始める|get started|N5|はじめます|はじめて|
+跑步|はしる|走る|run|N4|はしります|はしって|
+去掉|はずす|外す||N3|はずします|はずして|
+商量|はなしあう|話し合う||N3|はなしあいます|はなしあって|
+容易交談|はなしやすい|話しやすい||N3|はなしやすいです|はなしやすくて|
+說|はなす|話す|talk|N5|はなします|はなして|
+賞花|はなみをする|花見をする||N4|はなみをします|はなみをして|
+遠離|はなれる|離れる|separate|N3|はなれます|はなれて|
+離開(分離)|はなれる|離れる||N3|はなれます|はなれて|
+正在流行|はやる|流行る||N3|はやっています|はやって|
+貼|はる|貼る|stick|N5|はります|はって|
+腫|はれる|腫れる||N3|はれます|はれて|
+腫脹|はれる|腫れる||N3|はれます|はれて|
+控制/節制|ひかえる|控える|refrain|N2|ひかえます|ひかえて|
+發光|ひかる|光る||N3|ひかります|ひかって|
+取錢|ひきだす|引き出す||N3|ひきだします|ひきだして|
+彈(樂器)|ひく|弾く||N5|ひきます|ひいて|
+好久不見|ひさしぶりだ|久しぶりだ||N4|ひさしぶりです|ひさしぶりで|
+吃驚|びっくりする||surprise|N4|びっくりします|びっくりして|
+搬家|ひっこす|引っ越す|move|N4|ひっこします|ひっこして|
+午睡|ひるねする|昼寝する||N4|ひるねします|ひるねして|
+撿|ひろう|拾う||N4|ひろいます|ひろって|
+增加(自動詞)|ふえる|増える||N4|ふえます|ふえて|
+關注|フォローする|||N3|フォローします|フォローして|
+複習|ふくしゅうする|復習する||N5|ふくしゅうします|ふくしゅうして|
+增加(他動詞)|ふやす|増やす|increase|N4|ふやします|ふやして|
+列印|プリントする|||N4|プリントします|プリントして|
+搖動|ふる|振る||N4|ふります|ふって|
+減少|へらす|減らす||N3|へらします|へらして|
+可以學習|べんきょうできる|勉強出来る||N5|べんきょうできます|べんきょうできて|
+回覆|へんじする|返事する|reply|N4|へんじします|へんじして|
+退貨|へんぴんする|返品する||N3|へんぴんします|へんぴんして|
+不能退貨|へんぴんできない|返品できない|no returns|N3|へんぴんできません|へんぴんできなくて|
+想要|ほしがる|欲しがる|want|N4|ほしがります|ほしがって|
+輸|まける|負ける|lose|N4|まけます|まけて|
+錯了|まちがう|間違う||N4|まちがっています|まちがって|
+弄錯|まちがえる|間違える||N4|まちがえます|まちがえて|
+等|まつ|待つ|wait|N5|まちます|まって|
+總結|まとめる|纏める|summarize|N3|まとめます|まとめて|
+整理(彙整)|まとめる|纏める|summarize|N3|まとめます|まとめて|
+學習(學問)|まなぶ|学ぶ|learn|N3|まなびます|まなんで|
+來得及|まにあう|間に合う|make it in time|N4|まにあいます|まにあって|
+遵守|まもる|守る||N4|まもります|まもって|
+給你看|みせる|見せる|show you|N5|みせます|みせて|
+發現/尋找|みつける|見つける|find|N4|みつけます|みつけて|
+靜音|ミュートにする|||N3|ミュートにします|ミュートにして|
+看|みる|見る|take a look|N5|みます|みて|
+嘗試做某事|みる|見る|try|N5|みます|みて|
+綁|むすぶ|結ぶ||N4|むすびます|むすんで|
+申請|もうしこむ|申し込む||N3|もうしこみます|もうしこんで|
+拿/攜帶|もつ|持つ||N5|もちます|もって|
+帶回去|もってかえる|持って帰る||N5|もってかえります|もってかえって|
+帶去|もってくる|持って来る|bring|N5|もってきます|もってきて|
+放回去|もどす|戻す||N4|もどします|もどして|
+回到|もどる|戻る|return|N4|もどります|もどって|
+拿/得到|もらう|貰う|get|N4|もらいます|もらって|
+能幫我做某事嗎|もらう|貰う||N4|もらえますか|もらって|
+烤|やく|焼く|bake|N4|やきます|やいて|
+有用|やくにたつ|役に立つ|helpful|N4|やくにたちます|やくにたって|
+請假|やすむ|休む|holiday|N5|やすみます|やすんで|
+減肥|やせる|痩せる|lose weight|N4|やせます|やせて|
+嘗試|やってみる|やってみる|try|N4|やってみます|やってみて|
+辭職/停止/放棄|やめる|辞める||N5|やめます|やめて|
+不做|やめる|辞める|quit|N5|やめます|やめて|
+餵食|やる|遣る|feed|N5|やります|やって|
+做|やる|遣る|do|N5|やります|やって|
+讓|ゆずる|譲る||N3|ゆずります|ゆずって|
+休息|ゆっくりする|||N4|ゆっくりします|ゆっくりして|
+待在家|ゆっくりする|||N4|ゆっくりします|ゆっくりして|
+好|よい|良い|it was good|N5|いいです|よくて|
+不好|よい|良い||N5|いいです|よくて|
+改善|よくする|良くする||N4|よくします|よくして|
+叫上|よぶ|呼ぶ|call||よびます|よんで|
+讀|よむ|読む|read|N5|よみます|よんで|
+預訂|よやくする|予約する|make a reservation|N4|よやくします|よやくして|
+順路去|よる|寄る||N4|よります|よって|
+高興|よろこぶ|喜ぶ|happy|N3|よろこびます|よろこんで|
+感到高興|よろこぶ|喜ぶ||N3|よろこびます|よろこんで|
+感到開心|よろこぶ|喜ぶ||N3|よろこびます|よろこんで|
+回收|リサイクルする|||N3|リサイクルします|リサイクルして|
+留學|りゅうがくする|留学する||N4|りゅうがくします|りゅうがくして|
+旅行|りょこうする|旅行する||N5|りょこうします|りょこうして|
+放鬆|リラックスする|||N3|リラックスします|リラックスして|
+鞠躬/感謝|れいをする|礼をする||N4|れいをします|れいをして|
+練習|れんしゅうする|練習する|practice|N5|れんしゅうします|れんしゅうして|
+聯絡|れんらくする|連絡する|contact|N4|れんらくします|れんらくして|
+明白|わかる|分かる|understand|N5|わかります|わかって|
+不明白|わかる|分かる||N5|わかりません|わからなくて|
+分手|わかれる|別れる||N4|わかれます|わかれて|
+分開|わける|分ける||N4|わけます|わけて|
+忘記|わすれる|忘れる||N5|わすれます|わすれて|
+橫過|わたる|渡る|cross|N5|わたります|わたって|
+笑|わらう|笑う|laugh|N4|わらいます|わらって|
+AA制|わりかんする|割り勘する|split the bill|N3|わりかんします|わりかんして|
+沒關係|かまいません|構いません|||||
+邀請|さそいます||||||
+懷疑|うたがいます|疑います|doubt||||
+監視|みはります||||||
+相信|しんじます|信じます|believe||||
+響|なります|鳴ります|ring||||
+亂|ちらかっています|散らかっています|messy||||
+逃跑|にげだします|逃げ出します|run away||||
+被罵|おこられます||||||
+培育|そだてます|育てます|||||
+放棄|あきらめます|諦めます|give up||||
+鼓勵|はげまします|励まします|encourage||||
+生氣(ます形)|おこります|怒ります|angry||||
+握|つかみます||grab||||
+提高/舉起|あげます|上げます|||||
+咬|かみます||||||
+注意(ます形)|ちゅういします|注意します|||||
+接人|むかえにきます|迎えに来ます|pick you up||||
+模仿|まねします|真似します|||||
+敲打|はたきます|叩きます|||||
+拜託|たのみます|頼みます|||||
+連接(他動詞)|つなげます|繫げます|connect||||
+取決於|によります||||||
+塞緊|つめます|詰めます|pack||||
+迷路|まよいます|迷います|||||
+翻譯|やくします|訳します|translate||||
+前往|むかいます|向かいます|heading there||||
+放入口|くわえます||||||
+趕上|まにあいました|間に合いました|made it in time||||
+使害怕|こわがらせます|怖がらせます|scare||||
+飼養|かいます|飼います|||||
+組裝|くみたてます|組み立てます|assemble||||
+太多|すぎます|すぎる|too much||||
+複雜(動詞)|ふくざつます||complicated||||
+回答|こたえます|答えます|answer||||
+順利進行/成功|うまくいきます||||||
+打算做某事|ようともっています|ようと思っています|||||
+傳達|つたえます|伝えます|convey||||
+排列|ならべます|並べます|arrange||||
+經過|すぎます|過ぎます|||||
+說明/解釋|せつめいします|說明します|||||
+出現/出來|でてきます|出てきます|||||
+發生|おこります|起こります|||||
+有自信|じしんがあります|自信があります|||||
+生活/居住|くらします|暮らします|||||
+收拾/完成/結束|しまします||||||
+朝向/前往|むかいます|向かいます|||||
+確認(核實)|たしかめます|確かめます|check||||
+戰鬥(擊打)|たたきます||hit||||
+轉彎|まがります|曲がります|||||
+獲得|てにいれます|手に入れます|||||
+聽說|とききます||||||
+相似|にています|似ています|||||
+歸咎於/責怪|のせいにします||blame||||
+成長(發展)|せいちょうします|成長します|grow||||
+打擾|めいわくをかけます|迷惑をかけます|||||
+挑戰|ちょうせんします|挑戰します|challenge||||
+以…為目標|めざします|目指します|aim||||
+嚮往/憧憬/渴望|あこがれます||admire||||
+展開/傳播/展示|ひろげます|広げます|spread||||
+失望(動作)|がっかりします||||||
+遺棄|みすてます|見捨てます|abandon||||
+互相幫助|たすけあいます|助け合います|||||
+印刷|いんさつします|印刷します|||||
+成長|そだちます|育ちます|grow||||
+弄髒|よごれます|污れます|||||
+繼續(自動詞)|つづきます|続きます|to be continued||||
+注意(留心)|きをつけます|気をつけます|||||
+變暗|くらくなります|暗くなります|||||
+移除|とりのぞきます|取り除きます|remove||||
+輕敲|タップします||||||
+提議|ていあんします|提案します|||||
+弄污|よごします|汚します|||||
+結冰|こおります|凍ります|||||
+需要/必須|がひつようです|が必要です|required||||
+隱藏|かくします|隱します|||||
+記住(事先記下)|おぼえておきます||||||
+擴大|ひろがります|広がります|spread||||
+缺席|けっせきします|欠席します|||||
+脫掉(替人脫)|ぬがせます||||||
+採訪|しゅざいします|取材します|||||
+參觀/巡迴|まわります|回ります|go around||||
+沒關係/沒問題|かまいません|構いません|it's fine||||
+沒有放回去|もどさなかった|戻さなかった|||||
+不清楚|はっきりしていません||||||
+在場/會來|いらっしゃいます||they are here||||
+觸碰|さわります|触ります|touch||||
+說(引述)|といいます|と言います|||||
+冷靜下來|おちつく|落ち着く|calm down|||おちついて|
+破裂|われます|割れます|break||||
+牢牢地保護|しっかりまもる|しっかり守る|protect it tightly||しっかりまもります||
+洗澡(淋浴)|あびる|浴びる|bath||あびます||
+整理|せいりする|整理する|organize||せいりします||
+拜訪(謙讓)|うかがいます|伺います|come||||
+過目|はいけんします|拝見します|take a look||||
+整理(整頓)|ととのえます|整えます|arrange||||
+自然望到|みえる|見える|appear||||
+被發現|みつかる|見つかる|found||||
+目送|みおくる|見送る|seeing off||||
+被決定|きまる|決まる|decision||||
+開始想做某事|たくなります||want to||||
+堅持|いいはります|言い張ります|insist||||
+開始/變得能夠做某事|ようになりました||||||
+辭職|じしょくします|辞職します|resign||||
+生活|くらす|暮らす|living||||
+知道(謙讓)|ぞんじます|存じます|understand||||
+撞(碰上)|ぶつかります||collide||||
+偷竊|ぬすみます|盗みます|steal||||
+判斷|はんだんします|判断します|decide||||
+照顧|めんどうをみる|面倒を見る|look after||めんどうをみます||
+屬於|しょぞくしています|所屬しています|affiliated||||
+售罄|うりきれます|売り切れます|sold out||||
+修理|なおします|直します|fix||||
+裝飾|かざります|飾ります|decorate||||
+打算(計畫)|つもりです||intend||||
+喜歡(中意)|きにいります|気に入ります|you like it||||
+賺錢|かせぎます||earn money||||
+改變|かわります|変わります|change||||
+閃耀|かがやきます|輝きます|shine||||
+誇獎|ほめます|褒めます|praise||||
+變陰|くもります|曇ります|become cloudy||||
+承認|みとめます|認めます|admit||||
+發呆|ぼおっとします||I feel a bit dazed.||||
+踩|ふみます|踏みます|step on||||
+連接(接通)|つながります|繋がります|connect||||
+幫助(搭把手)|てをかします|手を貸します|lend a hand||||
+適合(合身)|にあいます|似合います|suit||||
+在意/感到擔心|きになっています|気になっています|||||
+解決|ときます|解きます|solve||||
+公開/發佈|こうかいします|公開します|||||
+畢業(ます形)|そつぎょうします|卒業します|||||
+重啟|さいきどうします|再起動します|restart||||
+告訴(敬語)|もうしあげます|申し上げます|||||
+見面(敬語)|おめにかかります|お目にかかります|nice to meet you||||
+自我介紹|じこしょうかいします|自己紹介します|||||
+贈送/給(謙讓)|さしあげます|差し上げます|give||||
+剩下|のこっています|殘っています|remain||||
+去試試|いってみます|行ってみます|||||
+拉|ひっぱります|引っ張ります|pull||||
+不忘|わすれずに|忘れずに|||||
+傷害|きずつけます|傷つけます|hurt||||
+用語言表達|ことばにします|言葉にします|put into words||||
+依賴|たよる|頼る|rely||たよります||
+澆水|みずをやります|水をやります|||||
+互相幫助(辭書形)|たすけあう|助け合う|help each other||たすけあいます||
+`,
+      numbers: `
+多少個|いくつ||||||
+多少錢|いくら||||||
+一個|ひとつ||||||
+二個|ふたつ||||||
+三個|みっつ||||||
+四個|よっつ||||||
+五個|いつつ||||||
+六個|むっつ||||||
+七個|ななつ||||||
+八個|やっつ||||||
+九個|ここのつ||||||
+十個|とお||||||
+一半|はんぶん||||||
+一個人|ひとり||||||
+兩個人|ふたり||||||
+三個人|さんにん||||||
+四個人|よにん||||||
+五個人|ごにん||||||
+六個人|ろくにん||||||
+七個人|ななにん||||||
+八個人|はちにん||||||
+九個人|きゅうにん||||||
+十個人|じゅうにん||||||
+二十歲|はたち||||||
+一百|ひゃく||||||
+二百|にひゃく||||||
+三百|さんびゃく||||||
+四百|よんひゃく||||||
+五百|ごひゃく||||||
+六百|ろっぴゃく||||||
+七百|ななひゃく||||||
+八百|はっぴゃく||||||
+九百|きゅうひゃく||||||
+一千|せん||||||
+二千|にせん||||||
+三千|さんぜん||||||
+四千|よんせん||||||
+五千|ごせん||||||
+六千|ろくせん||||||
+七千|ななせん||||||
+八千|はっせん||||||
+九千|きゅうせん||||||
+一萬|まん||||||
+二萬|にまん||||||
+一小時|いちじかん||||||
+冊|さつ||||||
+升|リットル||||||
+公里|キロメートル||||||
+四號|よんばん|四番|number four||||
+輛|だい|台|||||
+十次|じゅっかい|十回|||||
+二十歲(にじゅっさい)|にじゅっさい||||||
+八歲|はっさい||||||
+厘米|センチ||||||
+一百分|ひゃくてん|百点|||||
+第六|ろくばんめ|六番目|||||
+第十八|じゅうはちばんめ|十八番目|||||
+八瓶|はっぽん|八本|||||
+六件|ろくてん|六点|||||
+一個(いっこ)|いっこ|一個|||||
+八晚|はっぱく|八泊|||||
+十本|じゅっさつ|十冊|||||
+第九|きゅうばんめ|九番目|||||
+幾日|すうじつ|数日|||||
+第四|よんばんめ|四番目|||||
+第二十|にじゅうばんめ||||||
+次要|にのつぎ|二の次|||||
+部份|いちぶ|一部|||||
+六支|ろっぽん|六本|||||
+第十一|じゅういちばんめ|十一番目|||||
+半價|はんがく|半額|||||
+一個一個地|ひとつずつ||one by one||||
+一些|いくつか||||||
+`,
+      food: `
+壽司|すし||||||
+茶|おちゃ|お茶|||||
+飯|ごはん|ご飯|||||
+拉麵|ラーメン||||||
+沙律|サラダ||||||
+披薩|ピザ||||||
+蛋糕|ケーキ||||||
+麵包|パン||||||
+三文治|サンドイッチ||||||
+早餐|あさごはん|朝ご飯|||||
+午餐|ひるごはん|昼ご飯|||||
+晚餐|ばんごはん|晩ご飯|||||
+咖啡|コーヒー||||||
+果汁|ジュース||||||
+便當|べんとう|弁当|||||
+意粉|パスタ||||||
+咖喱|カレー||||||
+冰咖啡|アイスコーヒー||||||
+冰淇淋|アイスクリーム||||||
+紅茶|こうちゃ||||||
+味噌湯|みそしる||||||
+蕎麥麵|そば|蕎麦|||||
+天婦羅|てんぷら||||||
+套餐|ていしょく|定食|||||
+烏冬|うどん||||||
+飯團|おにぎり||||||
+巧克力|チョコレート||||||
+草莓|いちご||||||
+曲奇|クッキー||||||
+抹茶|まっちゃ||||||
+杯子蛋糕|カップケーキ||||||
+甜甜圈|ドーナツ||||||
+芝士蛋糕|チーズケーキ||||||
+可可|ココア||||||
+零食|おかし|お菓子|||||
+熱狗|ホットドッグ||||||
+爆米花|ポップコーン||||||
+牛排|ステーキ||||||
+肉|にく||||||
+啤酒|ビール||||||
+豬肉|ぶたにく|豚肉|||||
+可樂|コーラ||||||
+炸豬排|とんかつ||||||
+鹽|しお||||||
+醬汁|ソース||||||
+牛肉飯|ぎゅうどん||||||
+魚|さかな||||||
+豆腐|とうふ||||||
+蔬菜|やさい||||||
+醬油|しょうゆ||||||
+雞蛋|たまご||||||
+法國菜|ふらんすりょうり||||||
+蘋果|りんご||||||
+西瓜|すいか||||||
+柑|みかん||||||
+糖|さとう||||||
+水果|くだもの||||||
+茄子(なすび)|なすび||||||
+青瓜|きゅうり||||||
+料理|りょうり||||||
+薯條|フライドポテト||||||
+薯片|ポテトチップス||||||
+炸雞|フライドチキン||||||
+食物|たべもの||||||
+巧克力香蕉|チョコバナナ||||||
+湯|スープ||||||
+豆漿|とうにゅう||||||
+西蘭花|ブロッコリー||||||
+橙|オレンジ||||||
+酸奶|ヨーグルト||||||
+土司|トースト||||||
+牛奶|ぎゅうにゅう||||||
+炖牛肉|ビーフシチュー||||||
+洋蔥|たまねぎ|玉ねぎ|||||
+紅蘿蔔|にんじん||||||
+麵粉|こむぎこ||||||
+牛油|バター||||||
+土豆|じゃがいも||||||
+酒|おさけ||||||
+冰沙|スムージー||||||
+棉花糖|わたあめ||||||
+番茄|トマト||||||
+鬆餅|パンケーキ||||||
+紅薯|さつまいも||sweet potato||||
+火鍋|なべ||||||
+即食|インスタント||instant||||
+香蕉|バナナ||||||
+粥|おかゆ||||||
+藥|くすり||||||
+麻糬|もち||||||
+炒麵|やきそば||||||
+芒果|マンゴー||||||
+菠蘿|パイナップル||||||
+吸管|ストロー||||||
+漢堡|ハンバーガー||||||
+自助餐|たべほうだい|食べ放題|||||
+無限暢飲|のみほうだい|飲み放題|||||
+龍蝦|ロブスター||||||
+蘑菇|きのこ||||||
+雞肉|チキン||||||
+穀物|シリアル||||||
+冰|こおり||||||
+主菜|メイン||||||
+飲品|のみもの||||||
+刨冰|かきごおり||||||
+烤雞肉串|やきとり||||||
+檸檬|レモン||||||
+菜餚|おかず||side dish||||
+居酒屋|いざかや||||||
+蓋飯|どんぶり||||||
+黃瓜|きゅうり||||||
+軟飲料|ソフトドリンク||||||
+漢堡扒|ハンバーグ||||||
+海鮮|シーフード||||||
+蛋包飯|オムライス||||||
+家庭餐廳|ファミレス||||||
+西餐|ようしょく||||||
+自助飲料區|ドリンクバー||||||
+葡萄|ぶどう||||||
+生菜|レタス||||||
+沙拉醬|ドレッシング||||||
+特色菜|スペシャル||||||
+香腸|ソーセージ||||||
+麵|めん||||||
+蛋黃醬|マヨネーズ||||||
+豚骨拉麵|とんこつラーメン||||||
+香草(香草味)|バニラ||||||
+芝士|チーズ||||||
+櫻桃|さくらんぼ||||||
+婚禮蛋糕|ウェディングケーキ||||||
+椰子|ココナッツ||||||
+青椒|ピーマン||||||
+花生|ピーナッツ||||||
+純素|ビーガン||||||
+雞尾酒|カクテル||||||
+運動飲料|スポーツドリンク||||||
+密瓜|メロン||||||
+糖漿|シロップ||||||
+冰塊|こおり||||||
+腌菜|つけもの||||||
+煎蛋卷|オムレツ||||||
+便當盒|べんとうばこ||||||
+果醬|ジャム||||||
+牛肉|ぎゅうにく||||||
+親子丼|おやこどん|親子丼|||||
+雞肉(とりにく)|とりにく||||||
+雞|にわとり||||||
+日式滑蛋牛肉丼|たにんどん|他人丼|||||
+牛|うし||||||
+炸豬扒蛋丼|かつどん||||||
+吞拿魚魚生丼|てっかどん|鉄火丼|||||
+赤身|あかみ||||||
+中拖|ちゅうとろ|中トロ|||||
+大拖|おおトロ|大トロ|||||
+海鮮魚生丼|かいせんどん|海鮮丼|||||
+炸雞定食|からあげていしょく|唐揚げ定食|||||
+姜汁燒豚肉定食|しょうがやきていしょく|生姜焼き定食|||||
+鹽燒鯖魚定食|さばのしおやきていしょく|鯖の塩焼き定食|||||
+炸雞排定食|ちきんなんばんていしょく|チキン南蛮定食|||||
+燒魚定食|やきざかなていしょく|焼き魚定食|||||
+炸蠔定食|かきフライていしょく|牡蠣フライ定食|||||
+雜錦炸物定食|ミックスフライていしょく|ミックスフライ定食|||||
+牛小排定食|ぎゅうかっとステーキていしょく|牛カットステーキ定食|||||
+炸蝦定食|えびフライていしょく|えびフライ定食|||||
+日式漢堡排定食|わふうおろしハンバーグていしょく|和風おろしハンバーグ定食|||||
+蘿蔔蓉|だいこんおろし|大根おろし|||||
+限定|げんてい|限定|||||
+壽喜燒定食|すきやきていしょく|すき焼き定食|||||
+塔可|タコス||tacos||||
+白蘿蔔|だいこん||||||
+蝦|えび||||||
+茄子|なす||||||
+大阪燒|おこのみやき|お好み焼き|||||
+油|あぶら||||||
+可麗餅|クレープ||||||
+美食廣場|フードコート||||||
+蜂蜜|はちみつ||||||
+熱水|おゆ||||||
+和牛|わぎゅう||||||
+章魚燒|たこやき|たこ焼き|||||
+中餐|ちゅうかりょうり|中華料理|||||
+布甸|プリン||||||
+捲心菜|キャベツ||||||
+小麥粉|こむぎこ||||||
+面豉湯|おみそしる|お味噌汁|||||
+香料(スパイス)|スパイス||||||
+香料(こうしんりょう)|こうしんりょう|香辛料|||||
+關東煮|おでん||||||
+`,
+      adjectives: `
+大|おおきい|大きい|||||
+小|ちいさい|小さい|||||
+長|ながい|長い|||||
+短|みじかい|短い|||||
+明亮/開朗|あかるい|明るい|||||
+暗|くらい|暗い|||||
+新|あたらしい|新しい|||||
+舊|ふるい|古い|||||
+快|はやい||||||
+慢|おそい|遅い|||||
+貴|たかい||||||
+便宜|やすい||||||
+熱(天氣)|あつい|暑い|hot||||
+冷(天氣)|さむい|寒い|cold||||
+暖(物件)|あたたかい|暖かい|warm||||
+熱(物件)|あつい|熱い|hot||||
+涼(物件)|つめたい|冷たい|cold||||
+溫的|ぬるい||lukewarm||||
+涼快|すずしい||cool||||
+高|たかい|高い|||||
+低|ひくい||low||||
+矮|ひくい||||||
+遠|とおい|遠い|||||
+近|ちかい|近い|||||
+寬敞|ひろい|広い|||||
+窄|せまい|狭い|||||
+乾淨/漂亮|きれい（な）|綺麗|beautiful||||
+污|きたない|汚い|||||
+甜|あまい|甘い|||||
+苦|にがい||||||
+咸|しょっぱい|塩っぱい|||||
+酸|すっぱい||||||
+辣|からい|辛い|||||
+濃|こい||||||
+濃稠|とろとろ||||||
+熱鬧|にぎやか（な）||||||
+吵|うるさい||||||
+安靜|しずか（な）|静か|||||
+安全|あんぜん||||||
+危險|あぶない|危ない|||||
+重|おもい||||||
+輕便|かるい||light||||
+粗/胖|ふとい|太い|thick||||
+瘦|やせています||thin||||
+幼|ほそい||thin||||
+簡單/輕鬆|やさしい|易しい|easy||||
+簡單(かんたん)|かんたんな|簡単な|easy||||
+難|むずかしい|難しい|||||
+好吃|おいしい||||||
+難吃|まずい|不味い|||||
+厚|あつい|厚い|||||
+薄/淡|うすい||||||
+有空|ひま（な）||||||
+忙|いそがしい||||||
+硬|かたい||hard||||
+軟|やわらかい|柔らかい|soft||||
+著名|ゆうめい（な）|有名|||||
+無名|むめいな||||||
+好玩/愉快|たのしい||fun||||
+悶|つまらない||boring||||
+方便|べんり（な）||||||
+不方便|ふべんな|不便な|||||
+喜歡|すきな||favourite||||
+討厭|きらいな||||||
+緊|きつい||||||
+鬆|ゆるい||||||
+空|からっぽ||||||
+晚/遲|おそい||||||
+重要(だいじ)|だいじ||||||
+重要(じゅうよう)|じゅうよう||||||
+複雜|ふくざつ||||||
+油膩|あぶらっこい|油っこい|||||
+健康|けんこうてき|健康的|||||
+好(いい)|いい|良い|||||
+好(よい)|よい|良い|good||||
+不好|よくない||not good||||
+擅長|とくい||||||
+不擅長|にがて||||||
+厲害|すごい||amazing||||
+嚴格|きびしい||strict||||
+高興|うれしい||happy||||
+寂寞|さびしい||||||
+親切|しんせつ||friendship||||
+漂亮/美好|すてき（な）||nice||||日常常用漂亮
+美麗|うつくしい|美しい|beautiful||||最高級美
+可愛|かわいい|可愛い|||||
+有趣|おもしろい||||||
+酷|かっこいい||||||
+可怕|こわい||scary||||
+可憐|かわいそう||||||
+土氣|ダサい||||||
+時尚|おしゃれ（な）||fashionable||||
+紅色|あかい|赤い|||||
+白色|しろい|白い|||||
+藍色|あおい|青い|||||
+黑色|くろい|黒い|||||
+綠色|みどり|緑|||||
+黃色|きいろい|黄色|||||
+紫|むらさき||||||
+棕色|ちゃいろ||||||
+橙色|オレンジ||||||
+粉紅色|ピンク||||||
+粉藍色|みずいろ|水色|||||
+灰色|はいいろ・グレー||||||
+金色|きんいろ||||||
+銀色|ぎんいろ||||||
+彩虹|にじいろ||||||
+金黃色|やまぶきいろ||||||
+赭石|おうどいろ|黄土色|||||
+硃砂|しゅいろ||||||
+赤紅|くれない||||||
+紅豆色|あずきいろ||||||
+淺紫色|うすむらさき||||||
+群青色|ぐんじょう||Ultramarine||||
+靛青|あいいろ||||||
+深藍色|こんいろ|紺色|||||
+黃綠色|きみどり|黄緑|||||
+黑白|しろくろ|白黒|||||
+悶熱|むしあつい|蒸し暑い|hot and humid||||
+不舒服|ぐあいがわるい||||||
+舒服|きもちいい||||||
+生的|なま||||||
+痛|いたい||||||
+必要|ひつよう|必要|need||||
+正合適|ちょうどいい||just right||||
+普通|ふつう||ordinary||||
+正確|ただしい|正しい|||||
+麻煩(大変)|たいへん||very much||||
+破舊不堪|ボロボロ||||||
+毛茸茸|ふわふわ||||||
+閃閃發光|キラキラ||||||
+免費|むりょう||||||
+受歡迎|にんき||||||
+了不起/美好|すばらしい||wonderful||||
+辛苦|たいへん||||||
+認真|まじめ(な)|真面目|serious||||
+一樣|おなじ||||||
+睏|ねむい||||||
+了不起/出色|りっぱ||Magnificent||||
+時令|きせつの|季節の|||||
+新鮮|しんせん||||||
+自己做的|てづくりの||||||
+黏黏的|べたべた||||||
+壞|わるい||||||
+最糟糕的|さいあく||the worst||||
+失望|ざんねん(な)||||||
+最好的|さいこう||||||
+休閒|カジュアル||casual||||
+無聊|つまらない||||||
+糟糕/嚴重|ひどい||terrible||||
+奇怪|へん||||||
+復古|レトロな||||||
+多(過多)|おおすぎ||||||
+少|すくない||||||
+不需要的|いらない||||||
+年輕|わかい||||||
+年長|としうえ|年上|||||
+令人興奮|わくわくする||exciting||||
+悲傷|かなしい||sad||||
+個子高|せがたかい||||||
+噁心的|きもちわるい|気持ち悪い|||||
+聲音很大|こえがおおきい||||||
+頭髮長|かみがながい||||||
+頭大|あたまがおおきい||||||
+眼大|めがおおきい||||||
+看起來很難吃|まずそう||||||
+舒適|ここちいい||comfortable||||
+划算|おとく||good value||||
+遺憾|ざんねん||||||
+擔心|しんぱい||worried||||
+強|つよい||strong||||
+弱|よわい||weak||||
+傳統|でんとうてき||traditional||||
+不好看|かっこよくなかった||||||
+糟糕|やばい||terrible||||
+不可能|むり|無理|impossible||||
+期待|たのしみ|楽しみ|||||
+懷念的/懷舊|なつかしい||Nostalgic||||
+乾|かわき||dry||||
+小眾|マイナー(な)||minor||||
+困難|たいへん|大変|||||
+髒|きたない|汚い|||||
+羨慕|うらやましい||||||
+重要(たいせつ)|たいせつ|大切|||||
+聰明(頭好)|あたまがいい|頭がいい|||||
+聰明(賢)|かしこい|賢い|wise/clever||||
+足夠|じゅうぶん|十分|enough||||
+舒適(快適)|かいてき||||||
+高雅|じょうひん|上品|elegant||||
+多塵的|ほこりっぽい||||||
+整潔|きちんとした||||||
+難用|にくい||||||
+令人不快|ふかいな|不快な|unpleasant||||
+舒適的|ここちいい|心地いい|comfortable||||
+明顯|バレバレ||||||
+輕鬆|らく||easy||||
+方便(合適)|つごうがいい|都合がいい|convenient||||
+最棒的|さいこうの|最高の|the best||||
+質量差|しつがわるい|質が悪い|||||
+實用的|じつようてき|実用的|||||
+認真(真劍)|しんけんな|真剣な|serious||||
+可怕的|おそろしい|恐ろしい|terrible||||
+安靜的|おちついた|落ち着いた|calm||||
+好奇心強|こうきしんがつよい|好奇心が強い|curious||||
+活躍|かっぱつ|活発|||||
+凹凸不平/不均勻|でこぼこ||uneven||||
+有魅力的|みりょくてき|魅力的|charming||||
+固定|きまった|決まった|||||
+合適|ふさわしい||suitable||||
+像/類似於|みたいな||||||
+安靜(溫順)|おとなしい|大人しい|||||
+熟練|じょうず|上手|skilled||||
+詳細(細)|こまかい|細かい|fine||||
+詳細/小心|ていねい||careful||||
+禮貌|ていねい|丁寧|polite||||
+心情不好|ふきげん|不機嫌|bad mood||||
+鋒利|するどい|鋭い|sharp||||
+飽|いっぱい||full||||
+無可避免的|しかたない||||||
+耐用|ながもち|長持ち|||||
+平坦|たいら|平ら|||||
+精良|りっぱな||splendid||||
+基本的|きほんてき|基本的|basic||||
+手工|てづくり|手作り|handmade||||
+意想不到的|おもいがけない|思いがけない|unexpected||||
+不僅僅|だけじゃなくて||not only that, but also||||
+不足|たりない|足りない|not enough||||
+實際的|じっさいの|実際の|actual||||
+良好的|ちゃんとした||proper, adequate||||
+`,
+      dates: `
+星期日|にちようび|日曜日|||||
+星期一|げつようび|月曜日|||||
+星期二|かようび|火曜日|||||
+星期三|すいようび|水曜日|||||
+星期四|もくようび|木曜日|||||
+星期五|きんようび|金曜日|||||
+星期六|どようび|土曜日|||||
+季節|きせつ|季節|||||
+春天|はる||||||
+夏天|なつ||||||
+秋天|あき||||||
+冬天|ふゆ||||||
+每天|まいにち|毎日|||||
+每天早上|まいあさ|毎朝|||||
+每天晚上|まいばん|毎晩|||||
+經常|よく||often||||
+有時|ときどき|時々|sometimes||||
+總是/通常|いつも||everytime/always||||
+還是|まだ||still||||
+可能|たぶん||perhaps||||
+每週|まいしゅう||||||
+上週|せんしゅう||||||
+今週|こんしゅう||||||
+下週|らいしゅう|来週|||||
+下下週|さらいしゅう||||||
+上月|せんげつ|先月|||||
+今月|こんげつ|今月|||||
+下月|らいげつ|来月|||||
+昨天|きのう||||||
+今天|きょう|今日|||||
+明天|あした||||||
+前日|おととい|一昨日|||||
+後日|あさって|明後日|||||
+之後|あと|後|||||
+一會|すこし||||||
+甚麼時候|いつ||||||
+這週末|こんしゅうまつ||||||
+今早|けさ||||||
+今晚|こんや/ こんばん||||||
+前年|おととし|一昨年|||||
+去年|きょねん||||||
+今年|ことし||||||
+明年|らいねん||||||
+後年|さらいねん|再来年|||||
+每年|まいとし||||||
+每月|まいつき||||||
+那時|そのとき||||||
+下次|こんど||||||
+一月|いちがつ||||||
+二月|にがつ||||||
+三月|さんがつ||||||
+四月|しがつ||||||
+五月|ごがつ||||||
+六月|ろくがつ||||||
+七月|しちがつ||||||
+八月|はちがつ||||||
+九月|くがつ||||||
+十月|じゅうがつ||||||
+十一月|じゅういちがつ||||||
+十二月|じゅうにがつ||||||
+小時|じかん|時間|||||
+1日|ついたち||||||
+2日|ふつか||||||
+3日|みっか||||||
+4日|よっか||||||
+5日|いつか||||||
+6日|むいか||||||
+7日|なのか||||||
+8日|ようか||||||
+9日|ここのか||||||
+10日|とおか||||||
+20日|はつか||||||
+上午|ごぜん|午前|||||
+下午|ごご|午後|||||
+從|から||||||
+到|まで||||||
+最後|さいご||||||
+從現在開始|これから||||||
+這次|こんかい||||||
+首先|まず||||||
+早上|あさ||||||
+白天|ひるま||||||
+晚上|よる||||||
+現在|いま||||||
+傍晚|ゆうがた|夕方|||||
+清晨|はやいあさ|早い朝|early morning||||
+黎明|あけかた|明け方|dawn||||
+一個星期|いっしゅうかん||||||
+半日|はんにち||||||
+三天|さんかかん||||||
+一整天|いちにちじゅう||||||
+暫時|しばらく||for a while||||
+下午比較好|ごごがいい||||||
+新年|おしょうがつ|お正月|||||
+三週|さんしゅうかん|三週間|three weeks||||
+兩週|にしゅうかん|二週間|||||
+一個月|いちかげつかん|一か月間|||||
+每一小時|いちじかん||||||
+今日之內|きょうじゅうに|今日中に|||||
+平日|へいじつ||||||
+假日|おやすみ|お休み|||||
+每年一次|としにいちかい|年に一回|once a year||||
+每週兩次|いっしゅうかんににかい|一週間に二回|twice a week||||
+半年|はんとし|半年|||||
+第…年|ねんめ|…年目|||||
+秒|びょう||||||
+分|ぶん||||||
+一晚|いっぱく|一泊|||||
+深夜|よるおそく|夜遅く|||||
+`,
+      places: `
+美國|アメリカ||||||
+日本|にほん||||||
+加拿大|カナダ||||||
+越南|ベトナム||||||
+巴西|ブラジル||||||
+紐約|ニューヨーク||||||
+多倫多|トロント||||||
+英國|イギリス||||||
+中國|ちゅうごく||||||
+韓國|かんこく||||||
+首爾|ソウル||||||
+印尼|インドネシア||||||
+台灣|たいわん||||||
+澳洲|オーストラリア||||||
+德國|ドイツ||||||
+菲律賓|フィリピン||||||
+西班牙|スペイン||||||
+歐洲|ヨーロッパ||||||
+亞洲|アジア||||||
+印度|インド||||||
+泰國|タイ||||||
+墨西哥|メキシコ||||||
+東南亞|とうなんアジア|東南アジア|||||
+新加坡|シンガポール||||||
+馬來西亞|マレーシア||||||
+國家|くに||||||
+尼泊爾|ネパール||||||
+中東|ちゅうとう||||||
+意大利|イタリア||||||
+東歐|ひがしヨーロッパ|東ヨーロッパ|||||
+西非|にしアフリカ|西アフリカ|||||
+中美洲|ちゅうおうアメリカ|中央アメリカ|||||
+南亞|みなみアジア||||||
+緬甸|ミャンマー||||||
+東京|とうきょう|東京|||||
+京都|きょうと|京都|||||
+大阪|おおさか||||||
+澀谷|しぶや|渋谷|||||
+秋葉原|あきはばら||||||
+淺草|あさくさ||||||
+上野|うえの||||||
+橫濱|よこはま||||||
+新宿|しんじゅく||||||
+名古屋|なごや||||||
+千葉|ちば||||||
+原宿|はらじゅく||||||
+北海道|ほっかいどう||||||
+福岡|ふくおか||||||
+九州|きゅうしゅう||||||
+市|し||||||
+廣島|ひろしま|広島|||||
+神戶|こうべ||||||
+`,
+      people: `
+爸爸|ちち / おとうさん||||||
+媽媽|はは / おかあさん||||||
+哥哥|あに / おにいさん||||||
+姐姐|あね / おねえさん||||||
+弟弟|おとうと / おとうとさん||||||
+妹妹|いもうと / いもうとさん||||||
+兄弟|きょうだい||||||
+姊妹|しまい||||||
+父母(兩親)|りょうしん / ごりょうしん||||||
+父母(親)|おや|親|||||
+孩子|こども / おこさん||||||
+男朋友|かれし|彼氏|||||
+女朋友|かのじょ||||||
+家人|かぞく|家族|family||||
+家庭|かてい|家庭|||||
+丈夫|おっと / ごしゅじん / だんなさん||||||
+妻子|つま / おくさん||||||
+夫婦|ふうふ||||||
+表親|いとこ||||||
+女兒|むすめ|娘|||||
+兒子|むすこ||||||
+爺爺奶奶|そふぼ||||||
+親屬|しんせき||||||
+新娘|しんぷ||||||
+新郎|しんろう||||||
+姪子|おい||||||
+姪女|めい||||||
+祖母|そぼ||||||
+祖父|そふ||||||
+孫子|まご||||||
+叔叔|おじ||uncle||||
+姨姨|おば||aunt||||
+大人|おとな||adult||||
+教練|コーチ||||||
+警察|けいさつ||police||||
+警察官|けいさつかん||police officer||||
+醫生|いしゃ||||||
+學生(がくせい)|がくせい||||||
+律師|べんごし||||||
+老師|せんせい||||||
+護士|かんごし|看護師|||||
+廚師|シェフ||||||
+素食者|ベジタリアン||||||
+女演員|じょゆう|女優|||||
+教師|きょうし|教師|||||
+教授|きょうじゅ|教授|||||
+研究者|けんきゅうしゃ|研究者|||||
+學生(せいと)|せいと|生徒|||||
+雕刻家|ちょうこくか||||||
+演員|はいゆう|俳優|||||
+頭|あたま||||||
+眼|め||||||
+耳|みみ||||||
+口|くち||||||
+鼻|はな||||||
+腿|あし||||||
+手|て||||||
+臉/面|かお||||||
+身體|からだ||||||
+頸|くび||||||
+手臂|うで||||||
+肩膀|かた||||||
+肚|おなか||stomach||||
+骨|ほね||||||
+喉嚨|のど||||||
+腰部|こし||||||
+肌肉|きんにく|筋肉|muscle||||
+肘|ひじ||elbow||||
+背部|せなか||||||
+膝|ひざ||||||
+眼淚|なみだ||||||
+胸|むね||||||
+嘴唇|くちびる||||||
+心|こころ||heart||||
+皮膚|はだ|肌|skin||||
+大家|みんな||||||
+我們|わたしたち||||||
+寶寶|あかちゃん||||||
+伴侶|パートナー||||||
+男人|おとこのひと|男の人|||||
+女人|おんなのひと||||||
+前男友|もとカレ|元カレ|||||
+前女友|もとカノ|元カノ|||||
+夥伴|なかま||||||
+老人|おとしよりのひと|お年寄りの人|||||
+公主|おうじょ|王女|||||
+雙胞胎|ふたご|双子|twins||||
+`,
+      directions: `
+這個|これ / この||||||
+那個|それ / その||||||
+那個(遠)|あれ / あの||||||
+這裡|ここ / こちら||||||
+那裡|そこ / そちら||||||
+那裡(遠)|あそこ / あちら||||||
+地下|ちか||basement||||
+樓梯|かいだん||stair||||
+出口|でぐち||||||
+入口|いりぐち||entrance||||
+某個地方|どこか||somewhere||||
+附近(近所)|きんじょの|近所の|nearby||||
+這附近(このへん)|このへん||around here||||
+附近(近く)|ちかく|近く|nearby||||
+隔壁|となり|隣|next door||||
+一帶|あたり||around||||
+週圍|まわり||surroundings||||
+對面|むこう|向こう|over there||||
+旁邊|よこ||next||||
+上|うえ||up||||
+下|した||under||||
+左|ひだり||left||||向左:左に
+右|みぎ||right||||向右:右に
+在路上|とちゅうで|途中で|in the meantime||||
+前面|まえ||front||||
+後面|うしろ||behind||||
+中|なか||inside||||
+裡/深處|おく|奥|deep inside||||
+外面|そと||outside||||
+背面|うら|裏|back||||
+正面|しょうめん|正面|front||||
+角落|すみ|隅|corner||||內角/角落頭
+中間|まんなか||||||
+東|ひがし||||||
+南|みなみ||||||
+西|にし||||||
+北|きた||||||
+到處|あちこち||here and there||||
+交叉路口|こうさてん|交差点|intersection||||
+拐角|かど|角||外角/街口轉角
+邊緣|はし|端|edge||||
+途中|とちゅう||midway||||
+在另一邊|むこうに|向こうに|over there||||
+就在旁邊|すぐとなり||right next door||||
+這附近(この辺り)|このあたり|この辺り|around here||||
+從任何地方|どこからでも||from anywhere||||
+`,
+      transport: `
+入口(玄關)|げんかん||||||
+出口|でぐち||||||
+儲物櫃|コインロッカー||||||
+自動販賣機|じはんき|自販機|||||
+樓梯|かいだん|階段|||||
+地下|ちか||||||
+衛生間|おてあらい|お手洗い|||||
+電梯|エレベーター||||||
+出租車|タクシー||||||
+換乘|のりかえ|乗り換え|||||
+站台|ホーム||||||
+檢票口|かいさつ||||||
+咖啡廳|カフェ||||||
+垃圾桶|ゴミばこ||||||
+一樓|いっかい|一階|||||
+二樓|にかい|二階|||||
+餐廳|レストラン||||||
+公交車|バス||||||
+票(車票)|きっぷ|切符|||||
+地鐵|ちかてつ|地下鉄|||||
+機場|くうこう|空港|||||
+車站|えき|駅|||||
+公交站|バスてい||||||
+便利店|コンビニ||||||
+酒店|ホテル||||||
+飛機|ひこうき|飛行機|||||
+行李箱|スーツケース||||||
+票(門票)|チケット||||||
+旅行|りょこう||||||
+神社|じんじゃ||||||
+寺廟|おてら||||||
+建築|たてもの||||||
+地方|ところ||||||
+公園|こうえん|公園|||||
+廣場|ひろば|広場|square||||
+美術館|びじゅつかん|美術館|||||
+動物園|どうぶつえん|動物園|||||
+單車/自行車|じてんしゃ|自転車|||||
+停車場|ちゅうしゃじょう|駐車場|||||
+私家車|じどうしゃ||||||
+新幹線|しんかんせん||||||
+路|みち|道|||||
+大堂|ロビー||||||
+門診室|しんさつしつ||||||
+禮品店|ギフトショップ||||||
+水族館|すいぞくかん||||||
+電車|でんしゃ||||||
+單軌列車|モノレール||||||
+車站工作人員|えきいん||||||
+事故|じこ||||||
+靠窗|まどがわ||||||
+車|くるま||||||
+郵輪|クルーズ||||||
+港口|みなと|港|port||||
+船|ふね||||||
+穿梭巴士|シャトルバス||||||
+場所/地方|ばしょ||place||||
+交叉路口|こうさてん||||||
+航班|びん||||||
+街道|とおり|通り|street||||
+自動扶梯|エスカレーター||||||
+末班車|しゅうでん|終電|||||
+司機|うんてんしゅ||||||
+優先席|ゆうせんせき|優先席|||||
+快車|かいそく|快速|||||
+地區|ちいき|地域|region||||
+鐵路道口|ふみきり|踏切|railroad crossing||||
+七號月台|ななばんせん|七番線|platform 7||||
+往返|おうふく||||||
+特急列車|とっきゅう|特急|||||
+普通列車|ふつうれっしゃ|普通列車|||||
+終點|しゅうてん|終点|||||
+用品|ようひん||||||
+人行橫道/斑馬線|おうだんほどう|横断歩道|pedestrian crossing||||
+隧道|トンネル||||||
+西出口|にしぐち||||||
+總站|ターミナル||||||
+城市|とかい|都会|city||||
+交通堵塞|じゅうたい|渋滞|traffic jam||||
+在路上|とちゅうで|途中で|along the way||||
+`,
+      animals: `
+兔子|うさぎ||||||
+山羊|やぎ||||||
+貓|ねこ||||||
+狗|いぬ||||||
+猴子|さる||||||
+鳥|とり||||||
+熊貓|パンダ||||||
+變色龍|カメレオン||||||
+倉鼠|ハムスター||||||
+動物|どうぶつ||||||
+海豚|イルカ||||||
+海龜|うみがめ||||||
+鴨|カモ||||||
+長頸鹿|きりん||||||
+蟑螂|ゴキブリ||||||
+熊|くま||||||
+蝦|えび||||||
+蟲|むし||||||
+蜘蛛|クモ||||||
+蝙蝠|コウモリ||||||
+母獸|めす||||||
+`,
+      others: `
+學校|がっこう||||||
+音樂|おんがく||||||
+鉛筆|えんぴつ||||||
+信封|ふうとう||||||
+紙|かみ||||||
+電腦|パソコン||||||
+食堂|しょくどう||||||
+耳機|ヘッドホン||||||
+平板電腦|タブレット||||||
+大學宿舍|だいがくのりょう||||||
+室友|ルームメイト||||||
+校園|キャンパス||||||
+小學|しょうがっこう||||||
+中學|ちゅうがっこう|中学校|||||
+大學|だいがく||||||
+教室|きょうしつ||||||
+課|じゅぎょう|授業|lesson||||
+考試(テスト)|テスト||||||
+問題(提問)|しつもん||question||||
+項目|プロジェクト||||||
+作業(しゅくだい)|しゅくだい||||||
+限期|しめきり||||||
+課程|レッスン||||||
+表演(パフォーマンス)|パフォーマンス||||||
+顯示器|モニター||||||
+滑鼠|マウス||||||
+鍵盤|キーボード||||||
+電纜|ケーブル||||||
+無線|ワイヤレス||||||
+音箱|スピーカー||||||
+圖書館|としょかん||||||
+高中|こうこう||||||
+這學期|こんがっき||||||
+生物學|せいぶつがく||||||
+辦公時間|オフィスアワー||||||
+編程|プログラミング||||||
+在小組裡|グループで||in a group||||
+課本|きょうかしょ||||||
+同班同學|クラスメイト||||||
+下學期|らいがっき||||||
+頁|ページ||||||
+期末考試|きまつしけん|期末試験|||||
+外語|がいこくご|外国語|||||
+單詞|たんご||||||
+科目|かもく||||||
+漢字|かんじ||||||
+答案|こたえ|答え|||||
+問題(もんだい)|もんだい||problem||||
+成績|せいせき|成績|||||
+科學|かがく||||||
+文學|ぶんがく||||||
+歷史|れきし||||||
+詞典|じしょ||||||
+翻譯|ほんやく||||||
+體育|たいいく|体育|||||
+樂器|がっき|楽器|||||
+棒球|やきゅう||||||
+柔道|じゅうどう||||||
+舞蹈|ダンス||||||
+比賽(コンテスト)|コンテスト||||||
+太鼓|たいこ||||||
+游泳|すいえい|水泳|||||
+羽毛球|バドミントン||||||
+芭蕾舞|バレエ||||||
+比賽(しあい)|しあい||match||||
+練習|れんしゅう||||||
+滑冰|スケート||||||
+滑雪|スキー||||||
+滑雪板|スノボ||||||
+滑浪|サーフィン||||||
+迷你高爾夫|ミニゴルフ||||||
+泳衣|みずぎ|水着|||||
+哥爾夫球|ゴルフ||||||
+選手|せんしゅ||player||||
+乒乓波|たっきゅう||table tennis||||
+慢跑|ジョギング||jogging||||
+國際象棋|チェス||||||
+相撲|すもう||||||
+美式足球|アメフト||||||
+地址|じゅうしょ|住所|||||
+郵局|ゆうびんきょく|郵便局|||||
+生日|たんじょうび|誕生日|||||
+故事|はなし||||||
+玩具|おもちゃ||||||
+歡迎|いらっしゃい||||||
+節慶|おまつり|お祭り|||||
+遊行|パレード||||||
+萬聖節|ハロウィン||||||
+派對|パーティー||||||
+除夕|おおみそか||||||
+倒計時|カウントダウン||||||
+彩燈|イルミネーション||||||
+志願服務|ボランティア||||||
+社團|サークル||||||
+大會|たいかい||||||
+煙花|はなび|花火|||||
+健康|けんこう||||||
+一百日元店|ひゃくえんショップ|百円ショップ|||||
+電器店|でんきや|電気屋|||||
+媒體中心|メディアセンター||||||
+遊樂園|ゆうえんち|遊園地|||||
+鬼屋|おばけやしき||||||
+藥店(ドラッグストア)|ドラッグストア||||||
+更衣室|ロッカールーム||||||
+診所|クリニック||||||
+藥店(やっきょく)|やっきょく||||||
+小吃攤|やたい|屋台|||||
+家具店|かぐや||||||
+糖果店|おかしや||||||
+二手店|リサイクルショップ||||||
+滑雪場|スキーば|スキー場|||||
+渡假村|リゾート||||||
+博物館|はくぶつかん||||||
+餐廳(ダイニング)|ダイニング||||||
+公司職員|かいしゃいん||||||
+資料|しりょう||||||
+塔|タワー||||||
+文章|きじ|記事|||||
+博客|ブログ||||||
+計劃/日程|よてい|予定|||||
+娃娃/毛公仔|ぬいぐるみ||||||
+磁鐵|マグネット||||||
+鎖匙圈|キーホルダー||||||
+預約|よやく||||||
+文化|ぶんか||||||
+歌舞伎|かぶき||||||
+城堡|しろ||||||
+休息日|やすみのひ|休みの日|||||
+感覺|ぐあい||feeling||||
+怪獸|かいじゅう||||||
+電池|でんち||||||
+收據|レシート||||||
+購物袋|レジぶくろ||||||
+周邊產品|グッズ||||||
+舞台|ステージ||||||
+筆|ペン||||||
+簽名|サイン||||||
+座位|せき||||||
+食譜|レシピ||||||
+超市|スーパー||||||
+照片|しゃしん|写真|||||
+袋|ぶくろ||||||
+公司|かいしゃ|会社|||||
+辦公室|オフィス||||||
+同事|どうりょう|同僚|||||
+工作|しごと||||||
+技能|スキル||||||
+遙控器|リモコン||||||
+廣播|アナウンス||||||
+池塘|いけ||||||
+價格|ねだん||||||
+現金|げんきん||||||
+卡|カード||||||
+觀光團|ツアー||||||
+游樂設施|アトラクション||||||
+國外|かいがい|海外|||||
+評價(レビュー)|レビュー||||||
+員工|スタッフ||||||
+客人|おきゃくさん||customer||||
+客戶|クライアント||client||||
+發燒|ねつ||||||
+口罩|マスク||||||
+維生素|ビタミン||||||
+紙巾(ティッシュ)|ティッシュ||||||
+垃圾|ごみ||||||
+廣告|こうこく||||||
+隊伍|れつ||||||
+表演(えんぎ)|えんぎ||||||
+場景|シーン||scene||||
+遺憾|ざんねん||disappointment||||
+有機|オーガニック||||||
+氣氛|ふんいき||||||
+網站|サイト||||||
+應用|アプリ||||||
+歌手|かしゅ||||||
+致辭|スピーチ||||||
+賓客|ゲスト||||||
+顏色|いろ||||||
+會場|かいじょう||||||
+婚禮|けっこんしき|結婚式|||||
+圖案(がら)|がら||||||
+商品|しょうひん||||||
+購物清單|かいものリスト|買い物リスト|||||
+背包|バックパック||||||
+拼車|ライドシェア||||||
+任務|タスク||||||
+經理(マネージャー)|マネージャー||||||
+菜單|メニュー||||||
+錢|おかね|お金|||||
+玩具娃娃|にんぎょう|人形|||||
+皮革|かわ||||||
+禮品卡|ギフトカード||||||
+原因|げんいん||||||
+壓力|ストレス||||||
+傷|きず||||||
+隊|チーム||||||
+工廠|こうじょう||||||
+名片|めいし||||||
+日程|スケジュール||schedule||||
+流感|インフルエンザ||||||
+行李|にもつ||||||
+膠帶|テープ||||||
+箱子|はこ||||||
+標簽|ラベル||||||
+尺寸|サイズ||||||
+姓|みょうじ|苗字|last name||||
+名字|なまえ||||||
+信|てがみ||||||
+卡車|トラック||||||
+紙板箱|ダンボール||||||
+製造|せい||||||
+範圍很大|へんがひろい|へんが広い|wide range||||
+驚喜|サプライズ||||||
+訓練|トレーニング||||||
+準備|じゅんび||preparation||||
+裝飾|デコレーション||||||
+歌曲|うた||||||
+蠟燭|ロウソク||||||
+氣球|ふうせん||||||
+大家一起|みんなで||||||
+員工旅行|しゃいんりょこう|社員旅行|||||
+味道|あじ||||||
+特別(とくに)|とくに||especially||||
+特別(とくべつ)|とくべつ||special||||
+和服|きもの||||||
+護身符|おまもり||||||
+路上小心|いってらっしゃい||||||
+旅遊指南|ガイドブック||||||
+兼職|アルバイト||||||
+顧客|おきゃくさま|お客様|||||
+班次|シフト||||||
+折扣|わりびき|割引|||||
+攝影比賽|フォトコンテスト||||||
+想法|アイデア||||||
+獎|しょう|賞|||||
+結果|けっか|結果|||||
+主題|テーマ||||||
+第一次的|はじめての||||||
+帖子|とうこう||||||
+圖標|アイコン||||||
+明信片|はがき||||||
+帳戶|アカウント||||||
+日記|にっき||||||
+表情符號|えもじ||||||
+露營|キャンプ||camp||||
+徒步旅行|ハイキング||hiking||||
+燒烤|バーベキュー||barbecue||||
+野餐|ピクニック||picnic||||
+氣味|におい||smell||||
+來源|もと||source||||
+二手|ちゅうこ|中古|||||
+時尚|ファッション||||||
+年代|ねんだい|年代|era||||
+結他|ギター||||||
+數碼|デジタル||||||
+唱片|レコード||||||
+作家|さっか||||||
+小說|しょうせつ||||||
+釘書機|ホッチキス||||||
+報告|レポート||||||
+數據|データ||||||
+電子郵件地址|メールアドレス||||||
+文件|しょるい|書類|||||
+費|だい||||||
+日曆|カレンダー||||||
+初學者|しょしんしゃ|初心者|beginner||||
+經驗|けいけん||||||
+瓶子|びん||||||
+護目鏡|ゴーグル||||||
+頭盔(ヘルメット)|ヘルメット||||||
+外國|がいこく||||||
+一年到頭|いちねんじゅう|一年中|||||
+聲音|こえ||voice||||
+公幹|しゅっちょう|出張|||||
+旅遊景點|かんこうち|観光地|tourist spot||||
+美術之城|びじゅつのまち||||||
+郊區|こうがい||||||
+圓頂|ドーム||||||
+入場費|にゅうじょうりょう|入場料|admission fee||||
+有|ある||be||||
+經濟|けいざい||||||
+興趣|きょうみ||interest||||
+書店|ほんや||||||
+橡皮擦|けしごむ||||||
+綵排|リハーサル||||||
+花束|ブーケ||||||
+保險箱|きんこ||||||
+鄉下|いなか|田舎|countryside||||
+影印機|コピーき|コピー機|copy machine||||
+促銷活動|キャンペーン||campaign||||
+評價(ひょうか)|ひょうか||||||
+禁煙|きんえん||||||
+前台|フロント||||||
+手機支付|アプリけっさい|アプリ決済|||||
+必要性|ひつよう||||||
+起床(て形)|おきて||||||
+屏幕|がめん||||||
+靜音|ミュート||||||
+警報器|サイレン||siren||||
+消防車|しょうぼうしゃ||||||
+事情(ようじ)|ようじ||||||
+運動|うんどう||||||
+喜好|しゅみ||hobby||||
+拉伸|ストレッチ||||||
+啞鈴|ダンベル||||||
+室內|しつない||indoor||||
+習慣|しゅうかん||habit||||
+目標|もくひょう|目標|||||
+草鞋|ぞうり||||||
+願望|ねがいごと||||||
+年節料理|おせちりょうり||||||
+賬戶|こうざ|口座|account||||
+銀行|ぎんこう||||||
+駕駛證|うんてんめんきょ||||||
+生活|せいかつ||life||||
+發表|はっぴょう||announcement||||
+研究|けんきゅう||||||
+作業(課題)|かだい||assignment||||
+古代|こだい||ancient||||
+戰爭|せんそう|戦争|||||
+論文|ろんぶん||||||
+報紙|しんぶん||||||
+鏈接|リンク||||||
+將來|しょうらい||||||
+意見|いけん||||||
+自己(自分で)|じぶんで|自分で|myself||||
+確認|かくにん||confirmation||||
+另一個|べつの||another||||
+服務|サービス||service||||
+折扣券|わりびきけん|割引券|||||
+訊息|じょうほう|情報|information||||
+材料|ざいりょう|材料|ingredients||||
+標示|ひょうじ|表示|display||||
+不好(身體不適)|きぶんがわるい|気分が悪い|feeling sick||||
+聯系方式|れんらくさき|連絡先|||||
+熟人|しりあい|知り合い|||||
+摩托車|バイク||||||
+小偷|どろぼう||||||
+走廊|ろうか||||||
+最初|さいしょは|最初は|at first||||
+太好了|よかったです||that was good||||
+溫度|おんど||||||
+會議室|かいぎしつ|会議室|||||
+投影機|プロジェクター||||||
+成員|メンバー||||||
+筆記本電腦|ノートパソコン||||||
+口譯|つうやく|通訳|||||
+贊助商|スポンサー||||||
+自我介紹|じこしょうかい||||||
+搭配|コーデ||coordination||||
+體重|たいじゅう|体重|||||
+慶祝|おいわい|お祝い|celebration||||
+量|りょう|量|||||
+一種|いっしゅ||||||
+減肥|ダイエット||||||
+營養|えいよう||||||
+制服|せいふく||||||
+寄宿家庭|ホームステイ||homestay||||
+卡路里|カロリー||||||
+運動鞋|スニーカー||sneakers||||
+運動服|たいそうふく||||||
+鈴聲|チャイム||chime||||
+午休|ひるやすみ||||||
+放學後|ほうかご|放課後|after school||||
+社團活動|ぶかつ|部活|club activities||||
+補習班|じゅく||||||
+視頻|どうが|動画|movie||||
+禁止|きんし||ban||||
+工作室|スタジオ||||||
+推薦的|おすすめの||||||
+衣裝|いしょう||||||
+趕得上|まにあいます||in time||||
+從一號月台|いちばんホームから|一番ホームから|from platform one||||
+了不起|すごい||||||
+找零|おつり||||||
+賣完|うりきれ|売り切れ|sold out||||
+結帳|かいけい|会計|accounting||||
+招牌|かんばん||||||
+膠水|のり||||||
+剪刀|はさみ||||||
+顏料|えのぐ|絵の具|||||
+紙巾(紙餐巾)|かみナプキン||||||
+班級|クラス||||||
+校園祭|がくえんさい|学園祭|||||
+服裝(コスチューム)|コスチューム||||||
+情人節|バレンタインデー||||||
+白色情人節|ホワイトデー||||||
+心形|ハート||||||
+紙袋|かみぶくろ||||||
+學生會館|がくせいかいかん|学生会館|||||
+通知|おしらせ|お知らせ|||||
+國際交流|こくさいこうりゅう||||||
+展覽|てんじ||||||
+商店街|しょうてんがい|商店街|||||
+售票處|きっぷうりば||||||
+按鈕|ボタン||||||
+畢業典禮|そつぎょうしき|卒業式|||||
+天氣預報|てんきよほう|天気予報|||||
+汽油|ガソリン||||||
+野餐墊|レジャーシート||||||
+罐頭|かん|缶|can||||
+水壺|すいとう||||||
+後備箱|トランク||||||
+塑料|プラスチック||||||
+濕巾|おしぼり||||||
+社長|しゃちょう||||||
+會議|カンファレンス||conference||||
+展位|ブース||||||
+樣品|サンプル||||||
+新產品|しんしょうひん|新商品|||||
+目錄冊|カタログ||||||
+經理(部長)|ぶちょう|部長|||||
+人脈|ネットワーク||||||
+名牌|なふだ|名札|||||
+過去的|むかしの|昔の|||||
+下一位|おつぎのかた||||||
+獎學金|しょうがくきん|奨学金|scholarship||||
+實習|インターンシップ||internship||||
+留學生|りゅうがくせい||||||
+學期|がっき||||||
+內容|ないよう||||||
+公告欄|けいじばん|掲示板|bulletin board||||
+用處|やくに||||||
+機會|きかい||||||
+飛鏢|ダーツ||||||
+好久不見|ひさしぶり||long time no see||||
+抓娃娃機|クレーンゲーム||||||
+保齡球|ボウリング||||||
+遊戲中心|ゲームセンター||||||
+角色(キャラクター)|キャラクター||||||
+遊戲機|ゲームき|ゲーム機|||||
+扭蛋機|ガチャポン||||||
+獎品|プライズ||||||
+地圖|ちず|地図|||||
+留學|りゅうがく|留学|||||
+國際關係|こくさいかんけい|国際関係|||||
+簽證|ビザ||||||
+海外的|かいがいの||||||
+保證|ほしょう||||||
+文件夾|ファイル||||||
+修理屋|しゅうりや||||||
+連接|せつぞく|接続|connection||||
+病毒|ウイルス||virus||||
+修理|しゅうり||||||
+系統|システム||||||
+患者|かんじゃ||||||
+症狀|しょうじょう||||||
+X光|レントゲン||||||
+康復訓練|リハビリ||||||
+診察|しんさつ|診察|||||
+保險|ほけん||||||
+回復|へんじ|返事|||||
+工資|きゅうりょう|給料|||||
+中學生|ちゅうがくせい|中学生|||||
+最新|さいしん|最新|latest||||
+套餐(コース)|コース||course||||
+補充|おかわり||refill||||
+大熱|だいヒット|大ヒット|||||
+鋼琴|ピアノ||||||
+結束時間|しゅうりょうじかん|終了時間|||||
+粉絲|ファン||||||
+熱心|ねっしん||enthusiastic||||
+教練(トレーナー)|トレーナー||trainer||||
+器械|マシン||||||
+休息時間|おやすみ|お休み|||||
+道服|どうぎ|道着|||||
+劍道|けんどう|剣道|||||
+竹刀|しない||||||
+觀點|みかた|見方|||||
+方法|かた|方|||||
+基礎知識|きほん||||||
+練習(稽古)|けいこ||practice||||
+拼命|いっしょうけんめい|一生懸命|try as hard as one can||||
+道場|どうじょう||||||
+暖身|ウォーミングアップ||||||
+合租房|シェアハウス||||||
+煩惱|なやみ||||||
+比自己年紀小|としした|年下|||||
+似|みたい||||||
+洗的衣物|せんたくもの|洗濯物|||||
+合同|けいやく|契約|contract||||
+討厭|いや||||||
+處方|しょほうせん|処方箋|prescription||||
+出生日期|せいねんがっぴ|生年月日|||||
+檢查|けんさ||||||
+止痛藥|いたみどめ|痛み止め|||||
+血壓|けつあつ|血圧|||||
+日元紙幣|えんさつ|円札|||||
+節日|しゅくじつ|祝日|holiday||||
+黃金周|ゴールデンウィーク||||||
+結束|のおわり|の終わり|||||
+連休|れんきゅう|連休|||||
+形狀|かたち|形|shape||||
+兒童節|こどものひ||||||
+旗|はた||||||
+鯉魚旗|こいのぼり||||||
+幸福|しあわせ|幸せ|||||
+頭盔(かぶと)|かぶと||||||
+武士|さむらい||||||
+折紙|おりがみ|折り紙|||||
+很久以後|ひさしぶりに|久しぶりに|||||
+慶祝幸福的日子|しあわせをいわうひ|幸せを祝う日|Happiness celebration day||||
+祈禱|いのる||pray||||
+質量|しつ||quality||||
+棉(めん)|めん||||||
+試衣間|しちゃくしつ|試着室|||||
+關店|へいてん|閉店|||||
+設計|デザイン||||||
+中性|ユニセックス||||||
+零錢|こぜに|小銭|||||
+含稅價|ぜいこみ|税込み|||||
+折扣(百分比)|パーセントびき|パーセント引き|||||
+話語|ことば||words||||
+鳥居|とりい||||||
+一個人獨自生活|ひとりぐらし|一人暮らし|||||
+不付|はらわなくて||||||
+危險品|きけんぶつ|危険物|||||
+垃圾場|ゴミすてば|ゴミ捨て場|||||
+種類|しゅるい||||||
+合作|きょうりょく|協力|||||
+可燃垃圾|もやすごみ||||||
+不可燃|もやせない||||||
+手術|しゅじゅつ||||||
+轉校生|てんこうせい|転校生|||||
+多虧了/託…的福|のおかげさまで||||||
+塑料瓶|ペットボトル||||||
+垃圾袋|ゴミぶくろ||||||
+大廳|ホール||||||
+關係好|なかがいい||||||
+回憶|おもいで|思い出|||||
+新人|しんじん||||||
+規則|ルール||||||
+大家(みなさん)|みなさん||everyone||||
+隨意|じゆうに||freely||||
+禮儀|マナー||||||
+碎紙機|シュレッダー||||||
+設定|せってい||||||
+自己的|じぶんの|自分の|||||
+正面|おもて||||||
+許可|きょか||permission||||
+上司|じょうし|上司|||||
+收銀台|レジ||||||
+數量(かず)|かず||||||
+新作|しんさく||||||
+世界|せかい||||||
+敵人|てき||||||
+線上|オンライン||||||
+玩家|プレイヤー||||||
+魔法|まほう||||||
+面試|めんせつ||||||
+用戶名|ユーザーめい|ユーザー名|||||
+浪費|もったいない||||||
+繩|ひも||||||
+認真|しっかり||||||
+家電|かでん||||||
+以上|いじょう||||||
+容器|ようき||||||
+玻璃|グラス||||||
+瓶蓋|キャップ||||||
+回收|しゅうしゅう|収集|||||
+就職|しゅうしょく|就職|||||
+恭喜|おめでとうございます||||||
+培訓|けんしゅう||||||
+真正|ほんものの|本物の|||||
+獎金|ボーナス||bonus||||
+事情(こと)|こと||thing||||
+雨衣|レインコート||||||
+城市|とし|都市|||||
+種類很多|しゅるいがおおい||||||
+遵守規則|ルールをまもります||||||
+50厘米多一點|ごじゅうセンチとすこし||||||
+加班/商業|ざんぎょう||business||||
+體力|たいりょく|体力|||||
+部份|ぶぶん||||||
+頭痛|ずつう|頭痛|||||
+重要|だいじ|大事|||||
+蛋白質|タンパクしつ|タンパク質|||||
+垃圾食物|ジャンクフード||||||
+平衡|バランス||||||
+植物|しょくぶつ||||||
+種子|たね||||||
+運|うん||||||
+平時|ふだん|普段|||||
+庭院|にわ||||||
+極限|げんかい|限界|||||
+說明書|せつめいしょ||||||
+團隊合作|チームワーク||||||
+保健品|サプリ||||||
+打火機|ライター||||||
+遺憾/可惜|ざんねん|残念|||||
+防曬霜|ひやけとめ|日焼け止め|||||
+參加者|さんかしゃ|参加者|||||
+習俗|かんしゅう|慣習|||||
+其他人|ほかのひと|他の人|||||
+作者|さくしゃ||||||
+問候|あいさつ||||||
+紀念日|きねんび|記念日|||||
+行動不便的人|ふじゆうなひと|不自由な人|||||
+符號|きごう|記号|symbol||||
+麻煩|トラブル||||||
+洗衣|せんたく|洗濯|||||
+寬度|はば|幅|width||||
+長度|ながさ|長さ|length||||
+樣本|みほん|見本|||||
+老家|じっか|実家|parents' home||||
+地下停車場|ちかちゅうしゃじょう|地下駐車場|||||
+訊號|あいず|合図|signal||||
+氣溫|きおん|気温|||||
+勉強(姑且)|いちおう|一応|||||
+語言|げんご|言語|||||
+自己|じぶん|自分|||||
+溝通|コミュニケーション||||||
+組織|そしき|組織|||||
+職場|しょくば|職場|workspace||||
+灰塵|ほこり||||||
+火柴|マッチ||||||
+例如|たとえば|例えば|||||
+步驟|てじゅん|手順|||||
+冷凍|れいとう|冷凍|frozen||||
+體驗|たいけん|体験|experience||||
+美術|びじゅつ|美術|||||
+環境|かんきょう|環境|environment||||
+慈善|チャリティー||||||
+同齡|おないどし|同い年|||||
+負責|たんとう|担当|||||
+群聊|グループチャット||group chat||||
+成功|せいこう||||||
+問卷|アンケート||||||
+習慣(しゅうかん)|しゅうかん||habits||||
+畫家|がか||||||
+家鄉/當地|じもと|地元|local||||
+主持人|しかいのひと|司会の人|host||||
+碩士|しゅうしごう|修士号|||||
+犯人|はんにん|犯人|||||
+和平|へいわ|平和|peace||||
+生病|びょうき||||||
+調查|ちょうさ||||||
+保養|ていれ|手入れ|maintenance||||
+前輩|せんぱい|先輩|senior||||
+泵|ポンプ||||||
+掃描器|スキャナー||||||
+自由|じゆう||||||
+象徵|しょうちょう||||||
+不方便|ふべん|不便|||||
+冷靜地|おちついて|落ち着いて|||||
+外出就餐|がいしょく|外食|dining out||||
+自動門|じどうドア|自動ドア|||||
+保姆|シッター||babysitter||||
+學士學位|がくしごう|学士号|||||
+總結|まとめ||summary||||
+錯誤|ミス||mistake||||
+遲到|ちこく|遅刻|late||||
+沒辦法|しかたない|仕方ない|||||
+抱怨/投訴|もんく|文句|||||
+通勤|つうきん|通勤|commute||||
+謊言|うそ||||||
+順序|じゅんばん|順番|||||
+角色(役割)|やくわり|役割|||||
+即使是有不便的人|ふじゆうなひとでも|不自由な人でも|||||
+聯系|れんらく|連絡|||||
+簡潔|シンプル||||||
+整理好的|せいりされた|整理された|||||
+圖案(もよう)|もよう|模様|||||
+圖|ず|図|||||
+意思|いみ|意味|meaning||||
+王子|おうじ||prince||||
+階段|だんかい|段階|||||
+影響力|えいきょうりょく|影響力|||||
+彼此|おたがい|お互い|||||
+幹勁|やるき|やる気|motivation||||
+舒適|かいてき|快適|||||
+道具|どうぐ|道具|||||
+煤炭|せきたん||||||
+空閒時間|ひまなとき|暇な時|||||
+官方|こうしき|公式|||||
+火|ひ|火|||||
+老人|おとしより|お年寄り|||||
+方向|ほうこう|方向|||||
+的感覺|というかんじ|という感じ|||||
+吃飽了|おなかがいっぱい|お腹がいっぱい|||||
+市政府|しやくしょ|市役所|||||
+一般(微妙)|びみょう||so-so||||
+擔心|しんぱい|心配|||||
+心情|きもち|気持ち|||||
+空氣|くうき|空気|||||
+水管|すいどう|水道|||||
+香味|かおり|香り|||||
+風景|ふうけい|風景|||||
+勝利|かち|勝ち|||||
+系列劇|シリーズ||||||
+真的|ほんとうの|本当の|||||
+一生|いっしょう|一生|||||
+不擅長/不喜歡|にがて|苦手|||||
+地球|ちきゅう|地球|||||
+下次(また今度)|またこんど|また今度|||||
+摯友|しんゆう|親友|||||
+翅膀|つばさ|翼|||||
+目的|ねらい|狙い|||||
+名單|リスト||||||
+完全地|かんぜんに|完全に|||||
+夢想|ゆめ|夢|||||
+套裝|セット||||||
+高興地|よろこんで|喜んで|||||
+釘子|くぎ||||||
+特定|とくてい|特定|specific||||
+波|なみ|波|||||
+理由|りゆう|理由|||||
+討論|ぎろん|議論|||||
+觀眾|かんきゃく|観客|audience||||
+資源|しげん|資源|||||
+餐|しょくじ|食事|||||
+宗教的|しゅうきょうてき|宗教的|||||
+話題/主題|わだい|話題|||||
+人群|ひとごみ|人ごみ|||||
+發音|はつおん|発音|||||
+緊張(タイト)|タイト||||||
+傳聞|うわさ||rumor||||
+傳單|チラシ||||||
+計算機|でんたく|電卓|calculator||||
+經驗豐富|けいけんほうふ|経験豊富|||||
+早日康復|おだいじに|お大事に|take care||||
+效果|こうか|効果|||||
+那樣|そういうふう||that way||||
+技巧|コツ||tips||||
+光澤|こうたく||||||
+機械|きかい||machine||||
+邊做…邊做|ながら||||||第一個動作
+我明白了|なるほど||i see||||
+我們那樣做吧|そうしよう||let's do that||||
+高峰期|ラッシュ||rush||||
+活動|ぎょうじ|行事|events||||
+印象|いんしょう|印象|impression||||
+污漬|よごれ|汚れ|dirt||||
+距離|きょり|距離|distance||||
+可能性|かのうせい|可能性|possibility||||
+結局|けつまつ|結末|conclusion||||
+管理|かんり|管理|management||||
+條件|じょうけん|条件|condition||||
+想像力|そうぞうりょく|想像力|imagination||||
+專家|せんもんか|専門家|expert||||
+私人|プライベート||||||
+設備|せつび|設備|equipment||||
+其他|ほか||others||||
+足跡|あしあと|足跡|footprints||||
+友誼|ゆうじょう|友情|friendship||||
+計劃|けいかく|計画|plan||||
+分析|ぶんせき||||||
+棉(わた)|わた|綿|cotton||||
+約定/承諾|やくそく|約束|promise||||
+政府|せいふ|政府|||||
+不高興|ふきげん|不機嫌|||||
+容量|ようりょう|容量|||||
+戒指|ゆびわ|指輪|||||
+這個學期|いまがっき|今学期|||||
+生物|いきもの|生き物|||||
+打算|つもり||||||
+絲綢|きぬ|絹|silk||||
+危機|きき|危機|crisis||||
+貿易|ぼうえき|貿易|trade||||
+法院|さいばんしょ|裁判所|court||||
+農業|のうぎょう|農業|Agriculture||||
+汚染|おせん|汚染|pollution||||
+鐵|てつ|鉄|||||
+物價|ぶっか|物価|||||
+考試(試験)|しけん|試験|test/examination||||
+香草(ハーブ)|ハーブ||herbs||||
+節目|ばんぐみ|番組|tv programme||||
+紐帶|きずな||bond||||
+`
+    };
+
+    // =========================================================================
+    // 2. DATA PARSING & INDEXING
+    // =========================================================================
+    const CAT_LABEL_MAP = {};
+    CATEGORY_META.forEach(function (c) {
+      CAT_LABEL_MAP[c.id] = c.label;
+    });
+
+    const VOCAB_ITEMS = [];
+    const VOCAB_BY_ID = {};
+    const VOCAB_BY_CAT = { all: [] };
+
+    (function parseAllVocab() {
+      let idx = 1;
+      Object.keys(RAW_DATA).forEach(function (catId) {
+        VOCAB_BY_CAT[catId] = [];
+        const lines = RAW_DATA[catId].split(`\n`);
+        lines.forEach(function (rawLine) {
+          const line = rawLine.trim();
+          if (!line) return;
+          const parts = line.split(`|`);
+          const zh = (parts[0] || ``).trim();
+          const kana = (parts[1] || ``).trim();
+          const kanji = (parts[2] || ``).trim();
+          const en = (parts[3] || ``).trim();
+          const jlpt = (parts[4] || ``).trim();
+          const masu = (parts[5] || ``).trim();
+          const te = (parts[6] || ``).trim();
+          const note = (parts[7] || ``).trim();
+
+          if (!zh || (!kana && !kanji)) return;
+
+          const item = {
+            id: `${catId}_${idx++}`,
+            cat: catId,
+            catLabel: CAT_LABEL_MAP[catId] || catId,
+            zh: zh,
+            kana: kana || kanji,
+            kanji: kanji,
+            en: en,
+            jlpt: jlpt,
+            masu: masu,
+            te: te,
+            note: note
+          };
+          VOCAB_ITEMS.push(item);
+          VOCAB_BY_ID[item.id] = item;
+          VOCAB_BY_CAT[catId].push(item);
+          VOCAB_BY_CAT.all.push(item);
+        });
+      });
+    })();
+
+    // =========================================================================
+    // 3. APPLICATION STATE
+    // =========================================================================
+    let appState = {
+      selectedCategory: `all`,
+      showKanji: true,
+      roundSize: 6,
+      autoSpeak: false,
+      roundNumber: 1,
+      score: 0,
+      streak: 0,
+      bestStreak: 0,
+      totalMatches: 0,
+      totalAttempts: 0,
+      seenIds: [],
+      mistakeCounts: {}
+    };
+
+    // Runtime round state (ephemeral per active board)
+    let currentRound = {
+      pairs: [],       // ordered array of items for this round
+      leftOrder: [],   // shuffled items for left column
+      rightOrder: [],  // shuffled items for right column
+      matchedIds: [],  // array of item.id that are matched
+      selectedLeftId: null,
+      selectedRightId: null,
+      errorPair: null, // { leftId, rightId }
+      recentMatches: [] // recent matched items for review section
+    };
+
+    let activeReviewTab = `matched`;
+    let glossaryOpen = false;
+    let glossarySearch = ``;
+    let glossaryCat = `all`;
+    let glossaryPage = 1;
+    const GLOSSARY_PAGE_SIZE = 40;
+
+    let autoAdvanceTimer = null;
+    let countdownInterval = null;
+    let errorClearTimer = null;
+
+    // =========================================================================
+    // 4. UTILITIES (Shuffle, Japanese Display, Speech, Persistence)
+    // =========================================================================
+    function shuffleArray(arr) {
+      const copy = arr.slice();
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const tmp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = tmp;
+      }
+      return copy;
+    }
+
+    function getDisplayJp(item) {
+      if (appState.showKanji && item.kanji) {
+        return item.kanji;
+      }
+      return item.kana;
+    }
+
+    function speakJapanese(text) {
+      if (!text || typeof window.speechSynthesis === `undefined`) return;
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = `ja-JP`;
+        utter.rate = 0.92;
+        window.speechSynthesis.speak(utter);
+      } catch (e) {
+        // Ignore TTS failures in restricted environments
+      }
+    }
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState({
+            selectedCategory: appState.selectedCategory,
+            showKanji: appState.showKanji,
+            roundSize: appState.roundSize,
+            autoSpeak: appState.autoSpeak,
+            roundNumber: appState.roundNumber,
+            score: appState.score,
+            streak: appState.streak,
+            bestStreak: appState.bestStreak,
+            totalMatches: appState.totalMatches,
+            totalAttempts: appState.totalAttempts,
+            seenIds: appState.seenIds,
+            mistakeCounts: appState.mistakeCounts
+          });
+        } catch (e) {
+          // Safe fallback
+        }
+      }
+    }
+
+    function clearTimers() {
+      if (autoAdvanceTimer) {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = null;
+      }
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      if (errorClearTimer) {
+        clearTimeout(errorClearTimer);
+        errorClearTimer = null;
+      }
+    }
+
+    // =========================================================================
+    // 5. ROUND GENERATION (Non-ambiguous pairs, full-pool cycling)
+    // =========================================================================
+    function generateRound() {
+      clearTimers();
+      const pool = VOCAB_BY_CAT[appState.selectedCategory] || VOCAB_BY_CAT.all;
+      const targetSize = Math.min(appState.roundSize, pool.length);
+
+      const seenSet = new Set(appState.seenIds);
+      let unseen = pool.filter(function (item) {
+        return !seenSet.has(item.id);
+      });
+
+      // If unseen pool is exhausted for this category, reset cycle for this category
+      if (unseen.length < targetSize) {
+        const poolIds = new Set(pool.map(function (item) { return item.id; }));
+        appState.seenIds = appState.seenIds.filter(function (id) { return !poolIds.has(id); });
+        unseen = pool.slice();
+      }
+
+      const candidates = shuffleArray(unseen);
+      const chosen = [];
+      const usedZh = new Set();
+      const usedJp = new Set();
+
+      // First pass: pick unseen items with unique Chinese & Japanese text (in both Kanji and Kana modes)
+      for (let i = 0; i < candidates.length && chosen.length < targetSize; i++) {
+        const item = candidates[i];
+        const jpKey = item.kanji ? `${item.kana}|${item.kanji}` : item.kana;
+        if (!usedZh.has(item.zh) && !usedJp.has(item.kana) && !usedJp.has(jpKey)) {
+          chosen.push(item);
+          usedZh.add(item.zh);
+          usedJp.add(item.kana);
+          if (item.kanji) usedJp.add(item.kanji);
+        }
+      }
+
+      // Fallback pass if pool is tiny
+      if (chosen.length < targetSize) {
+        const fallbackPool = shuffleArray(pool);
+        for (let i = 0; i < fallbackPool.length && chosen.length < targetSize; i++) {
+          const item = fallbackPool[i];
+          if (!chosen.some(function (c) { return c.id === item.id; }) && !usedZh.has(item.zh) && !usedJp.has(item.kana)) {
+            chosen.push(item);
+            usedZh.add(item.zh);
+            usedJp.add(item.kana);
+          }
+        }
+      }
+
+      currentRound.pairs = chosen;
+      currentRound.leftOrder = shuffleArray(chosen);
+      currentRound.rightOrder = shuffleArray(chosen);
+      // Avoid identical index alignment when possible
+      if (currentRound.rightOrder.length > 1) {
+        let samePositions = 0;
+        for (let i = 0; i < currentRound.leftOrder.length; i++) {
+          if (currentRound.leftOrder[i].id === currentRound.rightOrder[i].id) samePositions++;
+        }
+        if (samePositions === currentRound.leftOrder.length) {
+          const first = currentRound.rightOrder.shift();
+          currentRound.rightOrder.push(first);
+        }
+      }
+      currentRound.matchedIds = [];
+      currentRound.selectedLeftId = null;
+      currentRound.selectedRightId = null;
+      currentRound.errorPair = null;
+
+      setFeedback(`default`, `第 ${appState.roundNumber} 輪已就緒 — 請點選左側「中文」與右側對應「日文」完成配對。`);
+      renderAll();
+    }
+
+    // =========================================================================
+    // 6. MATCHING INTERACTION LOGIC
+    // =========================================================================
+    function handleCardClick(side, id) {
+      if (currentRound.matchedIds.indexOf(id) !== -1) return;
+      if (currentRound.errorPair) return;
+
+      const item = VOCAB_BY_ID[id];
+      if (!item) return;
+
+      if (side === `right` && appState.autoSpeak) {
+        speakJapanese(item.kana);
+      }
+
+      if (side === `left`) {
+        currentRound.selectedLeftId = (currentRound.selectedLeftId === id) ? null : id;
+      } else {
+        currentRound.selectedRightId = (currentRound.selectedRightId === id) ? null : id;
+      }
+
+      if (currentRound.selectedLeftId && currentRound.selectedRightId) {
+        evaluatePair(currentRound.selectedLeftId, currentRound.selectedRightId);
+      } else {
+        renderArena();
+      }
+    }
+
+    function evaluatePair(leftId, rightId) {
+      appState.totalAttempts += 1;
+
+      if (leftId === rightId) {
+        const matchedItem = VOCAB_BY_ID[leftId];
+        currentRound.matchedIds.push(leftId);
+        currentRound.selectedLeftId = null;
+        currentRound.selectedRightId = null;
+
+        appState.streak += 1;
+        if (appState.streak > appState.bestStreak) {
+          appState.bestStreak = appState.streak;
+        }
+        const streakBonus = appState.streak >= 3 ? 2 : 0;
+        const gained = 10 + streakBonus;
+        appState.score += gained;
+        appState.totalMatches += 1;
+
+        if (appState.seenIds.indexOf(leftId) === -1) {
+          appState.seenIds.push(leftId);
+        }
+
+        // Prepend to recentMatches (keep up to 40)
+        currentRound.recentMatches = [matchedItem].concat(
+          currentRound.recentMatches.filter(function (m) { return m.id !== matchedItem.id; })
+        ).slice(0, 40);
+
+        if (appState.autoSpeak) {
+          speakJapanese(matchedItem.kana);
+        }
+
+        const jpDisplay = matchedItem.kanji
+          ? `${matchedItem.kanji}（${matchedItem.kana}）`
+          : matchedItem.kana;
+        const bonusNote = streakBonus > 0 ? `（含連勝獎勵 +${streakBonus}）` : ``;
+        setFeedback(`success`, `配對成功！${matchedItem.zh} ＝ ${jpDisplay} · +${gained} 分${bonusNote}`);
+
+        renderAll();
+        persistState();
+
+        if (currentRound.matchedIds.length === currentRound.pairs.length) {
+          handleRoundComplete();
+        }
+      } else {
+        const leftItem = VOCAB_BY_ID[leftId];
+        const rightItem = VOCAB_BY_ID[rightId];
+        appState.streak = 0;
+        appState.mistakeCounts[leftId] = (appState.mistakeCounts[leftId] || 0) + 1;
+
+        currentRound.errorPair = { leftId: leftId, rightId: rightId };
+        const rightReading = rightItem.kanji
+          ? `${rightItem.kanji}（${rightItem.kana}）`
+          : rightItem.kana;
+        setFeedback(`error`, `尚未配對成功：「${leftItem.zh}」不是「${rightReading}」，請再試一次。`);
+
+        renderAll();
+        persistState();
+
+        errorClearTimer = setTimeout(function () {
+          currentRound.errorPair = null;
+          currentRound.selectedLeftId = null;
+          currentRound.selectedRightId = null;
+          renderArena();
+        }, 550);
+      }
+    }
+
+    function handleRoundComplete() {
+      const roundBonus = 15;
+      appState.score += roundBonus;
+      const completedRound = appState.roundNumber;
+      appState.roundNumber += 1;
+      persistState();
+      renderMetrics();
+
+      let secondsLeft = 2;
+      const updateCompleteMessage = function () {
+        setFeedback(
+          `complete`,
+          `第 ${completedRound} 輪全部配對完成！獲得過關獎勵 +${roundBonus} 分 — ${secondsLeft} 秒後自動進入第 ${appState.roundNumber} 輪…`,
+          true
+        );
+      };
+      updateCompleteMessage();
+
+      countdownInterval = setInterval(function () {
+        secondsLeft -= 1;
+        if (secondsLeft > 0) {
+          updateCompleteMessage();
+        }
+      }, 1000);
+
+      autoAdvanceTimer = setTimeout(function () {
+        generateRound();
+      }, 2000);
+    }
+
+    // =========================================================================
+    // 7. CONTROL HANDLERS (Hoisted function declarations)
+    // =========================================================================
+    function selectCategory(catId) {
+      if (appState.selectedCategory === catId) return;
+      appState.selectedCategory = catId;
+      generateRound();
+      persistState();
+    }
+
+    function toggleKanji() {
+      appState.showKanji = !appState.showKanji;
+      renderControls();
+      renderArena();
+      if (glossaryOpen) renderGlossaryTable();
+      persistState();
+    }
+
+    function changeRoundSize(val) {
+      const num = parseInt(val, 10);
+      if (isNaN(num) || num < 3) return;
+      appState.roundSize = num;
+      generateRound();
+      persistState();
+    }
+
+    function toggleAutoSpeak() {
+      appState.autoSpeak = !appState.autoSpeak;
+      renderControls();
+      persistState();
+    }
+
+    function skipToNextRound() {
+      appState.roundNumber += 1;
+      generateRound();
+      persistState();
+    }
+
+    function advanceNow() {
+      generateRound();
+    }
+
+    function handleResetProgress(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.classList.add(`btn-danger-armed`);
+        btn.textContent = `再次點擊確認重置`;
+        setTimeout(function () {
+          if (btn.dataset.armed === `true`) {
+            btn.dataset.armed = `false`;
+            btn.classList.remove(`btn-danger-armed`);
+            btn.textContent = `重置分數與進度`;
+          }
+        }, 3500);
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.classList.remove(`btn-danger-armed`);
+      btn.textContent = `重置分數與進度`;
+
+      appState.roundNumber = 1;
+      appState.score = 0;
+      appState.streak = 0;
+      appState.bestStreak = 0;
+      appState.totalMatches = 0;
+      appState.totalAttempts = 0;
+      appState.seenIds = [];
+      appState.mistakeCounts = {};
+      currentRound.recentMatches = [];
+
+      generateRound();
+      persistState();
+    }
+
+    function setReviewTab(tab) {
+      activeReviewTab = tab;
+      renderReviewSection();
+    }
+
+    function toggleGlossary() {
+      glossaryOpen = !glossaryOpen;
+      const panel = document.getElementById(`glossary-panel`);
+      const btn = document.getElementById(`toggle-glossary-btn`);
+      if (panel) panel.hidden = !glossaryOpen;
+      if (btn) {
+        btn.setAttribute(`aria-expanded`, glossaryOpen ? `true` : `false`);
+        btn.textContent = glossaryOpen ? `收合完整詞彙表` : `展開完整詞彙表`;
+      }
+      if (glossaryOpen) {
+        renderGlossaryTable();
+      }
+    }
+
+    function handleGlossarySearch(val) {
+      glossarySearch = (val || ``).trim().toLowerCase();
+      glossaryPage = 1;
+      renderGlossaryTable();
+    }
+
+    function handleGlossaryCatChange(val) {
+      glossaryCat = val || `all`;
+      glossaryPage = 1;
+      renderGlossaryTable();
+    }
+
+    function setGlossaryPage(page) {
+      glossaryPage = page;
+      renderGlossaryTable();
+    }
+
+    function speakItemById(event, id) {
+      if (event) event.stopPropagation();
+      const item = VOCAB_BY_ID[id];
+      if (item) speakJapanese(item.kana);
+    }
+
+    // =========================================================================
+    // 8. RENDERING FUNCTIONS
+    // =========================================================================
+    function setFeedback(state, message, showNextBtn) {
+      const bar = document.getElementById(`feedback-bar`);
+      const textEl = document.getElementById(`feedback-text`);
+      const actionsEl = document.getElementById(`feedback-actions`);
+      if (!bar || !textEl || !actionsEl) return;
+
+      bar.classList.remove(`state-success`, `state-error`, `state-complete`);
+      if (state === `success`) bar.classList.add(`state-success`);
+      if (state === `error`) bar.classList.add(`state-error`);
+      if (state === `complete`) bar.classList.add(`state-complete`);
+
+      textEl.textContent = message;
+      actionsEl.innerHTML = ``;
+      if (showNextBtn) {
+        const nextBtn = document.createElement(`button`);
+        nextBtn.type = `button`;
+        nextBtn.className = `btn btn-secondary-moss`;
+        nextBtn.textContent = `立即進入第 ${appState.roundNumber} 輪 →`;
+        nextBtn.onclick = advanceNow;
+        actionsEl.appendChild(nextBtn);
+      }
+    }
+
+    function renderMetrics() {
+      const roundBadge = document.getElementById(`metric-round-badge`);
+      const roundEl = document.getElementById(`metric-round`);
+      const roundProgEl = document.getElementById(`metric-round-progress`);
+      const scoreEl = document.getElementById(`metric-score`);
+      const scoreNoteEl = document.getElementById(`metric-score-note`);
+      const streakEl = document.getElementById(`metric-streak`);
+      const accEl = document.getElementById(`metric-accuracy`);
+      const covEl = document.getElementById(`metric-coverage`);
+      const covNoteEl = document.getElementById(`metric-coverage-note`);
+      const covFillEl = document.getElementById(`coverage-fill`);
+
+      const paddedRound = String(appState.roundNumber).padStart(2, `0`);
+      if (roundBadge) roundBadge.textContent = `ROUND ${paddedRound}`;
+      if (roundEl) roundEl.textContent = `第 ${appState.roundNumber} 輪`;
+      if (roundProgEl) {
+        roundProgEl.textContent = `本輪進度 ${currentRound.matchedIds.length} / ${currentRound.pairs.length} 組`;
+      }
+
+      if (scoreEl) scoreEl.textContent = String(appState.score);
+      if (scoreNoteEl) {
+        scoreNoteEl.textContent = appState.streak >= 3
+          ? `連勝加成生效中（每題 +12 分）`
+          : `每配對成功 +10 分 · 過關 +15 分`;
+      }
+
+      if (streakEl) streakEl.textContent = `${appState.streak} 連勝`;
+      const acc = appState.totalAttempts > 0
+        ? Math.round((appState.totalMatches / appState.totalAttempts) * 100)
+        : 100;
+      if (accEl) accEl.textContent = `準確率 ${acc}%（最高 ${appState.bestStreak} 連勝）`;
+
+      const pool = VOCAB_BY_CAT[appState.selectedCategory] || VOCAB_BY_CAT.all;
+      const seenSet = new Set(appState.seenIds);
+      const seenInPool = pool.filter(function (item) { return seenSet.has(item.id); }).length;
+      const pct = pool.length > 0 ? Math.round((seenInPool / pool.length) * 100) : 0;
+
+      if (covEl) covEl.textContent = `${seenInPool} / ${pool.length}`;
+      if (covNoteEl) covNoteEl.textContent = `目前分類「${CAT_LABEL_MAP[appState.selectedCategory]}」覆蓋率 ${pct}%`;
+      if (covFillEl) covFillEl.style.width = `${pct}%`;
+    }
+
+    function renderControls() {
+      const chipsContainer = document.getElementById(`category-chips`);
+      if (chipsContainer) {
+        chipsContainer.innerHTML = ``;
+        CATEGORY_META.forEach(function (cat) {
+          const count = (VOCAB_BY_CAT[cat.id] || []).length;
+          const btn = document.createElement(`button`);
+          btn.type = `button`;
+          btn.className = `cat-chip` + (appState.selectedCategory === cat.id ? ` active` : ``);
+          btn.setAttribute(`aria-pressed`, appState.selectedCategory === cat.id ? `true` : `false`);
+          btn.onclick = function () { selectCategory(cat.id); };
+
+          const nameSpan = document.createElement(`span`);
+          nameSpan.textContent = cat.label;
+          const countSpan = document.createElement(`span`);
+          countSpan.className = `cat-count`;
+          countSpan.textContent = String(count);
+
+          btn.appendChild(nameSpan);
+          btn.appendChild(countSpan);
+          chipsContainer.appendChild(btn);
+        });
+      }
+
+      const kanjiBtn = document.getElementById(`kanji-toggle-btn`);
+      const kanjiLabel = document.getElementById(`kanji-toggle-label`);
+      if (kanjiBtn) kanjiBtn.setAttribute(`aria-pressed`, appState.showKanji ? `true` : `false`);
+      if (kanjiLabel) {
+        kanjiLabel.textContent = appState.showKanji ? `顯示漢字：開啟` : `顯示漢字：關閉（僅假名）`;
+      }
+
+      const jpTitle = document.getElementById(`jp-col-title`);
+      const jpTag = document.getElementById(`jp-mode-tag`);
+      if (jpTitle) {
+        jpTitle.textContent = appState.showKanji ? `日文詞彙（漢字優先）` : `日文詞彙（僅顯示假名）`;
+      }
+      if (jpTag) {
+        jpTag.textContent = appState.showKanji ? `KANJI + KANA` : `KANA ONLY`;
+      }
+
+      const speakBtn = document.getElementById(`speak-toggle-btn`);
+      const speakLabel = document.getElementById(`speak-toggle-label`);
+      if (speakBtn) speakBtn.setAttribute(`aria-pressed`, appState.autoSpeak ? `true` : `false`);
+      if (speakLabel) {
+        speakLabel.textContent = appState.autoSpeak ? `點擊發音：開啟` : `點擊發音：關閉`;
+      }
+
+      const sizeSelect = document.getElementById(`round-size-select`);
+      if (sizeSelect) sizeSelect.value = String(appState.roundSize);
+    }
+
+    function renderArena() {
+      const leftCol = document.getElementById(`left-column`);
+      const rightCol = document.getElementById(`right-column`);
+      if (!leftCol || !rightCol) return;
+
+      leftCol.innerHTML = ``;
+      rightCol.innerHTML = ``;
+
+      const matchedSet = new Set(currentRound.matchedIds);
+
+      // Left column: Chinese cards
+      currentRound.leftOrder.forEach(function (item) {
+        const isMatched = matchedSet.has(item.id);
+        const isSelected = currentRound.selectedLeftId === item.id;
+        const isError = currentRound.errorPair && currentRound.errorPair.leftId === item.id;
+
+        const btn = document.createElement(`button`);
+        btn.type = `button`;
+        btn.dataset.cardId = item.id;
+        btn.dataset.side = `left`;
+        btn.className = `word-card word-card-left` +
+          (isMatched ? ` is-matched` : ``) +
+          (isSelected ? ` is-selected` : ``) +
+          (isError ? ` is-error` : ``);
+        btn.disabled = isMatched;
+        btn.setAttribute(`aria-pressed`, isSelected ? `true` : `false`);
+        btn.onclick = function () { handleCardClick(`left`, item.id); };
+
+        const main = document.createElement(`div`);
+        main.className = `card-main`;
+
+        const textEl = document.createElement(`span`);
+        textEl.className = `card-text-zh`;
+        textEl.textContent = item.zh;
+        main.appendChild(textEl);
+
+        const sub = document.createElement(`div`);
+        sub.className = `card-meta-sub`;
+        if (appState.selectedCategory === `all` || item.jlpt || isMatched) {
+          const catTag = document.createElement(`span`);
+          catTag.className = `tag-pill`;
+          catTag.textContent = item.catLabel;
+          sub.appendChild(catTag);
+
+          if (item.jlpt) {
+            const jlptTag = document.createElement(`span`);
+            jlptTag.className = `tag-pill`;
+            jlptTag.textContent = item.jlpt;
+            sub.appendChild(jlptTag);
+          }
+          if (isMatched) {
+            const pairHint = document.createElement(`span`);
+            pairHint.textContent = item.kanji ? `${item.kanji}・${item.kana}` : item.kana;
+            sub.appendChild(pairHint);
+          }
+          main.appendChild(sub);
+        }
+
+        const dot = document.createElement(`span`);
+        dot.className = `anchor-dot`;
+        dot.setAttribute(`aria-hidden`, `true`);
+
+        btn.appendChild(main);
+        btn.appendChild(dot);
+        leftCol.appendChild(btn);
+      });
+
+      // Right column: Japanese cards
+      currentRound.rightOrder.forEach(function (item) {
+        const isMatched = matchedSet.has(item.id);
+        const isSelected = currentRound.selectedRightId === item.id;
+        const isError = currentRound.errorPair && currentRound.errorPair.rightId === item.id;
+
+        const btn = document.createElement(`button`);
+        btn.type = `button`;
+        btn.dataset.cardId = item.id;
+        btn.dataset.side = `right`;
+        btn.className = `word-card word-card-right` +
+          (isMatched ? ` is-matched` : ``) +
+          (isSelected ? ` is-selected` : ``) +
+          (isError ? ` is-error` : ``);
+        btn.disabled = isMatched;
+        btn.setAttribute(`aria-pressed`, isSelected ? `true` : `false`);
+        btn.onclick = function () { handleCardClick(`right`, item.id); };
+
+        const main = document.createElement(`div`);
+        main.className = `card-main`;
+
+        const jpText = document.createElement(`span`);
+        jpText.className = `card-text-jp`;
+        jpText.textContent = getDisplayJp(item);
+        main.appendChild(jpText);
+
+        if (isMatched) {
+          const sub = document.createElement(`div`);
+          sub.className = `card-meta-sub`;
+          const infoParts = [];
+          if (appState.showKanji && item.kanji && item.kana !== item.kanji) {
+            infoParts.push(item.kana);
+          } else if (!appState.showKanji && item.kanji) {
+            infoParts.push(item.kanji);
+          }
+          if (item.en) infoParts.push(item.en);
+          infoParts.push(item.zh);
+          sub.textContent = infoParts.join(` · `);
+          main.appendChild(sub);
+        }
+
+        const dot = document.createElement(`span`);
+        dot.className = `anchor-dot`;
+        dot.setAttribute(`aria-hidden`, `true`);
+
+        btn.appendChild(main);
+        btn.appendChild(dot);
+        rightCol.appendChild(btn);
+      });
+
+      requestAnimationFrame(drawMatchLines);
+    }
+
+    function drawMatchLines() {
+      const svg = document.getElementById(`match-svg`);
+      const board = document.getElementById(`arena-board`);
+      if (!svg || !board) return;
+
+      svg.innerHTML = ``;
+      const boardRect = board.getBoundingClientRect();
+      if (boardRect.width === 0 || boardRect.height === 0) return;
+
+      currentRound.matchedIds.forEach(function (id) {
+        const leftBtn = board.querySelector(`[data-side="left"][data-card-id="${id}"]`);
+        const rightBtn = board.querySelector(`[data-side="right"][data-card-id="${id}"]`);
+        if (!leftBtn || !rightBtn) return;
+
+        const leftDot = leftBtn.querySelector(`.anchor-dot`);
+        const rightDot = rightBtn.querySelector(`.anchor-dot`);
+        if (!leftDot || !rightDot) return;
+
+        const lRect = leftDot.getBoundingClientRect();
+        const rRect = rightDot.getBoundingClientRect();
+
+        const x1 = lRect.left + lRect.width / 2 - boardRect.left;
+        const y1 = lRect.top + lRect.height / 2 - boardRect.top;
+        const x2 = rRect.left + rRect.width / 2 - boardRect.left;
+        const y2 = rRect.top + rRect.height / 2 - boardRect.top;
+
+        const dx = Math.abs(x2 - x1) * 0.45;
+        const pathData = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
+
+        const path = document.createElementNS(`http://www.w3.org/2000/svg`, `path`);
+        path.setAttribute(`d`, pathData);
+        path.setAttribute(`class`, `match-line`);
+        svg.appendChild(path);
+
+        const c1 = document.createElementNS(`http://www.w3.org/2000/svg`, `circle`);
+        c1.setAttribute(`cx`, String(x1));
+        c1.setAttribute(`cy`, String(y1));
+        c1.setAttribute(`r`, `3.5`);
+        c1.setAttribute(`class`, `match-line-dot`);
+        svg.appendChild(c1);
+
+        const c2 = document.createElementNS(`http://www.w3.org/2000/svg`, `circle`);
+        c2.setAttribute(`cx`, String(x2));
+        c2.setAttribute(`cy`, String(y2));
+        c2.setAttribute(`r`, `3.5`);
+        c2.setAttribute(`class`, `match-line-dot`);
+        svg.appendChild(c2);
+      });
+    }
+
+    function renderReviewSection() {
+      const matchedTabBtn = document.getElementById(`tab-matched-btn`);
+      const mistakesTabBtn = document.getElementById(`tab-mistakes-btn`);
+      const matchedCountEl = document.getElementById(`count-matched-tab`);
+      const mistakesCountEl = document.getElementById(`count-mistakes-tab`);
+      const container = document.getElementById(`review-container`);
+      if (!container) return;
+
+      const mistakeEntries = Object.keys(appState.mistakeCounts)
+        .filter(function (id) { return appState.mistakeCounts[id] > 0 && VOCAB_BY_ID[id]; })
+        .sort(function (a, b) { return appState.mistakeCounts[b] - appState.mistakeCounts[a]; })
+        .map(function (id) { return { item: VOCAB_BY_ID[id], count: appState.mistakeCounts[id] }; });
+
+      if (matchedCountEl) matchedCountEl.textContent = String(currentRound.recentMatches.length);
+      if (mistakesCountEl) mistakesCountEl.textContent = String(mistakeEntries.length);
+
+      if (matchedTabBtn) {
+        matchedTabBtn.classList.toggle(`active`, activeReviewTab === `matched`);
+        matchedTabBtn.setAttribute(`aria-selected`, activeReviewTab === `matched` ? `true` : `false`);
+      }
+      if (mistakesTabBtn) {
+        mistakesTabBtn.classList.toggle(`active`, activeReviewTab === `mistakes`);
+        mistakesTabBtn.setAttribute(`aria-selected`, activeReviewTab === `mistakes` ? `true` : `false`);
+      }
+
+      if (activeReviewTab === `matched`) {
+        if (currentRound.recentMatches.length === 0) {
+          container.innerHTML = `<div class="empty-state">尚未有配對紀錄 — 完成上方任一組配對後，單字細節將自動出現在這裡。</div>`;
+          return;
+        }
+        container.innerHTML = buildVocabTableHtml(currentRound.recentMatches.map(function (item) {
+          return { item: item, extra: item.masu ? `ます: ${item.masu}${item.te ? ` / て: ${item.te}` : ``}` : item.en };
+        }), `詳細／變化`);
+      } else {
+        if (mistakeEntries.length === 0) {
+          container.innerHTML = `<div class="empty-state">目前沒有答錯紀錄 — 繼續保持穩定的答對率！</div>`;
+          return;
+        }
+        container.innerHTML = buildVocabTableHtml(mistakeEntries.map(function (entry) {
+          return { item: entry.item, extra: `錯誤 ${entry.count} 次` };
+        }), `錯誤次數`);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || ``)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`);
+    }
+
+    function buildVocabTableHtml(rows, extraColTitle) {
+      const rowsHtml = rows.map(function (row) {
+        const item = row.item;
+        const kanjiCell = item.kanji ? escapeHtml(item.kanji) : `<span style="color: var(--on-surface-variant);">—</span>`;
+        const extraCell = escapeHtml(row.extra || item.en || item.note || `—`);
+        return `<tr>
+          <td><strong>${escapeHtml(item.zh)}</strong></td>
+          <td class="jp-cell">${escapeHtml(item.kana)}</td>
+          <td class="jp-cell">${kanjiCell}</td>
+          <td><span class="tag-pill">${escapeHtml(item.catLabel)}</span>${item.jlpt ? ` <span class="tag-pill">${escapeHtml(item.jlpt)}</span>` : ``}</td>
+          <td>${extraCell}</td>
+          <td><button type="button" class="speak-mini-btn" aria-label="朗讀 ${escapeHtml(item.kana)}" onclick="speakItemById(event, '${item.id}')">朗讀</button></td>
+        </tr>`;
+      }).join(``);
+
+      return `<div class="table-wrap">
+        <table class="vocab-table">
+          <thead>
+            <tr>
+              <th>中文</th>
+              <th>假名</th>
+              <th>漢字</th>
+              <th>分類／級別</th>
+              <th>${escapeHtml(extraColTitle)}</th>
+              <th>發音</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </div>`;
+    }
+
+    function renderGlossarySelect() {
+      const sel = document.getElementById(`glossary-cat-select`);
+      if (!sel) return;
+      sel.innerHTML = ``;
+      CATEGORY_META.forEach(function (cat) {
+        const opt = document.createElement(`option`);
+        opt.value = cat.id;
+        opt.textContent = `${cat.label} (${(VOCAB_BY_CAT[cat.id] || []).length})`;
+        if (cat.id === glossaryCat) opt.selected = true;
+        sel.appendChild(opt);
+      });
+    }
+
+    function renderGlossaryTable() {
+      const wrap = document.getElementById(`glossary-table-wrap`);
+      if (!wrap) return;
+
+      const basePool = VOCAB_BY_CAT[glossaryCat] || VOCAB_BY_CAT.all;
+      const filtered = glossarySearch
+        ? basePool.filter(function (item) {
+            return item.zh.toLowerCase().indexOf(glossarySearch) !== -1 ||
+              item.kana.toLowerCase().indexOf(glossarySearch) !== -1 ||
+              item.kanji.toLowerCase().indexOf(glossarySearch) !== -1 ||
+              item.en.toLowerCase().indexOf(glossarySearch) !== -1 ||
+              item.jlpt.toLowerCase().indexOf(glossarySearch) !== -1;
+          })
+        : basePool;
+
+      if (filtered.length === 0) {
+        wrap.innerHTML = `<div class="empty-state">找不到符合「${escapeHtml(glossarySearch)}」的單字，請試著更換關鍵字或分類。</div>`;
+        return;
+      }
+
+      const totalPages = Math.max(1, Math.ceil(filtered.length / GLOSSARY_PAGE_SIZE));
+      if (glossaryPage > totalPages) glossaryPage = totalPages;
+      const start = (glossaryPage - 1) * GLOSSARY_PAGE_SIZE;
+      const pageItems = filtered.slice(start, start + GLOSSARY_PAGE_SIZE);
+
+      const tableHtml = buildVocabTableHtml(pageItems.map(function (item) {
+        const details = [];
+        if (item.en) details.push(item.en);
+        if (item.masu) details.push(`ます: ${item.masu}`);
+        if (item.te) details.push(`て: ${item.te}`);
+        if (item.note) details.push(item.note);
+        return { item: item, extra: details.join(` · `) };
+      }), `釋義／變化`);
+
+      const pagerHtml = `<div class="pagination-row" style="margin-top: var(--space-md);">
+        <span style="font-size: 0.875rem; color: var(--on-surface-variant);">共 ${filtered.length} 筆（第 ${glossaryPage} / ${totalPages} 頁）</span>
+        <div style="display: flex; gap: var(--space-sm);">
+          <button type="button" class="btn" ${glossaryPage <= 1 ? `disabled` : ``} onclick="setGlossaryPage(${glossaryPage - 1})">上一頁</button>
+          <button type="button" class="btn" ${glossaryPage >= totalPages ? `disabled` : ``} onclick="setGlossaryPage(${glossaryPage + 1})">下一頁</button>
+        </div>
+      </div>`;
+
+      wrap.innerHTML = tableHtml + pagerHtml;
+    }
+
+    function renderAll() {
+      renderMetrics();
+      renderControls();
+      renderArena();
+      renderReviewSection();
+    }
+
+    // =========================================================================
+    // 9. INITIALIZATION & RESIZE OBSERVER
+    // =========================================================================
+    (async function initApp() {
+      const glossarySub = document.getElementById(`glossary-subtitle`);
+      if (glossarySub) {
+        glossarySub.textContent = `完整收錄課程筆記全部 11 大類共 ${VOCAB_ITEMS.length} 個單字，可依關鍵字檢索並即時聽取日語讀音。`;
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (saved.selectedCategory && VOCAB_BY_CAT[saved.selectedCategory]) {
+              appState.selectedCategory = saved.selectedCategory;
+            }
+            if (typeof saved.showKanji === `boolean`) appState.showKanji = saved.showKanji;
+            if (typeof saved.roundSize === `number` && saved.roundSize >= 5 && saved.roundSize <= 10) {
+              appState.roundSize = saved.roundSize;
+            }
+            if (typeof saved.autoSpeak === `boolean`) appState.autoSpeak = saved.autoSpeak;
+            if (typeof saved.roundNumber === `number` && saved.roundNumber >= 1) appState.roundNumber = saved.roundNumber;
+            if (typeof saved.score === `number`) appState.score = saved.score;
+            if (typeof saved.streak === `number`) appState.streak = saved.streak;
+            if (typeof saved.bestStreak === `number`) appState.bestStreak = saved.bestStreak;
+            if (typeof saved.totalMatches === `number`) appState.totalMatches = saved.totalMatches;
+            if (typeof saved.totalAttempts === `number`) appState.totalAttempts = saved.totalAttempts;
+            if (Array.isArray(saved.seenIds)) appState.seenIds = saved.seenIds;
+            if (saved.mistakeCounts && typeof saved.mistakeCounts === `object`) {
+              appState.mistakeCounts = saved.mistakeCounts;
+            }
+          }
+        } catch (e) {
+          // Proceed with fresh defaults
+        }
+      }
+
+      renderGlossarySelect();
+      generateRound();
+
+      const boardEl = document.getElementById(`arena-board`);
+      if (boardEl && typeof ResizeObserver !== `undefined`) {
+        const ro = new ResizeObserver(function () {
+          requestAnimationFrame(drawMatchLines);
+        });
+        ro.observe(boardEl);
+      }
+      window.addEventListener(`resize`, function () {
+        requestAnimationFrame(drawMatchLines);
+      });
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    })();
+  </script>
+</body>
+</html>
